@@ -1,0 +1,55 @@
+@import 'styles';
+
+body {
+  background: $background-color;
+  color: $primary-color;
+}
+
+a {
+  color: $link-color;
+}
+
+div#header {
+  padding: 50px 0;
+}
+
+div#navigation {
+  div.content {
+    padding: 0;
+
+    ul.menu {
+      list-style: none;
+      overflow: hidden;
+      padding: 0;
+      border: $primary-border-color 1px solid;
+
+      li {
+        float: left;
+
+        a {
+          padding: 20px;
+          border-right: $primary-border-color 1px solid;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+div#main-content {
+
+  div.content {
+    border: $primary-border-color 1px solid;
+    background: $background-color;
+    padding: 20px;
+  }
+
+}
+
+div#footer {
+  margin-top: 20px;
+  div.content {
+    border-top: $primary-border-color 1px solid;
+    padding: 10px 0;
+  }
+}

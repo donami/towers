@@ -3,17 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="/">
   <title>Towers game statistics</title>
+
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style/layout.css">
 
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
   <script src="js/bundle.js"></script>
 </head>
 <body ng-app="towersApp" ng-strict-di>
-  <div class="container">
 
-    <div ui-view></div>
+  <div id="header">
+
+    <div class="container content">
+
+      <h1>Towers</h1>
+
+    </div>
 
   </div>
+
+  <div id="navigation">
+
+    <div class="container content">
+
+      <ul class="menu">
+        <li><a href="home">Hem</a></li>
+        <li><a href="about">Om sidan</a></li>
+      </ul>
+
+    </div>
+
+  </div>
+
+  <div id="main-content">
+
+    <div class="container content">
+
+      <div ui-view></div>
+
+    </div>
+
+  </div>
+
+  <div id="footer">
+
+    <div class="container content">
+      Copyright © Markus Hederström 2016
+    </div>
+
+  </div>
+
 </body>
 </html>

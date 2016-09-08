@@ -2,13 +2,15 @@
 
 var app = angular.module('towersApp', ['ui.router'])
 
-app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
 
-  $urlRouterProvider.otherwise('/home');
+  $locationProvider.html5Mode(true);
+
+  $urlRouterProvider.otherwise('/');
 
   $stateProvider
     .state('home', {
-      url: '/home',
+      url: '/',
       templateUrl: 'views/home.html',
       controller: 'HomeController'
     })
