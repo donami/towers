@@ -7,6 +7,11 @@ body {
 
 a {
   color: $link-color;
+
+  &:hover {
+    text-decoration: none;
+    color: $link-color-hover;
+  }
 }
 
 div#header {
@@ -22,15 +27,24 @@ div#navigation {
       overflow: hidden;
       padding: 0;
       border: $primary-border-color 1px solid;
+      border-right: none;
 
       li {
         float: left;
+
+        &.login {
+          float: right;
+          border-left: $primary-border-color 1px solid;
+        }
 
         a {
           padding: 20px;
           border-right: $primary-border-color 1px solid;
           display: inline-block;
         }
+
+
+
       }
     }
   }

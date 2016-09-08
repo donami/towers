@@ -18,14 +18,29 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
       url: '/about',
       templateUrl: 'views/about.html',
       controller: 'AboutController'
+    })
+    .state('login', {
+      url: '/login',
+      templateUrl: 'views/login.html',
+      controller: 'LoginController'
     });
 
 }]);
 
 app.controller('HomeController', ['$scope', function($scope) {
-  console.log('Welcome');
-}])
+
+  // Code
+
+}]);
 
 app.controller('AboutController', ['$scope', function($scope) {
-  console.log('About');
+
+  // Code
+
+}]);
+
+app.controller('LoginController', ['$scope', function($scope) {
+
+  // Code
+
 }]);
