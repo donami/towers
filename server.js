@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 
 app.get('*', function(req, res) {
-  res.sendfile('./public/index.html');
+  res.sendFile('./public/index.html');
 });
 
 app.listen(3000);
