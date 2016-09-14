@@ -28,13 +28,31 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
       url: '/login',
       templateUrl: 'views/login.html',
       controller: 'LoginController'
+    })
+    .state('towerSingle', {
+      url: '/tower/:id',
+      templateUrl: 'views/tower-single.html',
+      controller: 'TowerController',
     });
 
 }]);
 
-app.controller('HomeController', ['$scope', function($scope) {
+app.controller('HomeController', ['$scope', 'GraphFactory', function($scope, GraphFactory) {
 
-  // Code
+  $scope.towers = [];
+
+  initTowers();
+
+  function initTowers() {
+    GraphFactory.getTowers()
+      .then(function(response) {
+        var data = response.data.slice(1,10);              // TODO: should not be sliced, obviously. Find a way to display towers. All towers in a list may be too much.
+
+        $scope.towers = data;
+      }, function(error) {
+        $scope.status = 'Unable to load towers: ' + error.message;
+      });
+  }
 
 }]);
 
@@ -47,6 +65,23 @@ app.controller('AboutController', ['$scope', function($scope) {
 app.controller('LoginController', ['$scope', function($scope) {
 
   // Code
+
+}]);
+
+app.controller('TowerController', ['$scope', 'GraphFactory', '$stateParams', function($scope, GraphFactory, $stateParams) {
+
+  $scope.tower = {};
+
+  findTowerById($stateParams.id);
+
+  function findTowerById(id) {
+    GraphFactory.findById(id)
+      .then(function(response) {
+        $scope.tower = response.data;
+      }, function(error) {
+        $scope.status = 'Unable to load tower: ' + error.message;
+      });
+  }
 
 }]);
 
