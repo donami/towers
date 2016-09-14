@@ -6,31 +6,6 @@ const API_TOWER_LIST = 'https://play.2good.com/api/v1/public/towers/metadata?api
 const API_TOWER_STATISTICS = 'https://play.2good.com/api/v1/public/towers/statistics?apiKey=G7gL2P8xidoaGh4qTqY5CVL0nPSFyAuO&start=2016-01-01&end=2017-01-01';
 const API_LEADERBOARD = 'https://play.2good.com/api/v1/public/leaderboards/claims?apiKey=G7gL2P8xidoaGh4qTqY5CVL0nPSFyAuO&start=2016-01-01&end=2017-01-01';
 
-// Get top 10 leaderboard
-router.get('/leaderboard/top', function(req, res) {
-  var options = {
-    uri: API_LEADERBOARD,
-    json: true,
-  };
-
-  request(options)
-    .then(function(data) {
-
-      // Sort the data by most claims
-      var sortedData = data.sort(function(a, b) {
-        return b.claim_count - a.claim_count;
-      });
-
-      // Get only the top ten
-      sortedData = sortedData.slice(0, 10);
-
-      res.json(sortedData);
-    }, function(err) {
-      res.json(err);
-    });
-})
-
-
 // Get leaderboard
 router.get('/leaderboard', function(req, res) {
   var options = {
