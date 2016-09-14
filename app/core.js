@@ -33,6 +33,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
       url: '/tower/:id',
       templateUrl: 'views/tower-single.html',
       controller: 'TowerController',
+    })
+    .state('leaderboard', {
+      url: '/leaderboard',
+      templateUrl: 'views/leaderboard.html',
+      controller: 'LeaderboardController',
     });
 
 }]);
