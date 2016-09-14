@@ -38,6 +38,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
       url: '/leaderboard',
       templateUrl: 'views/leaderboard.html',
       controller: 'LeaderboardController',
+    })
+    .state('hallOfFame', {
+      url: '/hall-of-fame',
+      templateUrl: 'views/hall-of-fame.html',
+      controller: 'HallOfFameController',
     });
 
 }]);

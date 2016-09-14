@@ -1,8 +1,14 @@
 @import 'styles';
+@import 'misc';
 
 body {
   background: $background-color;
   color: $primary-color;
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+  font-weight: 300;
 }
 
 a {
@@ -65,5 +71,21 @@ div#footer {
   div.content {
     border-top: $primary-border-color 1px solid;
     padding: 10px 0;
+  }
+}
+
+
+div.hall-of-fame-container {
+  div.fame-box {
+    border: #ccc 1px solid;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    h4 {
+      margin-top: 0;
+    }
+    img.flag {
+      max-width: 64px;
+    }
   }
 }

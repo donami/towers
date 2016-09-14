@@ -1,0 +1,24 @@
+<div class="hall-of-fame-container">
+  <h1 class="page-title">Hall of Fame</h1>
+
+  <h3>First claims in country</h3>
+
+  <div data-ng-repeat="country in countries" class="fame-box row">
+
+    <div class="col-md-1">
+      <img src="/assets/flags/{{ country.country_code | lowercase }}.png" alt="Sweden" class="flag" />
+    </div>
+
+    <div class="col-md-9">
+      <h4>{{ country.country | uppercase }}</h4>
+
+      <strong>First build by: </strong> <span>{{ country.player_alias }}</span> <br>
+      <strong>Built on address: </strong> <span>{{ country.formatted_address }}
+    </div>
+
+    <div class="col-md-2 text-center">
+      <h3>{{ country.player_alias }}</h3>
+    </div>
+
+  </div>
+</div>

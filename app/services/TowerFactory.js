@@ -23,5 +23,9 @@ angular.module('towersApp')
         return $http.get('/api/leaderboard/top');
       }
 
+      TowerFactory.getFirstInCountry = function() {
+        return $http.get('/api/hall-of-fame/first-tower');
+      }
+
       return TowerFactory;
   }]);

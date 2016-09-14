@@ -5,6 +5,21 @@ var request = require('request-promise');
 const API_TOWER_LIST = 'https://play.2good.com/api/v1/public/towers/metadata?apiKey=G7gL2P8xidoaGh4qTqY5CVL0nPSFyAuO&start=2016-01-01&end=2017-01-01';
 const API_TOWER_STATISTICS = 'https://play.2good.com/api/v1/public/towers/statistics?apiKey=G7gL2P8xidoaGh4qTqY5CVL0nPSFyAuO&start=2016-01-01&end=2017-01-01';
 const API_LEADERBOARD = 'https://play.2good.com/api/v1/public/leaderboards/claims?apiKey=G7gL2P8xidoaGh4qTqY5CVL0nPSFyAuO&start=2016-01-01&end=2017-01-01';
+const API_HALL_OF_FAME_FIRST_TOWER = 'https://play.2good.com/api/v1/public/hall-of-fame/first-tower/country?apiKey=G7gL2P8xidoaGh4qTqY5CVL0nPSFyAuO';
+
+router.get('/hall-of-fame/first-tower', function(req, res) {
+  var options = {
+    uri: API_HALL_OF_FAME_FIRST_TOWER,
+    json: true,
+  };
+
+  request(options)
+    .then(function(data) {
+      res.json(data);
+    }, function(err) {
+      res.json(err);
+    });
+});
 
 // Get leaderboard
 router.get('/leaderboard', function(req, res) {
