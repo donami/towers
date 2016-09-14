@@ -17,12 +17,17 @@ angular.module('towersApp')
     $scope.geldCollectedSeries = ['Most geld collected'];
     $scope.geldCollectedData = [];
 
+    $scope.towersBuiltLabels = [];
+    $scope.towersBuiltSeries = ['Most towers built'];
+    $scope.towersBuiltData = [];
+
     var deferred = $q.defer();
 
     deferred.promise
       .then(function(response) {
         getTopClaims(response.data);
         getMostGeldCollected(response.data);
+        getMostTowersBuilt(response.data);
       }, function(error) {
         console.log(error);
       });
@@ -66,6 +71,22 @@ angular.module('towersApp')
       sortedData.forEach(function(obj) {
         $scope.geldCollectedData.push(obj.geld_collected);
         $scope.geldCollectedLabels.push(obj.player_alias);
+      })
+    }
+
+    // Get data for players who built the most towers
+    function getMostTowersBuilt(data) {
+      // Sort based on towers built
+      var sortedData = data.sort(function(a, b) {
+        return b.tower_count - a.tower_count;
+      });
+
+      // Get only the first ten of the sorted data
+      sortedData = sortedData.slice(0, 10);
+
+      sortedData.forEach(function(obj) {
+        $scope.towersBuiltData.push(obj.geld_collected);
+        $scope.towersBuiltLabels.push(obj.player_alias);
       })
     }
 
