@@ -1,3 +1,30 @@
 <div class="leaderboard-container">
   <h1>Leaderboard</h1>
+
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>Claims</th>
+        <th>Tower count</th>
+        <th>First claim</th>
+        <th>Last claim</th>
+        <th>Geld collected</th>
+        <th>Geld bonus</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr data-ng-repeat="row in leaderboard">
+        <td>{{ row.player_alias || 'No alias' }}</td>
+        <th>{{ row.claim_count }}</th>
+        <th>{{ row.tower_count }}</th>
+        <th>{{ row.first_claimed_on | date:'mediumDate' }}</th>
+        <th>{{ row.last_claimed_on | date:'mediumDate' }}</th>
+        <th>{{ row.geld_collected }}</th>
+        <th>{{ row.geld_bonus }}</th>
+      </tr>
+    </tbody>
+
+  </table>
 </div>

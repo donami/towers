@@ -15,5 +15,9 @@ angular.module('towersApp')
         return $http.get('/api/tower/' + id);
       }
 
+      GraphFactory.getLeaderboard = function() {
+        return $http.get('/api/leaderboard');
+      }
+
       return GraphFactory;
   }]);
