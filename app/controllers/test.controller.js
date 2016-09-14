@@ -10,7 +10,7 @@ angular.module('towersApp')
     // ];
 
     $scope.claimCountLabels = [];
-    $scope.claimCountSeries = ['Top ten claim count'];
+    $scope.claimCountSeries = ['Most towers claimed'];
     $scope.claimCountData = [];
 
     $scope.geldCollectedLabels = [];
@@ -21,6 +21,10 @@ angular.module('towersApp')
     $scope.towersBuiltSeries = ['Most towers built'];
     $scope.towersBuiltData = [];
 
+    $scope.geldBonusLabels = [];
+    $scope.geldBonusSeries = ['Highest geld bonus'];
+    $scope.geldBonusData = [];
+
     var deferred = $q.defer();
 
     deferred.promise
@@ -28,6 +32,7 @@ angular.module('towersApp')
         getTopClaims(response.data);
         getMostGeldCollected(response.data);
         getMostTowersBuilt(response.data);
+        getMostGeldBonus(response.data);
       }, function(error) {
         console.log(error);
       });
@@ -85,8 +90,24 @@ angular.module('towersApp')
       sortedData = sortedData.slice(0, 10);
 
       sortedData.forEach(function(obj) {
-        $scope.towersBuiltData.push(obj.geld_collected);
+        $scope.towersBuiltData.push(obj.tower_count);
         $scope.towersBuiltLabels.push(obj.player_alias);
+      })
+    }
+
+    // Get data for players with most geld bonus
+    function getMostGeldBonus(data) {
+      // Sort based on geld bonus
+      var sortedData = data.sort(function(a, b) {
+        return b.geld_bonus - a.geld_bonus;
+      });
+
+      // Get only the first ten of the sorted data
+      sortedData = sortedData.slice(0, 10);
+
+      sortedData.forEach(function(obj) {
+        $scope.geldBonusData.push(obj.geld_bonus);
+        $scope.geldBonusLabels.push(obj.player_alias);
       })
     }
 
