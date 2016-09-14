@@ -1,12 +1,12 @@
 angular.module('towersApp')
-  .controller('LeaderboardController', ['$scope', 'GraphFactory', function($scope, GraphFactory) {
+  .controller('LeaderboardController', ['$scope', 'TowerFactory', function($scope, TowerFactory) {
 
     $scope.leaderboard = [];
 
     getLeaderboard();
 
     function getLeaderboard() {
-      GraphFactory.getLeaderboard()
+      TowerFactory.getLeaderboard()
         .then(function(response) {
           $scope.leaderboard = response.data;
         }, function(error) {

@@ -1,12 +1,12 @@
 angular.module('towersApp')
-  .controller('TowerController', ['$scope', 'GraphFactory', '$stateParams', function($scope, GraphFactory, $stateParams) {
+  .controller('TowerController', ['$scope', 'TowerFactory', '$stateParams', function($scope, TowerFactory, $stateParams) {
 
     $scope.tower = {};
 
     findTowerById($stateParams.id);
 
     function findTowerById(id) {
-      GraphFactory.findById(id)
+      TowerFactory.findById(id)
         .then(function(response) {
           $scope.tower = response.data;
         }, function(error) {

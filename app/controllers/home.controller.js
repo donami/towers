@@ -1,12 +1,12 @@
 angular.module('towersApp')
-  .controller('HomeController', ['$scope', 'GraphFactory', function($scope, GraphFactory) {
+  .controller('HomeController', ['$scope', 'TowerFactory', function($scope, TowerFactory) {
 
     $scope.towers = [];
 
     initTowers();
 
     function initTowers() {
-      GraphFactory.getTowers()
+      TowerFactory.getTowers()
         .then(function(response) {
           var data = response.data.slice(1,10);              // TODO: should not be sliced, obviously. Find a way to display towers. All towers in a list may be too much.
 

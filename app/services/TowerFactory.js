@@ -1,23 +1,23 @@
 'use strict';
 
 angular.module('towersApp')
-  .factory('GraphFactory', ['$http', function($http) {
+  .factory('TowerFactory', ['$http', function($http) {
 
       var urlBase = '/api/towers';
 
-      var GraphFactory = {};
+      var TowerFactory = {};
 
-      GraphFactory.getTowers = function() {
+      TowerFactory.getTowers = function() {
         return $http.get('/api/tower/all');
       }
 
-      GraphFactory.findById = function(id) {
+      TowerFactory.findById = function(id) {
         return $http.get('/api/tower/' + id);
       }
 
-      GraphFactory.getLeaderboard = function() {
+      TowerFactory.getLeaderboard = function() {
         return $http.get('/api/leaderboard');
       }
 
-      return GraphFactory;
+      return TowerFactory;
   }]);
