@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('towersApp', ['ui.router', 'chart.js'])
+var app = angular.module('towersApp', ['ui.router', 'ngCookies', 'chart.js'])
 
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
 

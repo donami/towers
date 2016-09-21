@@ -13,7 +13,8 @@
       <h4>{{ country.country | uppercase }}</h4>
 
       <strong>First build by: </strong> <span>{{ country.player_alias }}</span> <br>
-      <strong>Built on address: </strong> <span>{{ country.formatted_address }}
+      <strong>Built on address: </strong> <span>{{ country.formatted_address }}</span> <br>
+      <strong>Built on: </strong> <span>{{ country.created_on | date:'mediumDate' }}
     </div>
 
     <div class="col-md-2 text-center">
