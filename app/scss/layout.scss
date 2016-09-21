@@ -43,10 +43,16 @@ div#navigation {
           border-left: $primary-border-color 1px solid;
         }
 
-        a {
+        a, span {
+          color: $link-color;
           padding: 20px;
           border-right: $primary-border-color 1px solid;
           display: inline-block;
+
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
         }
 
 

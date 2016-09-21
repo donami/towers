@@ -22,7 +22,6 @@ app.run(['$cookies', '$state', '$rootScope', function($cookies, $state, $rootSco
 
   })
 
-
 }]);
 
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {

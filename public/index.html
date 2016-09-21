@@ -34,13 +34,14 @@
 
     <div class="container content">
 
-      <ul class="menu">
+      <ul class="menu" ng-controller="MenuController">
         <li><a ui-sref="home">Hem</a></li>
         <li><a ui-sref="about">Om sidan</a></li>
         <li><a ui-sref="test">Statistik</a></li>
         <li><a ui-sref="leaderboard">Leaderboard</a></li>
         <li><a ui-sref="hallOfFame">Hall of fame</a></li>
-        <li class="login"><a ui-sref="login">Login</a></li>
+        <li class="login" ng-if="!authed"><a ui-sref="login">Login</a></li>
+        <li class="login" ng-if="authed"><span ng-click="logout()">Logout</span></li>
       </ul>
 
     </div>
