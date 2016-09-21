@@ -1,6 +1,9 @@
 angular.module('towersApp')
-  .controller('LoginController', ['$scope', function($scope) {
+  .controller('LoginController', ['$scope', '$cookies', function($scope, $cookies) {
 
-    // Code
+    $scope.submitApiKey = function() {
+      var userApiKey = $scope.userApiKey;
+      $cookies.put('userApiKey', userApiKey);
+    }
 
   }]);

@@ -8,7 +8,6 @@ angular.module('towersApp')
     function getFirstInCountry() {
       TowerFactory.getFirstInCountry()
         .then(function(response) {
-          console.log(response.data);
           $scope.countries = response.data;
         }, function(err) {
           console.log(err);
