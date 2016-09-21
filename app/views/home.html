@@ -13,7 +13,7 @@
     </thead>
 
     <tbody>
-      <tr data-ng-repeat="tower in towers">
+      <tr data-ng-repeat="tower in towers | filter:paginate">
         <td><a ui-sref="towerSingle({id: tower.tower_id})">{{ tower.tower_name || 'Inget namn' }}</a></td>
         <td>{{ tower.country}}</td>
         <td>{{ tower.created_on | date:'mediumDate' }}</td>
@@ -22,4 +22,6 @@
     </tbody>
 
   </table>
+
+  <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>
 </div>
