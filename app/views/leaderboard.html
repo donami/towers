@@ -21,8 +21,8 @@
         <th>{{ row.tower_count }}</th>
         <th>{{ row.first_claimed_on | date:'mediumDate' }}</th>
         <th>{{ row.last_claimed_on | date:'mediumDate' }}</th>
-        <th>{{ row.geld_collected }}</th>
-        <th>{{ row.geld_bonus }}</th>
+        <th>{{ row.geld_collected | number:0 }}</th>
+        <th>{{ row.geld_bonus | number:0 }}</th>
       </tr>
     </tbody>
 
