@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('towersApp', ['ui.router', 'ngCookies', 'chart.js'])
+var app = angular.module('towersApp', ['ui.router', 'ui.bootstrap', 'ngCookies', 'chart.js'])
 
 app.run(['$cookies', '$state', '$rootScope', function($cookies, $state, $rootScope) {
 
@@ -41,10 +41,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
       templateUrl: 'views/about.html',
       controller: 'AboutController'
     })
-    .state('personal', {
-      url: '/personal',
-      templateUrl: 'views/personal.html',
-      controller: 'PersonalController'
+    .state('me', {
+      url: '/me',
+      templateUrl: 'views/me.html',
+      controller: 'MeController'
     })
     .state('test', {
       url: '/test',

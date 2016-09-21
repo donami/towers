@@ -1,0 +1,32 @@
+<div class="me-container">
+  <h1>Personal view</h1>
+
+  <div><strong>Your API key:</strong> {{ userApiKey }}</div>
+
+  <h2>Towers claimed</h2>
+  <table class="table table-striped">
+
+    <thead>
+      <tr>
+        <th>Tower</th>
+        <th>Claimed on</th>
+        <th>Adress</th>
+        <th>Geld collected</th>
+        <th>Geld bonus</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr ng-repeat="tower in claimedTowers | filter: paginate">
+        <td>ID: {{ tower.tower_id }}</td>
+        <td>{{ tower.claimed_on | date:'mediumDate' }}</td>
+        <td>{{ tower.formatted_address }}</td>
+        <td>{{ tower.geld_collected | number:0 }}</td>
+        <td>{{ tower.geld_bonus | number:0 }}</td>
+      </tr>
+    </tbody>
+
+  </table>
+
+  <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>
+</div>

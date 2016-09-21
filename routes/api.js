@@ -10,6 +10,8 @@ const API_TOWER_STATISTICS = 'https://play.2good.com/api/v1/public/towers/statis
 const API_LEADERBOARD = 'https://play.2good.com/api/v1/public/leaderboards/claims';
 // const API_HALL_OF_FAME_FIRST_TOWER = 'https://play.2good.com/api/v1/public/hall-of-fame/first-tower/country?apiKey=G7gL2P8xidoaGh4qTqY5CVL0nPSFyAuO';
 const API_HALL_OF_FAME_FIRST_TOWER = 'https://play.2good.com/api/v1/public/hall-of-fame/first-tower/country';
+// const API_PERSONAL = 'https://play.2good.com/api/v1/public/claims?apiKey=9zEUDsWNqr0jCQ0MbIad8QgWH0giPxF4&start=2016-01-01&end=2017-01-01';
+const API_PERSONAL = 'https://play.2good.com/api/v1/public/claims';
 
 // The routes should only be avaible if the user
 // has a set cookie with its personal api key
@@ -102,6 +104,21 @@ router.get('/tower/:id', function(req, res) {
     })
   });
 
+});
+
+// Display personal stats
+router.get('/me', function(req, res) {
+  var options = {
+    uri: API_PERSONAL + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01',
+    json: true,
+  };
+
+  request(options)
+    .then(function(data) {
+      res.json(data);
+    }, function(error) {
+      res.json(error);
+    });
 });
 
 
