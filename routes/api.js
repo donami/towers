@@ -2,14 +2,27 @@ var express = require('express');
 var router = express.Router();
 var request = require('request-promise');
 
-const API_TOWER_LIST = 'https://play.2good.com/api/v1/public/towers/metadata?apiKey=G7gL2P8xidoaGh4qTqY5CVL0nPSFyAuO&start=2016-01-01&end=2017-01-01';
-const API_TOWER_STATISTICS = 'https://play.2good.com/api/v1/public/towers/statistics?apiKey=G7gL2P8xidoaGh4qTqY5CVL0nPSFyAuO&start=2016-01-01&end=2017-01-01';
-const API_LEADERBOARD = 'https://play.2good.com/api/v1/public/leaderboards/claims?apiKey=G7gL2P8xidoaGh4qTqY5CVL0nPSFyAuO&start=2016-01-01&end=2017-01-01';
-const API_HALL_OF_FAME_FIRST_TOWER = 'https://play.2good.com/api/v1/public/hall-of-fame/first-tower/country?apiKey=G7gL2P8xidoaGh4qTqY5CVL0nPSFyAuO';
+// const API_TOWER_LIST = 'https://play.2good.com/api/v1/public/towers/metadata?apiKey=G7gL2P8xidoaGh4qTqY5CVL0nPSFyAuO&start=2016-01-01&end=2017-01-01';
+const API_TOWER_LIST = 'https://play.2good.com/api/v1/public/towers/metadata';
+// const API_TOWER_STATISTICS = 'https://play.2good.com/api/v1/public/towers/statistics?apiKey=G7gL2P8xidoaGh4qTqY5CVL0nPSFyAuO&start=2016-01-01&end=2017-01-01';
+const API_TOWER_STATISTICS = 'https://play.2good.com/api/v1/public/towers/statistics';
+// const API_LEADERBOARD = 'https://play.2good.com/api/v1/public/leaderboards/claims?apiKey=G7gL2P8xidoaGh4qTqY5CVL0nPSFyAuO&start=2016-01-01&end=2017-01-01';
+const API_LEADERBOARD = 'https://play.2good.com/api/v1/public/leaderboards/claims';
+// const API_HALL_OF_FAME_FIRST_TOWER = 'https://play.2good.com/api/v1/public/hall-of-fame/first-tower/country?apiKey=G7gL2P8xidoaGh4qTqY5CVL0nPSFyAuO';
+const API_HALL_OF_FAME_FIRST_TOWER = 'https://play.2good.com/api/v1/public/hall-of-fame/first-tower/country';
+
+// The routes should only be avaible if the user
+// has a set cookie with its personal api key
+router.use(function(req, res, next) {
+  if (!req.cookies.userApiKey) {
+    res.json([]);
+  }
+  next();
+});
 
 router.get('/hall-of-fame/first-tower', function(req, res) {
   var options = {
-    uri: API_HALL_OF_FAME_FIRST_TOWER,
+    uri: API_HALL_OF_FAME_FIRST_TOWER + '?apiKey=' + req.cookies.userApiKey,
     json: true,
   };
 
@@ -24,7 +37,7 @@ router.get('/hall-of-fame/first-tower', function(req, res) {
 // Get leaderboard
 router.get('/leaderboard', function(req, res) {
   var options = {
-    uri: API_LEADERBOARD,
+    uri: API_LEADERBOARD + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01',
     json: true,
   };
 
@@ -39,7 +52,7 @@ router.get('/leaderboard', function(req, res) {
 // Get a list of all towers
 router.get('/tower/all', function(req, res) {
   var options = {
-    uri: API_TOWER_LIST,
+    uri: API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01',
     json: true,
   };
 
@@ -56,7 +69,7 @@ router.get('/tower/:id', function(req, res) {
   var towerId = req.params.id;
 
   var towerPromise = new Promise(function(resolve, reject) {
-    request(API_TOWER_LIST, function(error, response, body) {
+    request(API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01', function(error, response, body) {
       if (error) reject(error);
       else {
         var towers = JSON.parse(body);
@@ -71,7 +84,7 @@ router.get('/tower/:id', function(req, res) {
   });
 
   var statsPromise = new Promise(function(resolve, reject) {
-    request(API_TOWER_STATISTICS, function(error, response, body) {
+    request(API_TOWER_STATISTICS + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01', function(error, response, body) {
       if (error) reject(error);
       else {
         towerPromise.then(function(tower) {

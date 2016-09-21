@@ -1,6 +1,7 @@
 var express  = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
 var apiRoutes = require('./routes/api');
 
@@ -15,6 +16,7 @@ app.use("/bower_components", express.static(__dirname + '/bower_components'));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.use('/api', apiRoutes);
 
