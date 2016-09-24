@@ -3,30 +3,41 @@
 
 
 
-<!-- Filter by date -->
+<!-- Filters -->
 <div class="form-group">
 
-  <label for="filterByDate">Filter statistics</label>
-  <select class="form-control" id="filterByDate" ng-model="filterByDate">
-    <option value="0">No filter</option>
-    <option value="last_week">Last week</option>
-    <option value="last_seven_days">Last seven days</option>
-    <option value="today">Today</option>
-    <option value="yesterday">Yesterday</option>
-    <option value="current_year">This year</option>
-  </select>
+  <label for="filter">Filter</label>
+  <select class="form-control" ng-options="o.name for o in filterOptions" ng-model="filter"></select>
 
 </div>
 
-<div class="form-group">
+<div class="form-group" ng-if="filter.value == 'filter_by_year'">
 
-  <label for="filterByYear">Filter by year</label>
-  <select class="form-control" ng-options="o.name for o in yearOptions" ng-model="filterByYear" ng-change="changeFilterByYear()"></select>
+  <label for="filter">Choose year</label>
+  <select class="form-control" ng-options="o.name for o in yearOptions" ng-model="$parent.selectedYear"></select>
 
 </div>
 
-<button class="btn btn-info" ng-click="filterResults()">Filter</button>
-<!-- End filter by date -->
+<div ng-if="filter.value == 'filter_by_new_moons'">
+
+  <h4>Filter by new moon</h4>
+  <div class="form-group">
+
+    <label for="filterByMoonStart">From</label>
+    <select class="form-control" ng-options="(o.iso8601 | date) for o in moons" ng-model="$parent.filterByMoonStart"></select>
+
+  </div>
+
+  <div class="form-group">
+    <label for="filterByMoonEnd">To</label>
+    <select class="form-control" ng-options="(o.iso8601 | date) for o in moons" ng-model="$parent.filterByMoonEnd"></select>
+
+  </div>
+
+</div>
+
+<button class="btn btn-success" ng-click="filterData()">Filter</button>
+<!-- End filters -->
 
 
 <div>

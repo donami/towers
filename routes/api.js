@@ -12,6 +12,7 @@ const API_LEADERBOARD = 'https://play.2good.com/api/v1/public/leaderboards/claim
 const API_HALL_OF_FAME_FIRST_TOWER = 'https://play.2good.com/api/v1/public/hall-of-fame/first-tower/country';
 // const API_PERSONAL = 'https://play.2good.com/api/v1/public/claims?apiKey=9zEUDsWNqr0jCQ0MbIad8QgWH0giPxF4&start=2016-01-01&end=2017-01-01';
 const API_PERSONAL = 'https://play.2good.com/api/v1/public/claims';
+const API_NEW_MOONS = 'https://play.2good.com/assets/new-moons.min.json';
 
 // The routes should only be avaible if the user
 // has a set cookie with its personal api key
@@ -20,6 +21,20 @@ router.use(function(req, res, next) {
     res.json([]);
   }
   next();
+});
+
+router.get('/new-moons', function(req, res) {
+  var options = {
+    uri: API_NEW_MOONS,
+    json: true,
+  };
+
+  request(options)
+    .then(function(data) {
+      res.json(data);
+    }, function(err) {
+      res.json(err);
+    });
 });
 
 router.get('/hall-of-fame/first-tower', function(req, res) {

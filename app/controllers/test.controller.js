@@ -1,5 +1,5 @@
 angular.module('towersApp')
-  .controller('testCtrl', ['$scope', 'TowerFactory', '$q', '$filter', function ($scope, TowerFactory, $q, $filter) {
+  .controller('testCtrl', ['$scope', 'TowerFactory', 'MoonFactory', '$q', '$filter', function ($scope, TowerFactory, MoonFactory, $q, $filter) {
     // $scope.labels = [
     //   1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31
     // ];
@@ -13,11 +13,31 @@ angular.module('towersApp')
     init();
     loadData();
 
+    $scope.moons = [];
+    $scope.filter = {};
+
+    MoonFactory.getNewMoons()
+      .then(function(response) {
+        $scope.moons = response.data;
+      }, function(error) {
+        console.log(error);
+      });
+
     $scope.yearOptions = [
       { name: '2016', value: '2016' },
       { name: '2015', value: '2015'},
       { name: '2014', value: '2013'},
       { name: '2013', value: '2014'},
+    ];
+
+    $scope.filterOptions = [
+      { name: 'Last week', value: 'last_week' },
+      { name: 'Last seven days', value: 'last_seven_days' },
+      { name: 'Today', value: 'today' },
+      { name: 'Yesterday', value: 'yesterday' },
+      { name: 'This year', value: 'current_year' },
+      { name: 'Specific year', value: 'filter_by_year' },
+      { name: 'Between new moons', value: 'filter_by_new_moons' }
     ];
 
     function init() {
@@ -131,52 +151,37 @@ angular.module('towersApp')
     }
 
 
-    $scope.changeFilterByYear = function() {
-      // TODO: should clear the $scope.filterByDate when changed
-      var filteredYear = $scope.filterByYear.value;
 
-      var startDate = moment(filteredYear + '-01-01').startOf('year').format('YYYY-MM-DD');
-      var endDate = moment(filteredYear + '-01-01').endOf('year').format('YYYY-MM-DD');
+    $scope.filterData = function() {
+      var value = $scope.filter.value;
 
-      init();
-      loadData(startDate, endDate);
-    }
-
-    // Filter the results for a given time interval
-    $scope.filterResults = function() {
-      var filter = $scope.filterByDate;
-
-      switch (filter) {
+      switch (value) {
         case 'last_week':
           var startDate = moment().startOf('isoweek').subtract(2, 'weeks').format('YYYY-MM-DD');
           var endDate = moment().startOf('isoweek').subtract(1, 'weeks').subtract(1, 'days').format('YYYY-MM-DD');
 
-          init();
-          loadData(startDate, endDate);
+          doFilter(startDate, endDate);
           break;
 
         case 'last_seven_days':
           var startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
           var endDate = moment().format('YYYY-MM-DD');
 
-          init();
-          loadData(startDate, endDate);
+          doFilter(startDate, endDate);
           break;
 
         case 'today':
           var startDate = moment().format('YYYY-MM-DD');
           var endDate = moment().add(1, 'days').format('YYYY-MM-DD');
 
-          init();
-          loadData(startDate, endDate);
+          doFilter(startDate, endDate);
           break;
 
         case 'yesterday':
           var startDate = moment().subtract(1, 'days').format('YYYY-MM-DD');
           var endDate = moment().format('YYYY-MM-DD');
 
-          init();
-          loadData(startDate, endDate);
+          doFilter(startDate, endDate);
           break;
 
 
@@ -184,18 +189,37 @@ angular.module('towersApp')
           var startDate = moment().startOf('year').format('YYYY-MM-DD');
           var endDate = moment().endOf('year').format('YYYY-MM-DD');
 
-          init();
-          loadData(startDate, endDate);
+          doFilter(startDate, endDate);
           break;
 
-        case 'specific_year':
+        case 'filter_by_year':
+          var filteredYear = $scope.selectedYear.value;
 
+          var startDate = moment(filteredYear + '-01-01').startOf('year').format('YYYY-MM-DD');
+          var endDate = moment(filteredYear + '-01-01').endOf('year').format('YYYY-MM-DD');
+
+          doFilter(startDate, endDate);
+          break;
+
+        case 'filter_by_new_moons':
+          var startDate = moment($scope.filterByMoonStart.iso8601).format('YYYY-MM-DD');
+          var endDate = moment($scope.filterByMoonEnd.iso8601).format('YYYY-MM-DD');
+
+          if (startDate > endDate) {
+            // TODO: Display error
+          }
+
+          doFilter(startDate, endDate);
           break;
 
         default:
 
       }
+    }
 
+    function doFilter(startDate, endDate) {
+      init();
+      loadData(startDate, endDate);
     }
 
   }]);
