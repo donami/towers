@@ -3,10 +3,20 @@ angular.module('towersApp')
 
     $scope.submitApiKey = function() {
       var userApiKey = $scope.userApiKey;
-      if (AuthService.auth(userApiKey)) {
-        toastr.success('You are now logged in', 'Success');
-        $state.go('app.home');
-      }
+
+
+      AuthService.auth(userApiKey)
+        .then(function(response) {
+          toastr.clear();
+          $cookies.put('userApiKey', userApiKey);
+          AuthService.setAuthed(true);
+
+          toastr.success('You are now logged in', 'Success');
+          $state.go('app.home');
+        }, function(error) {
+          toastr.clear();
+          toastr.error('The API key was not correct', 'Invalid API key');
+        });
     }
 
   }]);

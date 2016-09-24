@@ -1,7 +1,9 @@
 'use strict';
 
+const API_PERSONAL = '/api/verify-key/';
+
 angular.module('towersApp')
-  .service('AuthService', ['$cookies', function($cookies) {
+  .service('AuthService', ['$cookies', '$http', function($cookies, $http) {
 
     if ($cookies.get('userApiKey'))
       this.authed = true;
@@ -20,9 +22,7 @@ angular.module('towersApp')
     }
 
     this.auth = function(apiKey) {
-      this.authed = true;
-      $cookies.put('userApiKey', apiKey);
-      return true;
+      return $http.get(API_PERSONAL + apiKey);
     }
 
   }]);

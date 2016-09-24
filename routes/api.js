@@ -14,6 +14,21 @@ const API_HALL_OF_FAME_FIRST_TOWER = 'https://play.2good.com/api/v1/public/hall-
 const API_PERSONAL = 'https://play.2good.com/api/v1/public/claims';
 const API_NEW_MOONS = 'https://play.2good.com/assets/new-moons.min.json';
 
+
+router.get('/verify-key/:key', function(req, res) {
+  var options = {
+    uri: API_PERSONAL + '?apiKey=' + req.params.key + '&start=2016-01-01&end=2017-01-01',
+    json: true,
+  };
+
+  request(options)
+    .then(function(data) {
+      return res.json(data);
+    }, function(error) {
+      return res.status(403).send('Invalid credentials');
+    });
+});
+
 // The routes should only be avaible if the user
 // has a set cookie with its personal api key
 router.use(function(req, res, next) {
@@ -142,6 +157,8 @@ router.get('/me', function(req, res) {
       res.json(error);
     });
 });
+
+
 
 
 router.get('', function(req, res) {
