@@ -1,6 +1,24 @@
 <!-- <h1>Takeovers per day in month</h1>
 <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"></canvas> -->
 
+<!-- Filter by date -->
+<div class="form-group">
+
+  <label for="filterByDate">Filtrer statistics</label>
+  <select class="form-control" id="filterByDate" ng-model="filterByDate">
+    <option value="0">No filter</option>
+    <option value="last_week">Last week</option>
+    <option value="last_seven_days">Last seven days</option>
+    <option value="today">Today</option>
+    <option value="yesterday">Yesterday</option>
+    <option value="current_year">This year</option>
+  </select>
+
+</div>
+
+<button class="btn btn-info" ng-click="filterResults()">Filter</button>
+<!-- End filter by date -->
+
 <h1>Most towers claimed</h1>
 <canvas id="bar" class="chart chart-bar" chart-data="claimCountData" chart-labels="claimCountLabels" chart-series="claimCountSeries"></canvas>
 

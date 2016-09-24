@@ -37,11 +37,18 @@ router.get('/hall-of-fame/first-tower', function(req, res) {
 });
 
 // Get leaderboard
-router.get('/leaderboard', function(req, res) {
+router.get('/leaderboard/:startDate?/:endDate?', function(req, res) {
   var options = {
     uri: API_LEADERBOARD + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01',
     json: true,
   };
+
+  if (req.params.startDate && req.params.endDate) {
+    var options = {
+      uri: API_LEADERBOARD + '?apiKey=' + req.cookies.userApiKey + '&start=' + req.params.startDate + '&end=' + req.params.endDate,
+      json: true,
+    };
+  }
 
   request(options)
     .then(function(data) {
