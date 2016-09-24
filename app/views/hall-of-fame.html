@@ -14,7 +14,7 @@
 
       <strong>First build by: </strong> <span>{{ country.player_alias }}</span> <br>
       <strong>Built on address: </strong> <span>{{ country.formatted_address }}</span> <br>
-      <strong>Built on: </strong> <span>{{ country.created_on | date:'mediumDate' }}
+      <strong>Built on: </strong> <span>{{ country.created_on | validDate }}</span>
     </div>
 
     <div class="col-md-2 text-center">
