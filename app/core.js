@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('towersApp', ['ui.router', 'ui.bootstrap', 'ngCookies', 'chart.js'])
+var app = angular.module('towersApp', ['ui.router', 'ui.bootstrap', 'ngCookies', 'chart.js', 'toastr'])
 
 app.run(['$cookies', '$state', '$rootScope', function($cookies, $state, $rootScope) {
 

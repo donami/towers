@@ -1,5 +1,5 @@
 angular.module('towersApp')
-  .controller('testCtrl', ['$scope', 'TowerFactory', 'MoonFactory', '$q', '$filter', function ($scope, TowerFactory, MoonFactory, $q, $filter) {
+  .controller('testCtrl', ['$scope', 'TowerFactory', 'MoonFactory', '$q', '$filter', 'toastr', function ($scope, TowerFactory, MoonFactory, $q, $filter, toastr) {
     // $scope.labels = [
     //   1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31
     // ];
@@ -206,10 +206,12 @@ angular.module('towersApp')
           var endDate = moment($scope.filterByMoonEnd.iso8601).format('YYYY-MM-DD');
 
           if (startDate > endDate) {
-            // TODO: Display error
+            toastr.error('The last new moon could not be before the first', 'Ooops..');
           }
-
-          doFilter(startDate, endDate);
+          else {
+            toastr.clear();
+            doFilter(startDate, endDate);
+          }
           break;
 
         default:

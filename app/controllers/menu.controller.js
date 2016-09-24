@@ -1,5 +1,5 @@
 angular.module('towersApp')
-  .controller('MenuController', ['$scope', '$cookies', '$state', 'AuthService', function($scope, $cookies, $state, AuthService) {
+  .controller('MenuController', ['$scope', '$cookies', '$state', 'AuthService', 'toastr', function($scope, $cookies, $state, AuthService, toastr) {
 
     $scope.authed = AuthService.getAuthed();
 
@@ -18,6 +18,7 @@ angular.module('towersApp')
 
       AuthService.setAuthed(false);
 
+      toastr.success('You are now signed out', 'Signed out');
       $state.go('login');
     }
 
