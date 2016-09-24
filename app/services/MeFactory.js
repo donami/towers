@@ -11,5 +11,9 @@ angular.module('towersApp')
         return $http.get(urlBase);
       };
 
+      MeFactory.getLatestClaimedTower = function() {
+        return $http.get(urlBase + '/latest-claim');
+      };
+
       return MeFactory;
   }]);

@@ -3,30 +3,69 @@
 
   <div><strong>Your API key:</strong> {{ userApiKey }}</div>
 
-  <h2>Towers claimed</h2>
-  <table class="table table-striped">
+  <div ng-if="lastClaimedTower.tower_id > 0">
+    <h2>Latest claimed tower</h2>
 
-    <thead>
+    <table class="table table-striped table-bordered">
       <tr>
-        <th>Tower</th>
-        <th>Claimed on</th>
-        <th>Adress</th>
-        <th>Geld collected</th>
-        <th>Geld bonus</th>
+        <th>Name:</th>
+        <td>{{ lastClaimedTower.info.tower_name || '-' }}</td>
       </tr>
-    </thead>
-
-    <tbody>
-      <tr ng-repeat="tower in claimedTowers | filter: paginate">
-        <td>ID: {{ tower.tower_id }}</td>
-        <td>{{ tower.claimed_on | date:'mediumDate' }}</td>
-        <td>{{ tower.formatted_address }}</td>
-        <td>{{ tower.geld_collected | number:0 }}</td>
-        <td>{{ tower.geld_bonus | number:0 }}</td>
+      <tr>
+        <th>Build date:</th>
+        <td>{{ lastClaimedTower.info.created_on || '-' | date:'mediumDate' }}</td>
       </tr>
-    </tbody>
+      <tr>
+        <th>Address:</th>
+        <td>{{ lastClaimedTower.info.formatted_address || '-' }}</td>
+      </tr>
+      <tr>
+        <th>Tower first claimed on:</th>
+        <td>{{ lastClaimedTower.stats.first_claimed_on || '-' | date:'mediumDate' }}</td>
+      </tr>
+      <tr>
+        <th>Tower last claimed on:</th>
+        <td>{{ lastClaimedTower.stats.last_claimed_on || '-' | date:'mediumDate' }}</td>
+      </tr>
+      <tr>
+        <th>Tower geld collected:</th>
+        <td>{{ lastClaimedTower.stats.total_geld_collected || '-' | number }}</td>
+      </tr>
+      <tr>
+        <th>Tower geld bonus:</th>
+        <td>{{ lastClaimedTower.stats.total_geld_bonus || '-' | number }}</td>
+      </tr>
+    </table>
 
-  </table>
+  </div>
 
-  <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>
+  <div>
+    <h2>Towers claimed</h2>
+    <table class="table table-striped">
+
+      <thead>
+        <tr>
+          <th>Tower</th>
+          <th>Claimed on</th>
+          <th>Adress</th>
+          <th>Geld collected</th>
+          <th>Geld bonus</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr ng-repeat="tower in claimedTowers | filter: paginate">
+          <td>ID: {{ tower.tower_id }}</td>
+          <td>{{ tower.claimed_on | date:'mediumDate' }}</td>
+          <td>{{ tower.formatted_address }}</td>
+          <td>{{ tower.geld_collected | number:0 }}</td>
+          <td>{{ tower.geld_bonus | number:0 }}</td>
+        </tr>
+      </tbody>
+
+    </table>
+
+    <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>
+  </div>
+
 </div>

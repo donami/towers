@@ -13,6 +13,7 @@ const API_HALL_OF_FAME_FIRST_TOWER = 'https://play.2good.com/api/v1/public/hall-
 // const API_PERSONAL = 'https://play.2good.com/api/v1/public/claims?apiKey=9zEUDsWNqr0jCQ0MbIad8QgWH0giPxF4&start=2016-01-01&end=2017-01-01';
 const API_PERSONAL = 'https://play.2good.com/api/v1/public/claims';
 const API_NEW_MOONS = 'https://play.2good.com/assets/new-moons.min.json';
+const API_ME = 'https://play.2good.com/api/v1/public/me'; // Info about player, including last claimed tower
 
 
 router.get('/verify-key/:key', function(req, res) {
@@ -143,6 +144,28 @@ router.get('/tower/:id', function(req, res) {
 
 });
 
+// Get latest claimed tower
+router.get('/me/latest-claim', function(req, res) {
+
+  // Get personal info
+  var mePromise = request({uri: API_ME + '?apiKey=' + req.cookies.userApiKey, json:true });
+
+  // Get metadata
+  var metaPromise = request({uri: API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01', json:true });
+
+  // Get statistics
+  var statsPromise = request({uri: API_TOWER_STATISTICS + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01', json:true });
+
+  Promise.all([mePromise, metaPromise, statsPromise])
+    .then(function(response) {
+      res.json(response);
+    })
+    .catch(function(error) {
+      res.json(error);
+    });
+
+});
+
 // Display personal stats
 router.get('/me', function(req, res) {
   var options = {
@@ -157,8 +180,6 @@ router.get('/me', function(req, res) {
       res.json(error);
     });
 });
-
-
 
 
 router.get('', function(req, res) {
