@@ -13,6 +13,13 @@ angular.module('towersApp')
     init();
     loadData();
 
+    $scope.yearOptions = [
+      { name: '2016', value: '2016' },
+      { name: '2015', value: '2015'},
+      { name: '2014', value: '2013'},
+      { name: '2013', value: '2014'},
+    ];
+
     function init() {
       $scope.claimCountLabels = [];
       $scope.claimCountSeries = ['Most towers claimed'];
@@ -121,6 +128,18 @@ angular.module('towersApp')
         $scope.geldBonusData.push(obj.geld_bonus);
         $scope.geldBonusLabels.push(obj.player_alias);
       })
+    }
+
+
+    $scope.changeFilterByYear = function() {
+      // TODO: should clear the $scope.filterByDate when changed
+      var filteredYear = $scope.filterByYear.value;
+
+      var startDate = moment(filteredYear + '-01-01').startOf('year').format('YYYY-MM-DD');
+      var endDate = moment(filteredYear + '-01-01').endOf('year').format('YYYY-MM-DD');
+
+      init();
+      loadData(startDate, endDate);
     }
 
     // Filter the results for a given time interval

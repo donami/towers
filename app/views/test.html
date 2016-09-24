@@ -1,10 +1,12 @@
 <!-- <h1>Takeovers per day in month</h1>
 <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"></canvas> -->
 
+
+
 <!-- Filter by date -->
 <div class="form-group">
 
-  <label for="filterByDate">Filtrer statistics</label>
+  <label for="filterByDate">Filter statistics</label>
   <select class="form-control" id="filterByDate" ng-model="filterByDate">
     <option value="0">No filter</option>
     <option value="last_week">Last week</option>
@@ -13,6 +15,13 @@
     <option value="yesterday">Yesterday</option>
     <option value="current_year">This year</option>
   </select>
+
+</div>
+
+<div class="form-group">
+
+  <label for="filterByYear">Filter by year</label>
+  <select class="form-control" ng-options="o.name for o in yearOptions" ng-model="filterByYear" ng-change="changeFilterByYear()"></select>
 
 </div>
 
