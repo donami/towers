@@ -21,52 +21,7 @@
 </head>
 <body ng-app="towersApp" ng-strict-di>
 
-  <div id="header">
-
-    <div class="container content">
-
-      <h1 class="page-title">Towers</h1>
-
-    </div>
-
-  </div>
-
-  <div id="navigation">
-
-    <div class="container content">
-
-      <ul class="menu" ng-controller="MenuController">
-        <li><a ui-sref="home">Home</a></li>
-        <li><a ui-sref="me">My stats</a></li>
-        <li><a ui-sref="about">About</a></li>
-        <li><a ui-sref="test">Statistics</a></li>
-        <li><a ui-sref="leaderboard">Leaderboard</a></li>
-        <li><a ui-sref="hallOfFame">Hall of fame</a></li>
-        <li class="login" ng-if="!authed"><a ui-sref="login">Login</a></li>
-        <li class="login" ng-if="authed"><span ng-click="logout()">Logout</span></li>
-      </ul>
-
-    </div>
-
-  </div>
-
-  <div id="main-content">
-
-    <div class="container content">
-
-      <div ui-view></div>
-
-    </div>
-
-  </div>
-
-  <div id="footer">
-
-    <div class="container content">
-      Copyright © Markus Hederström 2016
-    </div>
-
-  </div>
+  <div ui-view></div>
 
 </body>
 </html>

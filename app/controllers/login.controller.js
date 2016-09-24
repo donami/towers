@@ -5,7 +5,7 @@ angular.module('towersApp')
       var userApiKey = $scope.userApiKey;
       if (AuthService.auth(userApiKey)) {
         console.log('Auth successful');
-        $state.go('home');
+        $state.go('app.home');
       }
     }
 

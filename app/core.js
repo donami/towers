@@ -31,22 +31,27 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
-    .state('home', {
+    .state('app', {
+      abstract: true,
+      url: '',
+      templateUrl: 'views/layout.html'
+    })
+    .state('app.home', {
       url: '/',
       templateUrl: 'views/home.html',
       controller: 'HomeController'
     })
-    .state('about', {
+    .state('app.about', {
       url: '/about',
       templateUrl: 'views/about.html',
       controller: 'AboutController'
     })
-    .state('me', {
+    .state('app.me', {
       url: '/me',
       templateUrl: 'views/me.html',
       controller: 'MeController'
     })
-    .state('test', {
+    .state('app.test', {
       url: '/test',
       templateUrl: 'views/test.html',
       controller: 'testCtrl'
@@ -56,17 +61,17 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
       templateUrl: 'views/login.html',
       controller: 'LoginController'
     })
-    .state('towerSingle', {
+    .state('app.towerSingle', {
       url: '/tower/:id',
       templateUrl: 'views/tower-single.html',
       controller: 'TowerController',
     })
-    .state('leaderboard', {
+    .state('app.leaderboard', {
       url: '/leaderboard',
       templateUrl: 'views/leaderboard.html',
       controller: 'LeaderboardController',
     })
-    .state('hallOfFame', {
+    .state('app.hallOfFame', {
       url: '/hall-of-fame',
       templateUrl: 'views/hall-of-fame.html',
       controller: 'HallOfFameController',
