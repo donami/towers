@@ -120,7 +120,6 @@ router.get('/tower/stats/:startDate?/:endDate?', function(req, res) {
     };
   }
 
-
   request(options)
     .then(function(data) {
       res.json(data);
@@ -161,7 +160,11 @@ router.get('/tower/:id', function(req, res) {
           });
 
           tower.stats = stats;
+
           res.json(tower);
+        })
+        .catch(function(error) {
+          res.status(404).json({message: 'Unable to find tower'});
         })
       }
     })

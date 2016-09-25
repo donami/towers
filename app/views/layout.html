@@ -1,36 +1,43 @@
 
   <div id="header">
+    <div class="container">
 
-    <div class="container content">
+      <!-- Row -->
+      <div class="row">
 
-      <h1 class="page-title">Towers</h1>
+        <div class="col-md-2">
+
+          <div class="logo">
+            <a ui-sref="app.home">
+              <img src="/assets/logo.png" width="200" alt="Logo">
+            </a>
+          </div>
+
+        </div>
+
+        <div class="col-md-10">
+
+          <ul class="menu pull-right" ng-controller="MenuController">
+            <li><a ui-sref="app.me">My stats</a></li>
+            <li><a ui-sref="app.graph">Statistics</a></li>
+            <li><a ui-sref="app.leaderboard">Leaderboard</a></li>
+            <li><a ui-sref="app.hallOfFame">Hall of fame</a></li>
+            <li><a ui-sref="app.about">About</a></li>
+            <li class="login pointer" ng-if="!authed"><a ui-sref="login">Login</a></li>
+            <li class="login pointer" ng-if="authed"><a ng-click="logout()">Logout</a></li>
+          </ul>
+
+        </div>
+
+      </div>
+      <!-- / Row -->
 
     </div>
-
-  </div>
-
-  <div id="navigation">
-
-    <div class="container content">
-
-      <ul class="menu" ng-controller="MenuController">
-        <li><a ui-sref="app.home">Home</a></li>
-        <li><a ui-sref="app.me">My stats</a></li>
-        <li><a ui-sref="app.about">About</a></li>
-        <li><a ui-sref="app.graph">Statistics</a></li>
-        <li><a ui-sref="app.leaderboard">Leaderboard</a></li>
-        <li><a ui-sref="app.hallOfFame">Hall of fame</a></li>
-        <li class="login" ng-if="!authed"><a ui-sref="login">Login</a></li>
-        <li class="login" ng-if="authed"><span ng-click="logout()">Logout</span></li>
-      </ul>
-
-    </div>
-
   </div>
 
   <div id="main-content">
 
-    <div class="container content">
+    <div class="content">
 
       <div ui-view></div>
 

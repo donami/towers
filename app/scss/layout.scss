@@ -21,42 +21,42 @@ a {
 }
 
 div#header {
-  padding: 50px 0;
-}
+  background: #e8e5e5;
 
-div#navigation {
-  div.content {
-    padding: 0;
+  div.logo {
+    padding: 20px 0;
+  }
 
-    ul.menu {
-      list-style: none;
-      overflow: hidden;
-      padding: 0;
-      border: $primary-border-color 1px solid;
-      border-right: none;
+  ul.menu {
+    list-style: none;
+    overflow: hidden;
+    margin-bottom: 0;
 
-      li {
-        float: left;
+    li {
+      float: left;
 
-        &.login {
-          float: right;
-          border-left: $primary-border-color 1px solid;
+      a {
+        color: #555;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: block;
+        padding: 0 30px;
+        border-right: #b0b0b0 1px solid;
+        line-height: 90px;
+        text-align: center;
+        transition: all 0.5s ease;
+
+        &:hover {
+          background: #dadada;
+          color: #2196f3;
         }
 
-        a, span {
-          color: $link-color;
-          padding: 20px;
-          border-right: $primary-border-color 1px solid;
-          display: inline-block;
-
-          &:hover {
-            text-decoration: underline;
-            cursor: pointer;
-          }
+        &:focus {
+          text-decoration: none;
         }
-
-
-
+      }
+      &:first-child {
+        border-left: #b0b0b0 1px solid;
       }
     }
   }
@@ -65,21 +65,40 @@ div#navigation {
 div#main-content {
 
   div.content {
-    border: $primary-border-color 1px solid;
-    background: $background-color;
-    padding: 20px;
+    min-height: 800px;
   }
 
 }
 
 div#footer {
-  margin-top: 20px;
+  background: #131313;
+  margin-top: 40px;
+  color: #fff;
+
   div.content {
-    border-top: $primary-border-color 1px solid;
-    padding: 10px 0;
+    padding: 20px 0;
   }
 }
 
+div.content-header {
+  background: url('/assets/page_header.jpg') center center;
+  padding: 60px 0;
+  margin-bottom: 20px;
+
+  h1 {
+    color: #2196f3;
+    text-transform: uppercase;
+    font-size: 2.4em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+  }
+  h2 {
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    font-size: 1.8em;
+    font-weight: 700;
+  }
+}
 
 div.hall-of-fame-container {
   div.fame-box {

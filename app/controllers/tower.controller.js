@@ -1,8 +1,6 @@
 angular.module('towersApp')
   .controller('TowerController', ['$scope', 'TowerFactory', '$stateParams', function($scope, TowerFactory, $stateParams) {
 
-    $scope.tower = {};
-
     findTowerById($stateParams.id);
 
     function findTowerById(id) {
@@ -10,7 +8,10 @@ angular.module('towersApp')
         .then(function(response) {
           $scope.tower = response.data;
         }, function(error) {
-          $scope.status = 'Unable to load tower: ' + error.message;
+          $scope.error = {
+            type: 'Unable to load tower: ' + error.data.message,
+            message: 'This tower is missing data',
+          };
         });
     }
 

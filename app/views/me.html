@@ -1,5 +1,16 @@
-<div class="me-container">
-  <h1>Personal view</h1>
+<div class="content-header">
+
+  <div class="container">
+    <h1>Personal stats</h1>
+    <h2>Your personal performance</h2>
+  </div>
+
+</div>
+
+<div class="me-container container">
+  <div class="heading">
+    <h1 class="page-title">Personal view</h1>
+  </div>
 
   <div><strong>Your API key:</strong> {{ userApiKey }}</div>
 
@@ -55,7 +66,7 @@
 
       <tbody>
         <tr ng-repeat="tower in claimedTowers | filter: paginate">
-          <td>ID: {{ tower.tower_id }}</td>
+          <td><a ui-sref="app.towerSingle({id: tower.tower_id})">ID: {{ tower.tower_id }}</a></td>
           <td>{{ tower.claimed_on | date:'mediumDate' }}</td>
           <td>{{ tower.formatted_address }}</td>
           <td>{{ tower.geld_collected | number:0 }}</td>

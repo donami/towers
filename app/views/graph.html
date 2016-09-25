@@ -1,83 +1,99 @@
+<div class="content-header">
+
+  <div class="container">
+    <h1>Stats</h1>
+    <h2>Statistics for the game</h2>
+  </div>
+
+</div>
+
 <!-- <h1>Takeovers per day in month</h1>
 <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"></canvas> -->
 
+<div class="graph-container container">
+
+  <div class="heading">
+    <h1 class="page-title">Stats</h1>
+  </div>
 
 
-<!-- Filters -->
-<div class="form-group">
-
-  <label for="filter">Filter</label>
-  <select class="form-control" ng-options="o.name for o in filterOptions" ng-model="filter"></select>
-
-</div>
-
-<div class="form-group" ng-if="filter.value == 'filter_by_year'">
-
-  <label for="filter">Choose year</label>
-  <select class="form-control" ng-options="o.name for o in yearOptions" ng-model="$parent.selectedYear"></select>
-
-</div>
-
-<div ng-if="filter.value == 'filter_by_new_moons'">
-
-  <h4>Filter by new moon</h4>
+  <!-- Filters -->
   <div class="form-group">
 
-    <label for="filterByMoonStart">From</label>
-    <select class="form-control" ng-options="(o.iso8601 | date) for o in moons" ng-model="$parent.filterByMoonStart"></select>
+    <label for="filter">Filter</label>
+    <select class="form-control" ng-options="o.name for o in filterOptions" ng-model="filter"></select>
 
   </div>
 
-  <div class="form-group">
-    <label for="filterByMoonEnd">To</label>
-    <select class="form-control" ng-options="(o.iso8601 | date) for o in moons" ng-model="$parent.filterByMoonEnd"></select>
+  <div class="form-group" ng-if="filter.value == 'filter_by_year'">
+
+    <label for="filter">Choose year</label>
+    <select class="form-control" ng-options="o.name for o in yearOptions" ng-model="$parent.selectedYear"></select>
 
   </div>
 
-</div>
+  <div ng-if="filter.value == 'filter_by_new_moons'">
 
-<button class="btn btn-success" ng-click="filterData()">Filter</button>
-<!-- End filters -->
+    <h4>Filter by new moon</h4>
+    <div class="form-group">
+
+      <label for="filterByMoonStart">From</label>
+      <select class="form-control" ng-options="(o.iso8601 | date) for o in moons" ng-model="$parent.filterByMoonStart"></select>
+
+    </div>
+
+    <div class="form-group">
+      <label for="filterByMoonEnd">To</label>
+      <select class="form-control" ng-options="(o.iso8601 | date) for o in moons" ng-model="$parent.filterByMoonEnd"></select>
+
+    </div>
+
+  </div>
+
+  <button class="btn btn-success" ng-click="filterData()">Filter</button>
+  <!-- End filters -->
 
 
-<div>
-  <h1>Most towers claimed</h1>
-  <canvas ng-if="claimCountData.length" id="bar" class="chart chart-bar" chart-data="claimCountData" chart-labels="claimCountLabels" chart-series="claimCountSeries"></canvas>
+  <div>
+    <h1>Most towers claimed</h1>
+    <canvas ng-if="claimCountData.length" id="bar" class="chart chart-bar" chart-data="claimCountData" chart-labels="claimCountLabels" chart-series="claimCountSeries"></canvas>
 
-  <div ng-if="!claimCountData.length">There are no data available matching the filters selected</div>
-</div>
+    <div ng-if="!claimCountData.length">There are no data available matching the filters selected</div>
+  </div>
 
-<div>
-  <h1>Most geld collected</h1>
-  <canvas ng-if="geldCollectedData.length" id="bar" class="chart chart-bar" chart-data="geldCollectedData" chart-labels="geldCollectedLabels" chart-series="geldCollectedSeries"></canvas>
+  <div>
+    <h1>Most geld collected</h1>
+    <canvas ng-if="geldCollectedData.length" id="bar" class="chart chart-bar" chart-data="geldCollectedData" chart-labels="geldCollectedLabels" chart-series="geldCollectedSeries"></canvas>
 
-  <div ng-if="!geldCollectedData.length">There are no data available matching the filters selected</div>
-</div>
+    <div ng-if="!geldCollectedData.length">There are no data available matching the filters selected</div>
+  </div>
 
-<div>
-  <h1>Most towers built</h1>
-  <canvas ng-if="towersBuiltData.length" id="bar" class="chart chart-bar" chart-data="towersBuiltData" chart-labels="towersBuiltLabels" chart-series="towersBuiltSeries"></canvas>
+  <div>
+    <h1>Most towers built</h1>
+    <canvas ng-if="towersBuiltData.length" id="bar" class="chart chart-bar" chart-data="towersBuiltData" chart-labels="towersBuiltLabels" chart-series="towersBuiltSeries"></canvas>
 
-  <div ng-if="!towersBuiltData.length">There are no data available matching the filters selected</div>
-</div>
+    <div ng-if="!towersBuiltData.length">There are no data available matching the filters selected</div>
+  </div>
 
-<div>
-  <h1>Highest geld bonus</h1>
-  <canvas ng-if="geldBonusData.length" id="bar" class="chart chart-bar" chart-data="geldBonusData" chart-labels="geldBonusLabels" chart-series="geldBonusSeries"></canvas>
+  <div>
+    <h1>Highest geld bonus</h1>
+    <canvas ng-if="geldBonusData.length" id="bar" class="chart chart-bar" chart-data="geldBonusData" chart-labels="geldBonusLabels" chart-series="geldBonusSeries"></canvas>
 
-  <div ng-if="!geldBonusData.length">There are no data available matching the filters selected</div>
-</div>
+    <div ng-if="!geldBonusData.length">There are no data available matching the filters selected</div>
+  </div>
 
-<div>
-  <h1>Towers with most claims</h1>
-  <canvas ng-if="towerHighestClaimData.length" id="bar" class="chart chart-bar" chart-data="towerHighestClaimData" chart-labels="towerHighestClaimLabels" chart-series="towerHighestClaimSeries"></canvas>
+  <div>
+    <h1>Towers with most claims</h1>
+    <canvas ng-if="towerHighestClaimData.length" id="bar" class="chart chart-bar" chart-data="towerHighestClaimData" chart-labels="towerHighestClaimLabels" chart-series="towerHighestClaimSeries"></canvas>
 
-  <div ng-if="!towerHighestClaimData.length">There are no data available matching the filters selected</div>
-</div>
+    <div ng-if="!towerHighestClaimData.length">There are no data available matching the filters selected</div>
+  </div>
 
-<div>
-  <h1>Towers with most player count</h1>
-  <canvas ng-if="towerTopPlayerCountData.length" id="bar" class="chart chart-bar" chart-data="towerTopPlayerCountData" chart-labels="towerTopPlayerCountLabels" chart-series="towerTopPlayerCountSeries" chart-options="towerTopPlayerCountOptions"></canvas>
+  <div>
+    <h1>Towers with most player count</h1>
+    <canvas ng-if="towerTopPlayerCountData.length" id="bar" class="chart chart-bar" chart-data="towerTopPlayerCountData" chart-labels="towerTopPlayerCountLabels" chart-series="towerTopPlayerCountSeries" chart-options="towerTopPlayerCountOptions"></canvas>
 
-  <div ng-if="!towerTopPlayerCountData.length">There are no data available matching the filters selected</div>
+    <div ng-if="!towerTopPlayerCountData.length">There are no data available matching the filters selected</div>
+  </div>
+
 </div>

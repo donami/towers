@@ -1,52 +1,71 @@
-<div class="tower-single-container">
-  <h1 class="page-title">View tower</h1>
+<div class="content-header">
 
-  <table class="table table-striped">
-    <tr>
-      <td>Namn</td>
-      <td>{{ tower.tower_name }}</td>
-    </tr>
-    <tr>
-      <td>Country</td>
-      <td>{{ tower.country }}</td>
-    </tr>
-    <tr>
-      <td>Build date</td>
-      <td>{{ tower.created_on }}</td>
-    </tr>
-    <tr>
-      <td>Creator</td>
-      <td>{{ tower.player_alias }}</td>
-    </tr>
-  </table>
+  <div class="container">
+    <h1>Tower</h1>
+    <h2>View tower information</h2>
+  </div>
 
-  <h2>Tower stats</h2>
+</div>
 
-  <table class="table table-striped">
-    <tr>
-      <td>Claims on this tower</td>
-      <td>{{ tower.stats.claim_count }}</td>
-    </tr>
-    <tr>
-      <td>Players claimed tower</td>
-      <td>{{ tower.stats.player_count }}</td>
-    </tr>
-    <tr>
-      <td>First claimed on</td>
-      <td>{{ tower.stats.first_claimed_on | date:'mediumDate'}}</td>
-    </tr>
-    <tr>
-      <td>Last claimed on</td>
-      <td>{{ tower.stats.last_claimed_on | date:'mediumDate' }}</td>
-    </tr>
-    <tr>
-      <td>Total geld collected</td>
-      <td>{{ tower.stats.total_geld_collected }}</td>
-    </tr>
-    <tr>
-      <td>Total geld bonus</td>
-      <td>{{ tower.stats.total_geld_bonus }}</td>
-    </tr>
-  </table>
+<div class="tower-single-container container">
+  <div class="heading">
+    <h1 class="page-title">View tower</h1>
+  </div>
+
+  <div ng-if="!tower && error">
+    <div class="alert alert-warning" ng-bind="error.message"></div>
+  </div>
+
+  <div ng-if="tower">
+
+    <table class="table table-striped">
+      <tr>
+        <th>Namn</th>
+        <td>{{ tower.tower_name || '-' }}</td>
+      </tr>
+      <tr>
+        <th>Country</th>
+        <td>{{ tower.country }}</td>
+      </tr>
+      <tr>
+        <th>Build date</th>
+        <td>{{ tower.created_on }}</td>
+      </tr>
+      <tr>
+        <th>Creator</th>
+        <td>{{ tower.player_alias }}</td>
+      </tr>
+    </table>
+
+    <h2>Tower stats</h2>
+
+    <table class="table table-striped">
+      <tr>
+        <th>Claims on this tower</th>
+        <td>{{ tower.stats.claim_count }}</td>
+      </tr>
+      <tr>
+        <th>Players claimed tower</th>
+        <td>{{ tower.stats.player_count }}</td>
+      </tr>
+      <tr>
+        <th>First claimed on</th>
+        <td>{{ tower.stats.first_claimed_on | date:'mediumDate'}}</td>
+      </tr>
+      <tr>
+        <th>Last claimed on</th>
+        <td>{{ tower.stats.last_claimed_on | date:'mediumDate' }}</td>
+      </tr>
+      <tr>
+        <th>Total geld collected</th>
+        <td>{{ tower.stats.total_geld_collected }}</td>
+      </tr>
+      <tr>
+        <th>Total geld bonus</th>
+        <td>{{ tower.stats.total_geld_bonus }}</td>
+      </tr>
+    </table>
+
+  </div>
 
 </div>

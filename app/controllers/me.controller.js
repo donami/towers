@@ -99,7 +99,6 @@ angular.module('towersApp')
       });
 
       sortable = sortable.slice(0, 10);
-      console.log(sortable);
 
       sortable.forEach(function(obj) {
         $scope.claimDaysLabels.push(obj[0]);
