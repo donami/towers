@@ -22,6 +22,10 @@ angular.module('towersApp')
         return $http.get('/api/leaderboard');
       };
 
+      TowerFactory.getStats = function() {
+        return $http.get('/api/tower/stats');
+      };
+
       TowerFactory.getTopLeaderboard = function() {
         return $http.get('/api/leaderboard/top');
       };

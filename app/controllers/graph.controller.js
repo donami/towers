@@ -56,6 +56,10 @@ angular.module('towersApp')
       $scope.geldBonusLabels = [];
       $scope.geldBonusSeries = ['Highest geld bonus'];
       $scope.geldBonusData = [];
+
+      $scope.towerHighestClaimLabels = [];
+      $scope.towerHighestClaimSeries = ['Towers with most claims'];
+      $scope.towerHighestClaimData = [];
     }
 
     function loadData(startDate, endDate) {
@@ -81,6 +85,14 @@ angular.module('towersApp')
             data: response.data
           });
         }, function(error) {
+          console.log(error);
+        });
+
+      TowerFactory.getStats()
+        .then(function(response) {
+          getTowersTopClaimed(response.data);
+        })
+        .catch(function(error) {
           console.log(error);
         });
     }
@@ -150,6 +162,45 @@ angular.module('towersApp')
       })
     }
 
+    // Get the towers with highest claim count
+    function getTowersTopClaimed(data) {
+      // Sort data based on claim_count
+      data.sort(function(a, b) {
+        if (a.claim_count < b.claim_count) return 1;
+        if (a.claim_count > b.claim_count) return -1;
+        return 0;
+      });
+
+      // Get only the top of the sorted data
+      data = data.slice(0, 10);
+
+      TowerFactory.getTowers()
+        .then(function(response) {
+          return response.data;
+        })
+        .then(function(towers) {
+          data.forEach(function(obj) {
+
+            // Get the info for the tower to get the tower name
+            var tower = towers.find(function(found) {
+              return found.tower_id == obj.tower_id;
+            });
+
+            // Check if tower is undefind, if it is, display ID instead of name
+            if (tower) {
+              if (tower.tower_name)
+                $scope.towerHighestClaimLabels.push(tower.tower_name)
+              else
+                $scope.towerHighestClaimLabels.push('Tower#' + obj.tower_id);
+            }
+            else {
+              $scope.towerHighestClaimLabels.push('Tower#' + obj.tower_id)
+            }
+
+            $scope.towerHighestClaimData.push(obj.claim_count);
+          });
+        });
+    }
 
 
     $scope.filterData = function() {

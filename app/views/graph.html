@@ -67,3 +67,10 @@
 
   <div ng-if="!geldBonusData.length">There are no data available matching the filters selected</div>
 </div>
+
+<div>
+  <h1>Towers with most claims</h1>
+  <canvas ng-if="towerHighestClaimData.length" id="bar" class="chart chart-bar" chart-data="towerHighestClaimData" chart-labels="towerHighestClaimLabels" chart-series="towerHighestClaimSeries"></canvas>
+
+  <div ng-if="!towerHighestClaimData.length">There are no data available matching the filters selected</div>
+</div>

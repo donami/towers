@@ -104,6 +104,21 @@ router.get('/tower/all', function(req, res) {
     });
 });
 
+// Get statistics for towers
+router.get('/tower/stats', function(req, res) {
+  var options = {
+    uri: API_TOWER_STATISTICS + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01',
+    json: true,
+  };
+
+  request(options)
+    .then(function(data) {
+      res.json(data);
+    }, function(error) {
+      res.json(error);
+    });
+});
+
 // Get tower info and statistics
 router.get('/tower/:id', function(req, res) {
   var towerId = req.params.id;
