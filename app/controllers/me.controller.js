@@ -1,6 +1,6 @@
 angular.module('towersApp')
-  .controller('MeController', ['$scope', '$cookies', 'MeFactory',
-  function($scope, $cookies, MeFactory) {
+  .controller('MeController', ['$scope', '$cookies', '$filter', 'MeFactory',
+  function($scope, $cookies, $filter, MeFactory) {
 
     $scope.userApiKey = $cookies.get('userApiKey');
 
@@ -9,6 +9,9 @@ angular.module('towersApp')
     $scope.totalItems = 0;
     $scope.currentPage = 1;
     $scope.numPerPage = 5;
+
+    $scope.orderBy = 'claimed_on';
+    $scope.reverse = true;
 
     // For the graph of most claims per day
     $scope.claimDaysLabels = [];
@@ -23,7 +26,7 @@ angular.module('towersApp')
 
     MeFactory.getClaims()
       .then(function(response) {
-        $scope.claimedTowers = response.data;
+        $scope.claimedTowers = $filter('orderBy')(response.data, $scope.orderBy, $scope.reverse);
         $scope.totalItems = response.data.length;
 
         getDaysWithMostClaims(response.data);
@@ -64,6 +67,21 @@ angular.module('towersApp')
       index = $scope.claimedTowers.indexOf(value);
       return (begin <= index && index < end);
     };
+
+    // Sort the table
+    $scope.sortBy = function(property, parseFloat) {
+      $scope.reverse = !$scope.reverse;
+      $scope.orderBy = property;
+
+      if (parseFloat) {
+        $scope.claimedTowers.forEach(function(obj) {
+          if (obj[property] != '')
+            obj[property] = parseInt(obj[property]);
+        });
+      }
+
+      $scope.claimedTowers = $filter('orderBy')($scope.claimedTowers, $scope.orderBy, $scope.reverse);
+    }
 
 
     // Get the days that user has claimed the most towers
