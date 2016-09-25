@@ -93,7 +93,7 @@ angular.module('towersApp')
           console.log(error);
         });
 
-      TowerFactory.getStats()
+      TowerFactory.getStats(startDate, endDate)
         .then(function(response) {
           getTowersTopClaimed(response.data);
           getTowersTopPlayerCount(response.data);

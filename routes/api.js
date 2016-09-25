@@ -105,11 +105,21 @@ router.get('/tower/all', function(req, res) {
 });
 
 // Get statistics for towers
-router.get('/tower/stats', function(req, res) {
-  var options = {
-    uri: API_TOWER_STATISTICS + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01',
-    json: true,
-  };
+router.get('/tower/stats/:startDate?/:endDate?', function(req, res) {
+
+  if (req.params.startDate && req.params.endDate) {
+    var options = {
+      uri: API_TOWER_STATISTICS + '?apiKey=' + req.cookies.userApiKey + '&start=' + req.params.startDate + '&end=' + req.params.endDate,
+      json: true,
+    };
+  }
+  else {
+    var options = {
+      uri: API_TOWER_STATISTICS + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01',
+      json: true,
+    };
+  }
+
 
   request(options)
     .then(function(data) {

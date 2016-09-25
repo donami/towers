@@ -22,7 +22,10 @@ angular.module('towersApp')
         return $http.get('/api/leaderboard');
       };
 
-      TowerFactory.getStats = function() {
+      TowerFactory.getStats = function(startDate, endDate) {
+        if (startDate && endDate) {
+          return $http.get('/api/tower/stats/' + startDate + '/' + endDate);
+        }
         return $http.get('/api/tower/stats');
       };
 
