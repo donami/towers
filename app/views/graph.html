@@ -74,3 +74,10 @@
 
   <div ng-if="!towerHighestClaimData.length">There are no data available matching the filters selected</div>
 </div>
+
+<div>
+  <h1>Towers with most player count</h1>
+  <canvas ng-if="towerTopPlayerCountData.length" id="bar" class="chart chart-bar" chart-data="towerTopPlayerCountData" chart-labels="towerTopPlayerCountLabels" chart-series="towerTopPlayerCountSeries" chart-options="towerTopPlayerCountOptions"></canvas>
+
+  <div ng-if="!towerTopPlayerCountData.length">There are no data available matching the filters selected</div>
+</div>

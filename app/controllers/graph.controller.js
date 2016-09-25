@@ -60,6 +60,11 @@ angular.module('towersApp')
       $scope.towerHighestClaimLabels = [];
       $scope.towerHighestClaimSeries = ['Towers with most claims'];
       $scope.towerHighestClaimData = [];
+
+      $scope.towerTopPlayerCountLabels = [];
+      $scope.towerTopPlayerCountSeries = ['Towers with most player count'];
+      $scope.towerTopPlayerCountData = [];
+      $scope.towerTopPlayerCountOptions = {};
     }
 
     function loadData(startDate, endDate) {
@@ -91,6 +96,7 @@ angular.module('towersApp')
       TowerFactory.getStats()
         .then(function(response) {
           getTowersTopClaimed(response.data);
+          getTowersTopPlayerCount(response.data);
         })
         .catch(function(error) {
           console.log(error);
@@ -199,6 +205,58 @@ angular.module('towersApp')
 
             $scope.towerHighestClaimData.push(obj.claim_count);
           });
+        });
+    }
+
+    // Get the towers with highest player count
+    function getTowersTopPlayerCount(data) {
+      // Sort data based on player_count
+      data.sort(function(a, b) {
+        if (a.player_count < b.player_count) return 1;
+        if (a.player_count > b.player_count) return -1;
+        return 0;
+      });
+
+      // Get only the top of the sorted data
+      data = data.slice(0, 10);
+
+      TowerFactory.getTowers()
+        .then(function(response) {
+          return response.data;
+        })
+        .then(function(towers) {
+          data.forEach(function(obj) {
+
+            // Get the info for the tower to get the tower name
+            var tower = towers.find(function(found) {
+              return found.tower_id == obj.tower_id;
+            });
+
+            // Check if tower is undefind, if it is, display ID instead of name
+            if (tower) {
+              if (tower.tower_name)
+                $scope.towerTopPlayerCountLabels.push(tower.tower_name)
+              else
+                $scope.towerTopPlayerCountLabels.push('Tower#' + obj.tower_id);
+            }
+            else {
+              $scope.towerTopPlayerCountLabels.push('Tower#' + obj.tower_id)
+            }
+
+            $scope.towerTopPlayerCountData.push(obj.player_count);
+          });
+
+          $scope.towerTopPlayerCountOptions = {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  min: 0,
+                  max: data[0].player_count + 3,
+                  stepSize: 1
+                }
+              }]
+            }
+          };
         });
     }
 
