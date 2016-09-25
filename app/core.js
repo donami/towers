@@ -51,10 +51,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
       templateUrl: 'views/me.html',
       controller: 'MeController'
     })
-    .state('app.test', {
-      url: '/test',
-      templateUrl: 'views/test.html',
-      controller: 'testCtrl'
+    .state('app.graph', {
+      url: '/stats',
+      templateUrl: 'views/graph.html',
+      controller: 'GraphController'
     })
     .state('login', {
       url: '/login',
