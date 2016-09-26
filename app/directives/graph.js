@@ -8,6 +8,7 @@ angular.module('towersApp')
         data: '=',
         labels: '=',
         series: '=',
+        options: '='
       },
       link: function(scope, elem, attrs) {
         scope.title = attrs.graphTitle;

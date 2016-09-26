@@ -246,17 +246,19 @@ angular.module('towersApp')
             $scope.towerTopPlayerCountData.push(obj.player_count);
           });
 
-          $scope.towerTopPlayerCountOptions = {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  min: 0,
-                  max: data[0].player_count + 3,
-                  stepSize: 1
-                }
-              }]
-            }
-          };
+          if (data.length && data[0].player_count) {
+            $scope.towerTopPlayerCountOptions = {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    min: 0,
+                    max: data[0].player_count + 3,
+                    stepSize: 1
+                  }
+                }]
+              }
+            };
+          }
         });
     }
 

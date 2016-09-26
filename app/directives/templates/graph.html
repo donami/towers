@@ -1,6 +1,6 @@
 <div>
-  <h1>{{ title | translate }}</h1>
-  <canvas ng-if="data.length" id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"></canvas>
+  <h1 translate>{{ title }}</h1>
+  <canvas ng-if="data.length" id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"></canvas>
 
-  <div ng-if="!data.length">{{ '_NO_DATA_FILTER' | translate }}</div>
+  <div ng-if="!data.length" translate>{{ '_NO_DATA_FILTER' }}</div>
 </div>
