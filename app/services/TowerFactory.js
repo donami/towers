@@ -7,7 +7,10 @@ angular.module('towersApp')
 
       var TowerFactory = {};
 
-      TowerFactory.getTowers = function() {
+      TowerFactory.getTowers = function(startDate, endDate) {
+        if (startDate && endDate) {
+          return $http.get('/api/tower/all/' + startDate + '/' + endDate);
+        }
         return $http.get('/api/tower/all');
       };
 

@@ -65,6 +65,10 @@ angular.module('towersApp')
       $scope.towerTopPlayerCountSeries = ['Towers with most player count'];
       $scope.towerTopPlayerCountData = [];
       $scope.towerTopPlayerCountOptions = {};
+
+      $scope.towersByCityData = [];
+      $scope.towersByCitySeries = ['Cities with most towers'];
+      $scope.towersByCityLabels = [];
     }
 
     function loadData(startDate, endDate) {
@@ -97,6 +101,14 @@ angular.module('towersApp')
         .then(function(response) {
           getTowersTopClaimed(response.data);
           getTowersTopPlayerCount(response.data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+
+      TowerFactory.getTowers(startDate, endDate)
+        .then(function(response) {
+          getCitiesWithMostTowers(response.data);
         })
         .catch(function(error) {
           console.log(error);
@@ -260,6 +272,38 @@ angular.module('towersApp')
             };
           }
         });
+    }
+
+    // Get the cities that has the most towers built
+    function getCitiesWithMostTowers(data) {
+      var cities = [];
+      data.forEach(function(obj) {
+        var res = /[a-zA-Zåäö0-9], [0-9]* [0-9]* ([a-zA-ZåäöÅÄÖ ]*), Sweden$/g;
+        var str = res.exec(obj.formatted_address);
+
+        if (str) {
+          cities.push(str[1]);
+        }
+
+      });
+
+      var counts = _.countBy(cities, function(num) {
+        return num;
+      });
+      var pairs = _.pairs(counts);
+
+      pairs.sort(function(a, b) {
+        if (a[1] > b[1]) return -1;
+        if (a[1] < b[1]) return 1;
+        return 0;
+      });
+
+      var result = pairs.slice(0, 10);
+
+      result.forEach(function(obj) {
+        $scope.towersByCityData.push(obj[1]);
+        $scope.towersByCityLabels.push(obj[0]);
+      });
     }
 
     $scope.filterData = function() {

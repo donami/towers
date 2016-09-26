@@ -90,11 +90,19 @@ router.get('/leaderboard/:startDate?/:endDate?', function(req, res) {
 });
 
 // Get a list of all towers
-router.get('/tower/all', function(req, res) {
-  var options = {
-    uri: API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01',
-    json: true,
-  };
+router.get('/tower/all/:startDate?/:endDate?', function(req, res) {
+  if (req.params.startDate && req.params.endDate) {
+    var options = {
+      uri: API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=' + req.params.startDate + '&end=' + req.params.endDate,
+      json: true,
+    };
+  }
+  else {
+    var options = {
+      uri: API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01',
+      json: true,
+    };
+  }
 
   request(options)
     .then(function(data) {

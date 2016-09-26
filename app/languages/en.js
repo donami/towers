@@ -62,4 +62,5 @@ var langEnglish = {
   '_STATISTICS': 'Statistics',
   '_LOGIN': 'Login',
   '_LOGOUT': 'Logout',
+  '_CITIES_WITH_MOST_TOWERS': 'Cities with the most towers',
 };

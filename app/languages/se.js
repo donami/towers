@@ -62,4 +62,5 @@ var langSwedish = {
   '_STATISTICS': 'Statistik',
   '_LOGIN': 'Logga in',
   '_LOGOUT': 'Logga ut',
+  '_CITIES_WITH_MOST_TOWERS': 'Städer med flest byggda torn',
 };
