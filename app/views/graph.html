@@ -7,15 +7,11 @@
 
 </div>
 
-<!-- <h1>Takeovers per day in month</h1>
-<canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"></canvas> -->
-
 <div class="graph-container container">
 
   <div class="heading">
     <h1 class="page-title">Stats</h1>
   </div>
-
 
   <!-- Filters -->
   <div class="form-group">
@@ -54,46 +50,40 @@
   <!-- End filters -->
 
 
-  <div>
-    <h1>{{ '_MOST_TOWERS_CLAIMED' | translate }}</h1>
-    <canvas ng-if="claimCountData.length" id="bar" class="chart chart-bar" chart-data="claimCountData" chart-labels="claimCountLabels" chart-series="claimCountSeries"></canvas>
+  <graph graph-title="_MOST_TOWERS_CLAIMED"
+    data="claimCountData"
+    labels="claimCountLabels"
+    series="claimCountSeries">
+  </graph>
 
-    <div ng-if="!claimCountData.length">{{ '_NO_DATA_FILTER' | translate }}</div>
-  </div>
+  <graph graph-title="_MOST_GELD_COLLECTED"
+    data="geldCollectedData"
+    labels="geldCollectedLabels"
+    series="geldCollectedSeries">
+  </graph>
 
-  <div>
-    <h1>{{ '_MOST_GELD_COLLECTED' | translate }}</h1>
-    <canvas ng-if="geldCollectedData.length" id="bar" class="chart chart-bar" chart-data="geldCollectedData" chart-labels="geldCollectedLabels" chart-series="geldCollectedSeries"></canvas>
+  <graph graph-title="_MOST_TOWERS_BUILT"
+    data="towersBuiltData"
+    labels="towersBuiltLabels"
+    series="towersBuiltSeries">
+  </graph>
 
-    <div ng-if="!geldCollectedData.length">{{ '_NO_DATA_FILTER' | translate }}</div>
-  </div>
+  <graph graph-title="_HIGHEST_GELD_BONUS"
+    data="geldBonusData"
+    labels="geldBonusLabels"
+    series="geldBonusSeries">
+  </graph>
 
-  <div>
-    <h1>{{ '_MOST_TOWERS_BUILT' | translate }}</h1>
-    <canvas ng-if="towersBuiltData.length" id="bar" class="chart chart-bar" chart-data="towersBuiltData" chart-labels="towersBuiltLabels" chart-series="towersBuiltSeries"></canvas>
+  <graph graph-title="_TOWERS_WITH_MOST_CLAIMS"
+    data="towerHighestClaimData"
+    labels="towerHighestClaimLabels"
+    series="towerHighestClaimSeries">
+  </graph>
 
-    <div ng-if="!towersBuiltData.length">{{ '_NO_DATA_FILTER' | translate }}</div>
-  </div>
-
-  <div>
-    <h1>{{ '_HIGHEST_GELD_BONUS' | translate }}</h1>
-    <canvas ng-if="geldBonusData.length" id="bar" class="chart chart-bar" chart-data="geldBonusData" chart-labels="geldBonusLabels" chart-series="geldBonusSeries"></canvas>
-
-    <div ng-if="!geldBonusData.length">{{ '_NO_DATA_FILTER' | translate }}</div>
-  </div>
-
-  <div>
-    <h1>{{ '_TOWERS_WITH_MOST_CLAIMS' | translate }}</h1>
-    <canvas ng-if="towerHighestClaimData.length" id="bar" class="chart chart-bar" chart-data="towerHighestClaimData" chart-labels="towerHighestClaimLabels" chart-series="towerHighestClaimSeries"></canvas>
-
-    <div ng-if="!towerHighestClaimData.length">{{ '_NO_DATA_FILTER' | translate }}</div>
-  </div>
-
-  <div>
-    <h1>{{ '_TOWERS_WITH_MOST_PLAYER_COUNT' | translate }}</h1>
-    <canvas ng-if="towerTopPlayerCountData.length" id="bar" class="chart chart-bar" chart-data="towerTopPlayerCountData" chart-labels="towerTopPlayerCountLabels" chart-series="towerTopPlayerCountSeries" chart-options="towerTopPlayerCountOptions"></canvas>
-
-    <div ng-if="!towerTopPlayerCountData.length">{{ '_NO_DATA_FILTER' | translate }}</div>
-  </div>
+  <graph graph-title="_TOWERS_WITH_MOST_PLAYER_COUNT"
+    data="towerTopPlayerCountData"
+    labels="towerTopPlayerCountLabels"
+    series="towerTopPlayerCountSeries">
+  </graph>
 
 </div>

@@ -32,6 +32,9 @@ gulp.task('views', function() {
   gulp.src('app/index.html')
     .pipe(gulp.dest('public'));
 
+  gulp.src('app/directives/templates/**/*')
+    .pipe(gulp.dest('public/partials'));
+
   gulp.src('app/views/**/*')
     .pipe(gulp.dest('public/views'));
 });
@@ -39,5 +42,5 @@ gulp.task('views', function() {
 gulp.task('watch', function() {
   gulp.watch('app/**/*.js', ['jshint', 'build-js']);
   gulp.watch('app/scss/**/*.scss', ['sass']);
-  gulp.watch(['app/index.html', 'app/views/**/*'], ['views']);
+  gulp.watch(['app/index.html', 'app/views/**/*', 'app/directives/templates/**/*'], ['views']);
 });

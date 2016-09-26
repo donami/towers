@@ -3,5 +3,5 @@ angular.module('towersApp')
     this.setLanguage = function(language) {
       $translate.use(language);
       $cookies.put('language', language);
-    }
+    };
   }]);

@@ -17,6 +17,6 @@ angular.module('towersApp')
           toastr.clear();
           toastr.error('The API key was not correct', 'Invalid API key');
         });
-    }
+    };
 
   }]);

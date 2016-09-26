@@ -75,18 +75,18 @@ angular.module('towersApp')
 
       if (parseFloat) {
         $scope.claimedTowers.forEach(function(obj) {
-          if (obj[property] != '')
+          if (obj[property] !== '')
             obj[property] = parseInt(obj[property]);
         });
       }
 
       $scope.claimedTowers = $filter('orderBy')($scope.claimedTowers, $scope.orderBy, $scope.reverse);
-    }
+    };
 
 
     // Get the days that user has claimed the most towers
     function getDaysWithMostClaims(data) {
-      var data = data.map(function(obj) {
+      data = data.map(function(obj) {
         obj.claimed_on = obj.claimed_on.substr(0, 10);
         return obj;
       });

@@ -9,6 +9,7 @@ var app = express();
 
 app.use(express.static(__dirname + '/public'));
 app.use("/assets", express.static(__dirname + '/assets'));
+app.use("/templates", express.static(__dirname + '/public/partials'));
 app.use("/js", express.static(__dirname + '/public/js'));
 app.use("/style", express.static(__dirname + '/public/css'));
 app.use("/bower_components", express.static(__dirname + '/bower_components'));

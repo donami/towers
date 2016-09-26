@@ -1,3 +1,4 @@
+/* exported langSwedish */
 var langSwedish = {
   '_TOWER_LIST': 'Lista över torn',
   '_WELCOME': 'Välkommen',

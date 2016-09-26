@@ -10,7 +10,7 @@ angular.module('towersApp')
 
     $scope.setSort = function(property, asFloat) {
       sort(property, asFloat);
-    }
+    };
 
     function sort(property, asFloat) {
       if (property == $scope.orderBy) $scope.reverseOrder = !$scope.reverseOrder;
@@ -36,7 +36,7 @@ angular.module('towersApp')
         })
         .catch(function(error) {
           console.log(error);
-        })
+        });
     }
 
   }]);

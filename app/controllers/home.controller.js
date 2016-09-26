@@ -30,7 +30,7 @@ angular.module('towersApp')
       $scope.reverse = !$scope.reverse;
       $scope.orderBy = property;
       $scope.towers = $filter('orderBy')($scope.towers, $scope.orderBy, $scope.reverse);
-    }
+    };
 
     // Filter for paginating the results
     $scope.paginate = function(value) {

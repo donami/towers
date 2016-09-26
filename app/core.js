@@ -1,6 +1,7 @@
+/* global langSwedish, langEnglish */
 'use strict';
 
-var app = angular.module('towersApp', ['ui.router', 'ui.bootstrap', 'ngCookies', 'chart.js', 'toastr', 'pascalprecht.translate'])
+var app = angular.module('towersApp', ['ui.router', 'ui.bootstrap', 'ngCookies', 'chart.js', 'toastr', 'pascalprecht.translate']);
 
 app.run(['$cookies', '$state', '$rootScope', function($cookies, $state, $rootScope) {
 
@@ -20,7 +21,7 @@ app.run(['$cookies', '$state', '$rootScope', function($cookies, $state, $rootSco
       $state.go('login');
     }
 
-  })
+  });
 
 }]);
 

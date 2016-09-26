@@ -117,7 +117,7 @@ angular.module('towersApp')
       sortedData.forEach(function(obj) {
         $scope.claimCountData.push(obj.claim_count);
         $scope.claimCountLabels.push(obj.player_alias);
-      })
+      });
     }
 
     // Get the data for players collecting most geld
@@ -133,7 +133,7 @@ angular.module('towersApp')
       sortedData.forEach(function(obj) {
         $scope.geldCollectedData.push(obj.geld_collected);
         $scope.geldCollectedLabels.push(obj.player_alias);
-      })
+      });
     }
 
     // Get data for players who built the most towers
@@ -149,7 +149,7 @@ angular.module('towersApp')
       sortedData.forEach(function(obj) {
         $scope.towersBuiltData.push(obj.tower_count);
         $scope.towersBuiltLabels.push(obj.player_alias);
-      })
+      });
     }
 
     // Get data for players with most geld bonus
@@ -165,7 +165,7 @@ angular.module('towersApp')
       sortedData.forEach(function(obj) {
         $scope.geldBonusData.push(obj.geld_bonus);
         $scope.geldBonusLabels.push(obj.player_alias);
-      })
+      });
     }
 
     // Get the towers with highest claim count
@@ -195,12 +195,12 @@ angular.module('towersApp')
             // Check if tower is undefind, if it is, display ID instead of name
             if (tower) {
               if (tower.tower_name)
-                $scope.towerHighestClaimLabels.push(tower.tower_name)
+                $scope.towerHighestClaimLabels.push(tower.tower_name);
               else
                 $scope.towerHighestClaimLabels.push('Tower#' + obj.tower_id);
             }
             else {
-              $scope.towerHighestClaimLabels.push('Tower#' + obj.tower_id)
+              $scope.towerHighestClaimLabels.push('Tower#' + obj.tower_id);
             }
 
             $scope.towerHighestClaimData.push(obj.claim_count);
@@ -235,12 +235,12 @@ angular.module('towersApp')
             // Check if tower is undefind, if it is, display ID instead of name
             if (tower) {
               if (tower.tower_name)
-                $scope.towerTopPlayerCountLabels.push(tower.tower_name)
+                $scope.towerTopPlayerCountLabels.push(tower.tower_name);
               else
                 $scope.towerTopPlayerCountLabels.push('Tower#' + obj.tower_id);
             }
             else {
-              $scope.towerTopPlayerCountLabels.push('Tower#' + obj.tower_id)
+              $scope.towerTopPlayerCountLabels.push('Tower#' + obj.tower_id);
             }
 
             $scope.towerTopPlayerCountData.push(obj.player_count);
@@ -325,7 +325,7 @@ angular.module('towersApp')
         default:
 
       }
-    }
+    };
 
     function doFilter(startDate, endDate) {
       init();

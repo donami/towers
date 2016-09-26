@@ -11,7 +11,7 @@ angular.module('towersApp')
       return AuthService.getAuthed();
     }, function() {
       $scope.authed = AuthService.getAuthed();
-    })
+    });
 
     $scope.logout = function() {
       $scope.authed = false;
@@ -20,6 +20,6 @@ angular.module('towersApp')
 
       toastr.success('You are now signed out', 'Signed out');
       $state.go('login');
-    }
+    };
 
   }]);

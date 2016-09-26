@@ -1,3 +1,4 @@
+/* exported langEnglish */
 var langEnglish = {
   '_TOWER_LIST': 'List of towers',
   '_WELCOME': 'Welcome',
