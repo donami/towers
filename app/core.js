@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('towersApp', ['ui.router', 'ui.bootstrap', 'ngCookies', 'chart.js', 'toastr'])
+var app = angular.module('towersApp', ['ui.router', 'ui.bootstrap', 'ngCookies', 'chart.js', 'toastr', 'pascalprecht.translate'])
 
 app.run(['$cookies', '$state', '$rootScope', function($cookies, $state, $rootScope) {
 
@@ -22,6 +22,21 @@ app.run(['$cookies', '$state', '$rootScope', function($cookies, $state, $rootSco
 
   })
 
+}]);
+
+app.config(['$translateProvider', function($translateProvider) {
+  $translateProvider.translations('en', langEnglish);
+
+  $translateProvider.translations('se', langSwedish);
+
+  $translateProvider.preferredLanguage('en');
+  $translateProvider.useSanitizeValueStrategy('escape');
+}]);
+
+app.run(['$cookies', '$translate', function($cookies, $translate) {
+  if ($cookies.get('language')) {
+    $translate.use($cookies.get('language'));
+  }
 }]);
 
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {

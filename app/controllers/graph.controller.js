@@ -260,7 +260,6 @@ angular.module('towersApp')
         });
     }
 
-
     $scope.filterData = function() {
       var value = $scope.filter.value;
 

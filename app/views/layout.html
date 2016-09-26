@@ -18,13 +18,13 @@
         <div class="col-md-10">
 
           <ul class="menu pull-right" ng-controller="MenuController">
-            <li><a ui-sref="app.me">My stats</a></li>
-            <li><a ui-sref="app.graph">Statistics</a></li>
-            <li><a ui-sref="app.leaderboard">Leaderboard</a></li>
-            <li><a ui-sref="app.hallOfFame">Hall of fame</a></li>
-            <li><a ui-sref="app.about">About</a></li>
-            <li class="login pointer" ng-if="!authed"><a ui-sref="login">Login</a></li>
-            <li class="login pointer" ng-if="authed"><a ng-click="logout()">Logout</a></li>
+            <li><a ui-sref="app.me">{{ '_MY_STATS' | translate }}</a></li>
+            <li><a ui-sref="app.graph">{{ '_STATISTICS' | translate }}</a></li>
+            <li><a ui-sref="app.leaderboard">{{ '_LEADERBOARD' | translate }}</a></li>
+            <li><a ui-sref="app.hallOfFame">{{ '_HALL_OF_FAME' | translate }}</a></li>
+            <li><a ui-sref="app.about">{{ '_ABOUT' | translate }}</a></li>
+            <li class="login pointer" ng-if="!authed"><a ui-sref="login">{{ '_LOGIN' | translate }}</a></li>
+            <li class="login pointer" ng-if="authed"><a ng-click="logout()">{{ '_LOGOUT' | translate }}</a></li>
           </ul>
 
         </div>
@@ -45,9 +45,10 @@
 
   </div>
 
-  <div id="footer">
+  <div id="footer" ng-controller="FooterController">
 
     <div class="container content">
+      <span ng-click="changeLanguage('se')">Swedish</span> <span ng-click="changeLanguage('en')">English</span>
       Copyright © Markus Hederström 2016
     </div>
 

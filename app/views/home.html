@@ -9,23 +9,23 @@
 
 <div class="home-container container">
   <div class="heading">
-    <h1 class="page-title">Welcome</h1>
+    <h1 class="page-title">{{ '_WELCOME' | translate}}</h1>
   </div>
 
-  <h3>List of towers</h3>
+  <h3>{{ '_TOWER_LIST' | translate }}</h3>
   <table class="table table-striped table-hover">
     <thead>
       <tr>
-        <th class="col-md-5 pointer" ng-click="sortBy('tower_name')">Tower</th>
-        <th class="col-md-2 pointer" ng-click="sortBy('country')">Country</th>
-        <th class="col-md-2 pointer" ng-click="sortBy('created_on')">Build date</th>
-        <th class="col-md-3 pointer" ng-click="sortBy('player_alias')">Creator</th>
+        <th class="col-md-5 pointer" ng-click="sortBy('tower_name')">{{ '_TOWER' | translate }}</th>
+        <th class="col-md-2 pointer" ng-click="sortBy('country')">{{ '_COUNTRY' | translate }}</th>
+        <th class="col-md-2 pointer" ng-click="sortBy('created_on')">{{ '_BUILD_DATE' | translate }}</th>
+        <th class="col-md-3 pointer" ng-click="sortBy('player_alias')">{{ '_CREATOR' | translate }}</th>
       </tr>
     </thead>
 
     <tbody>
       <tr data-ng-repeat="tower in towers | filter: paginate">
-        <td><a ui-sref="app.towerSingle({id: tower.tower_id})">{{ tower.tower_name || 'Inget namn' }}</a></td>
+        <td><a ui-sref="app.towerSingle({id: tower.tower_id})">{{ tower.tower_name || '-' }}</a></td>
         <td>{{ tower.country}}</td>
         <td>{{ tower.created_on | date:'mediumDate' }}</td>
         <td>{{ tower.player_alias }}</td>

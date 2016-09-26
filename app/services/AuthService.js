@@ -22,6 +22,7 @@ angular.module('towersApp')
     }
 
     this.auth = function(apiKey) {
+      console.log($cookies.get('language'));
       return $http.get(API_PERSONAL + apiKey);
     }
 

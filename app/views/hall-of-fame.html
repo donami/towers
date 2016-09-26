@@ -2,7 +2,7 @@
 
   <div class="container">
     <h1>Hall of Fame</h1>
-    <h2>Players awarded for outstanding performance</h2>
+    <h2>{{ '_HALL_OF_FAME_SUBTITLE' | translate }}</h2>
   </div>
 
 </div>
@@ -12,7 +12,7 @@
     <h1 class="page-title">Hall of Fame</h1>
   </div>
 
-  <h3>First claims in country</h3>
+  <h3>{{ '_FIRST_BUILD_COUNTRY' | translate}}</h3>
 
   <div data-ng-repeat="country in countries" class="fame-box row">
 
@@ -23,9 +23,9 @@
     <div class="col-md-9">
       <h4>{{ country.country | uppercase }}</h4>
 
-      <strong>First build by: </strong> <span>{{ country.player_alias }}</span> <br>
-      <strong>Built on address: </strong> <span>{{ country.formatted_address }}</span> <br>
-      <strong>Built on: </strong> <span>{{ country.created_on | validDate }}</span>
+      <strong>{{ '_FIRST_BUILD_BY' | translate}}: </strong> <span>{{ country.player_alias }}</span> <br>
+      <strong>{{ '_BUILT_ON_ADDRESS' | translate}}: </strong> <span>{{ country.formatted_address }}</span> <br>
+      <strong>{{ '_BUILD_DATE' | translate}}: </strong> <span>{{ country.created_on | validDate }}</span>
     </div>
 
     <div class="col-md-2 text-center">
