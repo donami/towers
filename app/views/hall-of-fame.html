@@ -12,25 +12,9 @@
     <h1 class="page-title">Hall of Fame</h1>
   </div>
 
-  <h3>{{ '_FIRST_BUILD_COUNTRY' | translate}}</h3>
 
-  <div data-ng-repeat="country in countries" class="fame-box row">
+  <h3 translate>{{ '_FIRST_BUILD_COUNTRY' }}</h3>
 
-    <div class="col-md-1">
-      <img src="/assets/flags/{{ country.country_code | lowercase }}.png" alt="Sweden" class="flag" />
-    </div>
+  <hall-of-fame data-ng-repeat="country in countries" class="fame-box" country="country" />
 
-    <div class="col-md-9">
-      <h4>{{ country.country | uppercase }}</h4>
-
-      <strong>{{ '_FIRST_BUILD_BY' | translate}}: </strong> <span>{{ country.player_alias }}</span> <br>
-      <strong>{{ '_BUILT_ON_ADDRESS' | translate}}: </strong> <span>{{ country.formatted_address }}</span> <br>
-      <strong>{{ '_BUILD_DATE' | translate}}: </strong> <span>{{ country.created_on | validDate }}</span>
-    </div>
-
-    <div class="col-md-2 text-center">
-      <h3>{{ country.player_alias }}</h3>
-    </div>
-
-  </div>
 </div>
