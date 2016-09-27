@@ -13,10 +13,14 @@ angular.module('towersApp')
     $scope.orderBy = 'claimed_on';
     $scope.reverse = true;
 
-    // For the graph of most claims per day
-    $scope.claimDaysLabels = [];
-    $scope.claimDaysSeries = ['Days with most claims'];
-    $scope.claimDaysData = [];
+    // For displaying of graphs
+    $scope.graphData = {
+      claimDays: {
+        data: [],
+        labels: [],
+        series: ['Days with most claims'],
+      },
+    };
 
     $scope.lastClaimedTower = {
       tower_id: 0,
@@ -101,8 +105,8 @@ angular.module('towersApp')
       sortable = sortable.slice(0, 10);
 
       sortable.forEach(function(obj) {
-        $scope.claimDaysLabels.push(obj[0]);
-        $scope.claimDaysData.push(obj[1]);
+        $scope.graphData.claimDays.labels.push(obj[0]);
+        $scope.graphData.claimDays.data.push(obj[1]);
       });
     }
   }]);

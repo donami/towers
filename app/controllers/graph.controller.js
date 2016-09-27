@@ -1,14 +1,5 @@
 angular.module('towersApp')
   .controller('GraphController', ['$scope', 'TowerFactory', 'MoonFactory', '$q', '$filter', 'toastr', function ($scope, TowerFactory, MoonFactory, $q, $filter, toastr) {
-    // $scope.labels = [
-    //   1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31
-    // ];
-    // $scope.series = ['Takeovers'];
-    //
-    // $scope.data = [
-    //   [65, 59, 80, 81, 56, 55, 40, 12, 19, 20, 65, 59, 80, 81, 56, 55, 40, 12, 19, 20, 65, 59, 80, 81, 56, 55, 40, 12, 19, 20, 8]
-    // ];
-
 
     init();
     loadData();
@@ -41,34 +32,44 @@ angular.module('towersApp')
     ];
 
     function init() {
-      $scope.claimCountLabels = [];
-      $scope.claimCountSeries = ['Most towers claimed'];
-      $scope.claimCountData = [];
-
-      $scope.geldCollectedLabels = [];
-      $scope.geldCollectedSeries = ['Most geld collected'];
-      $scope.geldCollectedData = [];
-
-      $scope.towersBuiltLabels = [];
-      $scope.towersBuiltSeries = ['Most towers built'];
-      $scope.towersBuiltData = [];
-
-      $scope.geldBonusLabels = [];
-      $scope.geldBonusSeries = ['Highest geld bonus'];
-      $scope.geldBonusData = [];
-
-      $scope.towerHighestClaimLabels = [];
-      $scope.towerHighestClaimSeries = ['Towers with most claims'];
-      $scope.towerHighestClaimData = [];
-
-      $scope.towerTopPlayerCountLabels = [];
-      $scope.towerTopPlayerCountSeries = ['Towers with most player count'];
-      $scope.towerTopPlayerCountData = [];
-      $scope.towerTopPlayerCountOptions = {};
-
-      $scope.towersByCityData = [];
-      $scope.towersByCitySeries = ['Cities with most towers'];
-      $scope.towersByCityLabels = [];
+      $scope.graphData = {
+        towersByCity: {
+          data: [],
+          series: ['Cities with most towers'],
+          labels: []
+        },
+        towerPlayerCount: {
+          data: [],
+          series: ['Towers with most player count'],
+          labels: [],
+          options: {}
+        },
+        towerHighestClaim: {
+          data: [],
+          series: ['Towers with most claims'],
+          labels: []
+        },
+        geldBonus: {
+          data: [],
+          series: ['Highest geld bonus'],
+          labels: []
+        },
+        towersBuilt: {
+          data: [],
+          series: ['Most towers built'],
+          labels: []
+        },
+        geldCollected: {
+          data: [],
+          series: ['Most geld collected'],
+          labels: []
+        },
+        claimCount: {
+          data: [],
+          series: ['Most towers claimed'],
+          labels: []
+        },
+      };
     }
 
     function loadData(startDate, endDate) {
@@ -127,8 +128,8 @@ angular.module('towersApp')
       sortedData = sortedData.slice(0, 10);
 
       sortedData.forEach(function(obj) {
-        $scope.claimCountData.push(obj.claim_count);
-        $scope.claimCountLabels.push(obj.player_alias);
+        $scope.graphData.claimCount.data.push(obj.claim_count);
+        $scope.graphData.claimCount.labels.push(obj.player_alias);
       });
     }
 
@@ -143,8 +144,8 @@ angular.module('towersApp')
       sortedData = sortedData.slice(0, 10);
 
       sortedData.forEach(function(obj) {
-        $scope.geldCollectedData.push(obj.geld_collected);
-        $scope.geldCollectedLabels.push(obj.player_alias);
+        $scope.graphData.geldCollected.data.push(obj.geld_collected);
+        $scope.graphData.geldCollected.labels.push(obj.player_alias);
       });
     }
 
@@ -159,8 +160,8 @@ angular.module('towersApp')
       sortedData = sortedData.slice(0, 10);
 
       sortedData.forEach(function(obj) {
-        $scope.towersBuiltData.push(obj.tower_count);
-        $scope.towersBuiltLabels.push(obj.player_alias);
+        $scope.graphData.towersBuilt.data.push(obj.tower_count);
+        $scope.graphData.towersBuilt.labels.push(obj.player_alias);
       });
     }
 
@@ -175,8 +176,8 @@ angular.module('towersApp')
       sortedData = sortedData.slice(0, 10);
 
       sortedData.forEach(function(obj) {
-        $scope.geldBonusData.push(obj.geld_bonus);
-        $scope.geldBonusLabels.push(obj.player_alias);
+        $scope.graphData.geldBonus.data.push(obj.geld_bonus);
+        $scope.graphData.geldBonus.labels.push(obj.player_alias);
       });
     }
 
@@ -206,16 +207,18 @@ angular.module('towersApp')
 
             // Check if tower is undefind, if it is, display ID instead of name
             if (tower) {
-              if (tower.tower_name)
-                $scope.towerHighestClaimLabels.push(tower.tower_name);
-              else
-                $scope.towerHighestClaimLabels.push('Tower#' + obj.tower_id);
+              if (tower.tower_name) {
+                $scope.graphData.towerHighestClaim.labels.push(tower.tower_name);
+              }
+              else {
+                $scope.graphData.towerHighestClaim.labels.push('Tower#' + obj.tower_id);
+              }
             }
             else {
-              $scope.towerHighestClaimLabels.push('Tower#' + obj.tower_id);
+              $scope.graphData.towerHighestClaim.labels.push('Tower#' + obj.tower_id);
             }
 
-            $scope.towerHighestClaimData.push(obj.claim_count);
+            $scope.graphData.towerHighestClaim.data.push(obj.claim_count);
           });
         });
     }
@@ -246,20 +249,22 @@ angular.module('towersApp')
 
             // Check if tower is undefind, if it is, display ID instead of name
             if (tower) {
-              if (tower.tower_name)
-                $scope.towerTopPlayerCountLabels.push(tower.tower_name);
-              else
-                $scope.towerTopPlayerCountLabels.push('Tower#' + obj.tower_id);
+              if (tower.tower_name) {
+                $scope.graphData.towerPlayerCount.labels.push(tower.tower_name);
+              }
+              else {
+                $scope.graphData.towerPlayerCount.labels.push('Tower#' + obj.tower_id);
+              }
             }
             else {
-              $scope.towerTopPlayerCountLabels.push('Tower#' + obj.tower_id);
+              $scope.graphData.towerPlayerCount.labels.push('Tower#' + obj.tower_id);
             }
 
-            $scope.towerTopPlayerCountData.push(obj.player_count);
+            $scope.graphData.towerPlayerCount.data.push(obj.player_count);
           });
 
           if (data.length && data[0].player_count) {
-            $scope.towerTopPlayerCountOptions = {
+            $scope.graphData.towerPlayerCount.options = {
               scales: {
                 yAxes: [{
                   ticks: {
@@ -301,8 +306,8 @@ angular.module('towersApp')
       var result = pairs.slice(0, 10);
 
       result.forEach(function(obj) {
-        $scope.towersByCityData.push(obj[1]);
-        $scope.towersByCityLabels.push(obj[0]);
+        $scope.graphData.towersByCity.data.push(obj[1]);
+        $scope.graphData.towersByCity.labels.push(obj[0]);
       });
     }
 

@@ -79,10 +79,10 @@
     <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>
   </div>
 
-
-  <div>
-    <h1>{{ '_DAYS_WITH_MOST_CLAIMS' | translate }}</h1>
-    <canvas id="bar" class="chart chart-bar" chart-data="claimDaysData" chart-labels="claimDaysLabels" chart-series="claimDaysSeries"></canvas>
-  </div>
+  <graph graph-title="_DAYS_WITH_MOST_CLAIMS"
+    data="graphData.claimDays.data"
+    labels="graphData.claimDays.labels"
+    series="graphData.claimDays.series">
+  </graph>
 
 </div>
