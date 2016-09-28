@@ -20,11 +20,14 @@ gulp.task('jshint', function() {
 });
 
 gulp.task('build-js', function() {
-  return gulp.src('app/**/*.js')
+  return gulp.src([
+      '!app/test/**/*',
+      'app/**/*.js'
+    ])
     .pipe(concat('bundle.js'))
-    .pipe(uglify().on('error', function() {
-      gutil.log()
-    }))
+    // .pipe(uglify().on('error', function() {
+    //   gutil.log()
+    // }))
     .pipe(gulp.dest('public/js'));
 })
 
