@@ -126,6 +126,14 @@ div.achievements-container {
     border: #ccc 1px solid;
     padding: 20px;
     margin-bottom: 20px;
+    opacity: 0.7;
+
+    &.achieved {
+      color: #333;
+      border-color: #d6e9c6;
+      background: #d6e9c6;
+      opacity: 1;
+    }
 
     h4 {
       margin-top: 0;
@@ -135,6 +143,11 @@ div.achievements-container {
       img {
         max-width: 100%;
       }
+    }
+
+    .achieved-at {
+      float: right;
+      color: #666;
     }
   }
 }

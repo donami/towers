@@ -1,0 +1,12 @@
+<div class="achievement-box row">
+
+  <div class="col-md-1 icon">
+    <img src="/assets/achievement.png" alt="">
+  </div>
+
+  <div class="col-md-11">
+    <div ng-if="data.createdAt" class="achieved-at"><strong>Achieved at:</strong> {{ data.createdAt | date }}</div>
+    <h4 ng-bind="data.title"></h4>
+  </div>
+
+</div>

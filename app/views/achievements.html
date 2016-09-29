@@ -18,19 +18,10 @@
     <h1 class="page-title">Your achievements</h1>
   </div>
 
-  <div ng-if="!achievements.length" class="achievement-box"><h4>You don't have any achievements yet</h4></div>
+  <div ng-if="!achievements.length" class="achievement-box"><h4>There is no achievements available</h4></div>
 
-  <div ng-repeat="achievement in achievements" class="achievement-box row">
-
-    <div class="col-md-1 icon">
-      <img src="/assets/achievement.png" alt="">
-    </div>
-
-    <div class="col-md-11">
-      <h4>{{ achievement.title }}</h4>
-      <div>Achieved at: {{ achievement.createdAt | date }}</div>
-    </div>
-
-  </div>
+  <section class="achievement-list">
+    <achievement ng-repeat="achievement in achievements" data="achievement"></achievement>
+  </section>
 
 </div>

@@ -264,15 +264,15 @@ router.get('/refresh', function(req, res) {
 // Get a list of achievements earned by the player
 router.get('/', function(req, res) {
   db.query(
-    'SELECT * FROM VPlayerAchievements WHERE playerId = ?',
-    [req.cookies.userPlayerId],
+    'SELECT Achievement.*, (SELECT createdAt FROM Achievement_Player WHERE achievementId = Achievement.id && playerId = :playerId) AS createdAt FROM Achievement ORDER BY createdAt DESC',
+    {playerId: req.cookies.userPlayerId},
     function(err, result) {
-      if (err)
+      if(err)
         console.log(err);
 
       res.json(result);
     }
-  )
+  );
 });
 
 module.exports = router;
