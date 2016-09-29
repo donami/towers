@@ -63,4 +63,6 @@ var langEnglish = {
   '_LOGIN': 'Login',
   '_LOGOUT': 'Logout',
   '_CITIES_WITH_MOST_TOWERS': 'Cities with the most towers',
+  '_ACHIEVEMENTS': 'Achievements',
+  '_ACHIEVEMENTS_SUBTITLE': 'Achievements earned by you',
 };

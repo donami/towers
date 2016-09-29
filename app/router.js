@@ -30,6 +30,11 @@ angular.module('towersApp').config(['$stateProvider', '$urlRouterProvider', '$lo
       templateUrl: 'views/graph.html',
       controller: 'GraphController'
     })
+    .state('app.achievements', {
+      url: '/achievements',
+      templateUrl: 'views/achievements.html',
+      controller: 'AchievementController'
+    })
     .state('login', {
       url: '/login',
       templateUrl: 'views/login.html',

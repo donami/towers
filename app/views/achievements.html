@@ -1,0 +1,36 @@
+<div class="content-header">
+
+  <div class="container">
+    <h1>Achievements</h1>
+    <h2>{{ '_ACHIEVEMENTS_SUBTITLE' | translate }}</h2>
+  </div>
+
+</div>
+
+<div class="achievements-container container">
+
+  <div class="heading">
+    <div class="options">
+      <button class="btn btn-info" ng-click="refresh()">
+        <span ng-if="state.loading" class="glyphicon glyphicon-refresh spinner"></span> Refresh
+      </button>
+    </div>
+    <h1 class="page-title">Your achievements</h1>
+  </div>
+
+  <div ng-if="!achievements.length" class="achievement-box"><h4>You don't have any achievements yet</h4></div>
+
+  <div ng-repeat="achievement in achievements" class="achievement-box row">
+
+    <div class="col-md-1 icon">
+      <img src="/assets/achievement.png" alt="">
+    </div>
+
+    <div class="col-md-11">
+      <h4>{{ achievement.title }}</h4>
+      <div>Achieved at: {{ achievement.createdAt | date }}</div>
+    </div>
+
+  </div>
+
+</div>

@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request-promise');
+var db = require('./../db');
+var achievementRoutes = require('./achievements');
 
 // const API_TOWER_LIST = 'https://play.2good.com/api/v1/public/towers/metadata?apiKey=G7gL2P8xidoaGh4qTqY5CVL0nPSFyAuO&start=2016-01-01&end=2017-01-01';
 const API_TOWER_LIST = 'https://play.2good.com/api/v1/public/towers/metadata';
@@ -15,6 +17,21 @@ const API_PERSONAL = 'https://play.2good.com/api/v1/public/claims';
 const API_NEW_MOONS = 'https://play.2good.com/assets/new-moons.min.json';
 const API_ME = 'https://play.2good.com/api/v1/public/me'; // Info about player, including last claimed tower
 
+router.use('/achievement', achievementRoutes);
+
+router.get('/user-info/:key', function(req, res) {
+  var options = {
+    uri: API_ME + '?apiKey=' + req.params.key,
+    json: true,
+  };
+
+  request(options)
+    .then(function(data) {
+      return res.json(data);
+    }, function(error) {
+      return res.json(error);
+    });
+});
 
 router.get('/verify-key/:key', function(req, res) {
   var options = {

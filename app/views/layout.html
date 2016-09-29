@@ -22,7 +22,7 @@
             <li><a ui-sref="app.graph">{{ '_STATISTICS' | translate }}</a></li>
             <li><a ui-sref="app.leaderboard">{{ '_LEADERBOARD' | translate }}</a></li>
             <li><a ui-sref="app.hallOfFame">{{ '_HALL_OF_FAME' | translate }}</a></li>
-            <li><a ui-sref="app.about">{{ '_ABOUT' | translate }}</a></li>
+            <li><a ui-sref="app.achievements">{{ '_ACHIEVEMENTS' | translate }}</a></li>
             <li class="login pointer" ng-if="!authed"><a ui-sref="login">{{ '_LOGIN' | translate }}</a></li>
             <li class="login pointer" ng-if="authed"><a ng-click="logout()">{{ '_LOGOUT' | translate }}</a></li>
           </ul>
@@ -50,6 +50,7 @@
     <div class="container content">
       <span ng-click="changeLanguage('se')">Swedish</span> <span ng-click="changeLanguage('en')">English</span>
       Copyright © Markus Hederström 2016
+      <a ui-sref="app.about">{{ '_ABOUT' | translate }}</a>
     </div>
 
   </div>

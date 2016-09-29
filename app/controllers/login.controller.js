@@ -9,6 +9,7 @@ angular.module('towersApp')
         .then(function(response) {
           toastr.clear();
           $cookies.put('userApiKey', userApiKey);
+          $cookies.put('userPlayerId', 'tN5p7SSvzb30fIRtA6tp2aQn0Y9YTOZQ4k3MFjw3t/I='); // TODO: should not be hardcoded
           AuthService.setAuthed(true);
 
           toastr.success('You are now logged in', 'Success');

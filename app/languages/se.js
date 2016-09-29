@@ -63,4 +63,6 @@ var langSwedish = {
   '_LOGIN': 'Logga in',
   '_LOGOUT': 'Logga ut',
   '_CITIES_WITH_MOST_TOWERS': 'Städer med flest byggda torn',
+  '_ACHIEVEMENTS': 'Achievements',
+  '_ACHIEVEMENTS_SUBTITLE': 'Achievements som du klarat av',  
 };

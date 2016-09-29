@@ -2,6 +2,12 @@ div.heading {
   border-bottom: #ccc 2px solid;
   position: relative;
   margin-bottom: 40px;
+
+  div.options {
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+  }
 }
 h1.page-title {
   font-weight: 300;
@@ -21,4 +27,33 @@ h1.page-title {
 }
 .pointer {
   cursor: pointer;
+}
+
+/** Spinner **/
+.glyphicon.spinner {
+    -webkit-animation: glyphicon-spin-r 1s infinite linear;
+    animation: glyphicon-spin-r 1s infinite linear;
+}
+@-webkit-keyframes glyphicon-spin-r {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes glyphicon-spin-r {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
 }
