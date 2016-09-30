@@ -22,6 +22,7 @@ angular.module('towersApp')
     ];
 
     $scope.filterOptions = [
+      { name: 'No filter', value: 'no_filter' },
       { name: 'Last week', value: 'last_week' },
       { name: 'Last seven days', value: 'last_seven_days' },
       { name: 'Today', value: 'today' },
@@ -30,6 +31,7 @@ angular.module('towersApp')
       { name: 'Specific year', value: 'filter_by_year' },
       { name: 'Between new moons', value: 'filter_by_new_moons' }
     ];
+    $scope.filter = $scope.filterOptions[0];
 
     function init() {
       $scope.graphData = {
@@ -73,8 +75,8 @@ angular.module('towersApp')
     }
 
     function loadData(startDate, endDate) {
-      if (!startDate) startDate = '2016-01-01';
-      if (!endDate) endDate = '2017-01-01';
+      if (!startDate) startDate = '2000-01-01';
+      if (!endDate) endDate = moment().add(10, 'years').format('YYYY-MM-DD');
 
       var deferred = $q.defer();
 
@@ -302,6 +304,11 @@ angular.module('towersApp')
       var value = $scope.filter.value;
 
       switch (value) {
+        case 'no_filter':
+          var endDate = moment().add(10, 'years').format('YYYY-MM-DD');
+
+          doFilter('2000-01-01', endDate);
+        break;
         case 'last_week':
           var startDate = moment().startOf('isoweek').subtract(2, 'weeks').format('YYYY-MM-DD');
           var endDate = moment().startOf('isoweek').subtract(1, 'weeks').subtract(1, 'days').format('YYYY-MM-DD');
