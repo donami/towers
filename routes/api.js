@@ -35,7 +35,7 @@ router.get('/user-info/:key', function(req, res) {
 
 router.get('/verify-key/:key', function(req, res) {
   var options = {
-    uri: API_PERSONAL + '?apiKey=' + req.params.key + '&start=2016-01-01&end=2017-01-01',
+    uri: API_PERSONAL + '?apiKey=' + req.params.key + '&start=2000-01-01&end=2020-01-01',
     json: true,
   };
 
@@ -87,7 +87,7 @@ router.get('/hall-of-fame/first-tower', function(req, res) {
 // Get leaderboard
 router.get('/leaderboard/:startDate?/:endDate?', function(req, res) {
   var options = {
-    uri: API_LEADERBOARD + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01',
+    uri: API_LEADERBOARD + '?apiKey=' + req.cookies.userApiKey + '&start=2000-01-01&end=2020-01-01',
     json: true,
   };
 
@@ -116,7 +116,7 @@ router.get('/tower/all/:startDate?/:endDate?', function(req, res) {
   }
   else {
     var options = {
-      uri: API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2017-01-01',
+      uri: API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2020-01-01',
       json: true,
     };
   }
@@ -140,7 +140,7 @@ router.get('/tower/stats/:startDate?/:endDate?', function(req, res) {
   }
   else {
     var options = {
-      uri: API_TOWER_STATISTICS + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01',
+      uri: API_TOWER_STATISTICS + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2040-01-01',
       json: true,
     };
   }
@@ -158,7 +158,7 @@ router.get('/tower/:id', function(req, res) {
   var towerId = req.params.id;
 
   var towerPromise = new Promise(function(resolve, reject) {
-    request(API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01', function(error, response, body) {
+    request(API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2040-01-01', function(error, response, body) {
       if (error) reject(error);
       else {
         var towers = JSON.parse(body);
@@ -173,7 +173,7 @@ router.get('/tower/:id', function(req, res) {
   });
 
   var statsPromise = new Promise(function(resolve, reject) {
-    request(API_TOWER_STATISTICS + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01', function(error, response, body) {
+    request(API_TOWER_STATISTICS + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2040-01-01', function(error, response, body) {
       if (error) reject(error);
       else {
         towerPromise.then(function(tower) {
@@ -204,10 +204,10 @@ router.get('/me/latest-claim', function(req, res) {
   var mePromise = request({uri: API_ME + '?apiKey=' + req.cookies.userApiKey, json:true });
 
   // Get metadata
-  var metaPromise = request({uri: API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01', json:true });
+  var metaPromise = request({uri: API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2040-01-01', json:true });
 
   // Get statistics
-  var statsPromise = request({uri: API_TOWER_STATISTICS + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01', json:true });
+  var statsPromise = request({uri: API_TOWER_STATISTICS + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2040-01-01', json:true });
 
   Promise.all([mePromise, metaPromise, statsPromise])
     .then(function(response) {
@@ -222,7 +222,7 @@ router.get('/me/latest-claim', function(req, res) {
 // Display personal stats
 router.get('/me', function(req, res) {
   var options = {
-    uri: API_PERSONAL + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01',
+    uri: API_PERSONAL + '?apiKey=' + req.cookies.userApiKey + '&start=2000-01-01&end=2020-01-01',
     json: true,
   };
 
