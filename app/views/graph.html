@@ -40,7 +40,7 @@
 
     <div class="form-group">
       <label for="filterByMoonEnd">{{ '_TO' | translate }}</label>
-      <select class="form-control" ng-options="(o.iso8601 | date) for o in moons" ng-model="$parent.filterByMoonEnd"></select>
+      <select class="form-control" ng-options="(o.iso8601 | date) for o in moons | filterMoons:$parent.filterByMoonStart" ng-model="$parent.filterByMoonEnd"></select>
 
     </div>
 
