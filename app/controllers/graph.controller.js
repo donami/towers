@@ -346,6 +346,10 @@ angular.module('towersApp')
           break;
 
         case 'filter_by_year':
+          if (!$scope.selectedYear) {
+            toastr.error('Please select a year', 'No date');
+            return false;
+          }
           var filteredYear = $scope.selectedYear.value;
 
           var startDate = moment(filteredYear + '-01-01').startOf('year').format('YYYY-MM-DD');
