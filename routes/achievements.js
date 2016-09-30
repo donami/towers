@@ -1,19 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request-promise');
-var api = require('./_const');
 var moment = require('moment');
 var _ = require('underscore');
+var api = require('./_const');
 var db = require('./../db');
-
-// The routes should only be avaible if the user
-// has a set cookie with its personal api key
-router.use(function(req, res, next) {
-  if (!req.cookies.userApiKey) {
-    res.json({ message: 'Error: No cookies set'});
-  }
-  next();
-});
 
 router.get('/refresh', function(req, res) {
 
