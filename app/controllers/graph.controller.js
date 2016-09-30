@@ -1,5 +1,5 @@
 angular.module('towersApp')
-  .controller('GraphController', ['$scope', 'TowerFactory', 'MoonFactory', '$q', '$filter', 'toastr', function ($scope, TowerFactory, MoonFactory, $q, $filter, toastr) {
+  .controller('GraphController', ['$scope', 'TowerFactory', 'MoonFactory', '$q', '$filter', 'toastr', '$state', function ($scope, TowerFactory, MoonFactory, $q, $filter, toastr, $state) {
 
     init();
     loadData();
@@ -41,7 +41,8 @@ angular.module('towersApp')
             min: 0,         // Graph starting at
           }
         }]
-      }
+      },
+      onClick: graphOnClick
     };
 
     function init() {
@@ -55,12 +56,14 @@ angular.module('towersApp')
           data: [],
           series: ['Towers with most player count'],
           labels: [],
-          options: {}
+          options: {},
+          dataset: []
         },
         towerHighestClaim: {
           data: [],
           series: ['Towers with most claims'],
-          labels: []
+          labels: [],
+          dataset: []
         },
         geldBonus: {
           data: [],
@@ -80,7 +83,7 @@ angular.module('towersApp')
         claimCount: {
           data: [],
           series: ['Most towers claimed'],
-          labels: []
+          labels: [],
         },
       };
     }
@@ -129,6 +132,20 @@ angular.module('towersApp')
         });
     }
 
+    // Click event for graph
+    function graphOnClick(evt) {
+      var element = this.getElementsAtEvent(evt)[0];
+      if (!element)
+        return false;
+
+      var index = element._index;
+
+      if (!element._chart.config.data.datasets[0][index])
+        return false;
+
+      var link = element._chart.config.data.datasets[0][index].link;
+      $state.go('app.towerSingle', {id: link});
+    }
 
     // Get data for players with most claims
     function getTopClaims(data) {
@@ -231,6 +248,7 @@ angular.module('towersApp')
               $scope.graphData.towerHighestClaim.labels.push('Tower#' + obj.tower_id);
             }
 
+            $scope.graphData.towerHighestClaim.dataset.push({link: obj.tower_id});
             $scope.graphData.towerHighestClaim.data.push(obj.claim_count);
           });
         });
@@ -274,10 +292,12 @@ angular.module('towersApp')
             }
 
             $scope.graphData.towerPlayerCount.data.push(obj.player_count);
+            $scope.graphData.towerPlayerCount.dataset.push({link: obj.tower_id});
           });
 
           if (data.length && data[0].player_count) {
             $scope.graphData.towerPlayerCount.options = {
+              onClick: graphOnClick,
               scales: {
                 yAxes: [{
                   ticks: {
