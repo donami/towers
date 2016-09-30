@@ -116,7 +116,7 @@ router.get('/tower/all/:startDate?/:endDate?', function(req, res) {
   }
   else {
     var options = {
-      uri: API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=2016-01-01&end=2017-01-01',
+      uri: API_TOWER_LIST + '?apiKey=' + req.cookies.userApiKey + '&start=2010-01-01&end=2017-01-01',
       json: true,
     };
   }
