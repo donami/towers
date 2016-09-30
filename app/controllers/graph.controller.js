@@ -33,6 +33,17 @@ angular.module('towersApp')
     ];
     $scope.filter = $scope.filterOptions[0];
 
+    // Default options for graph
+    $scope.graphDefaultOptions = {
+      scales: {
+        yAxes: [{
+          ticks: {
+            min: 0,         // Graph starting at
+          }
+        }]
+      }
+    };
+
     function init() {
       $scope.graphData = {
         towersByCity: {

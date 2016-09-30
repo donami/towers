@@ -19,6 +19,15 @@ angular.module('towersApp')
         data: [],
         labels: [],
         series: ['Days with most claims'],
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                min: 0,         // Graph starting at
+              }
+            }]
+          }
+        }
       },
     };
 
