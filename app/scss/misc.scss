@@ -25,9 +25,29 @@ h1.page-title {
     content: "";
   }
 }
+.bold {
+  font-weight: 800;
+}
 .pointer {
   cursor: pointer;
 }
+.medal {
+  background: url('/assets/medal.png');
+  width: 100px;
+  height: 120px;
+  position: relative;
+
+  &.gold {
+    background-position: 0 0;
+  }
+  &.silver {
+    background-position: -100px 0;
+  }
+  &.bronze {
+    background-position: -200px 0;
+  }
+}
+
 
 /** Spinner **/
 .glyphicon.spinner {

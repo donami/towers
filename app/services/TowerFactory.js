@@ -27,6 +27,13 @@ angular.module('towersApp')
         return $http.get('/api/leaderboard', { cache: dataCache });
       };
 
+      TowerFactory.getLeaderboardMoons = function(date) {
+        if (!date)
+          return false;
+
+        return $http.get('/api/leaderboard/moons/' + date, { cache: dataCache });
+      };
+
       TowerFactory.getStats = function(startDate, endDate) {
         if (startDate && endDate) {
           return $http.get('/api/tower/stats/' + startDate + '/' + endDate, { cache: dataCache });

@@ -3,6 +3,21 @@ var router = express.Router();
 var request = require('request-promise');
 var api = require('./_const');
 
+router.get('/moons/:date', function(req, res) {
+  var options = {
+    uri: api.API_LEADERBOARD_MOONS + '/' + req.params.date + '?apiKey=' + req.cookies.userApiKey,
+    json: true,
+  };
+
+  request(options)
+    .then(function(data) {
+      res.json(data);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
+
 // Get leaderboard
 router.get('/:startDate?/:endDate?', function(req, res) {
   var options = {
