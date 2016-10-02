@@ -17,6 +17,8 @@ describe('HomeController', function() {
       TowerFactory: TowerFactory
     });
 
+    localStorage.clear();
+
     $httpBackend.whenGET('/api/tower/all').respond([]);
     $httpBackend.expectGET('/api/tower/all');
     $httpBackend.flush();

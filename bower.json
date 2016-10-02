@@ -29,6 +29,7 @@
     "chart.js": "npm:chart.js#~2.2.2",
     "underscore": "~1.8.3",
     "moment": "~2.15.1",
-    "angular-cache": "~4.6.0"
+    "angular-cache": "~4.6.0",
+    "moment-range": "~2.2.0"
   }
 }

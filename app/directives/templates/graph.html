@@ -1,6 +1,6 @@
 <div>
   <h1 translate>{{ title }}</h1>
-  <canvas ng-if="data.length" id="bar" class="chart chart-bar" chart-dataset-override="datasetoverride" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"></canvas>
+  <canvas ng-show="data.length" id="bar" class="chart" chart-dataset-override="datasetoverride" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"></canvas>
 
-  <div ng-if="!data.length" translate>{{ '_NO_DATA_FILTER' }}</div>
+  <div ng-show="!data.length" translate>{{ '_NO_DATA_FILTER' }}</div>
 </div>

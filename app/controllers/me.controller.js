@@ -1,6 +1,6 @@
 angular.module('towersApp')
-  .controller('MeController', ['$scope', '$cookies', '$filter', 'MeFactory',
-  function($scope, $cookies, $filter, MeFactory) {
+  .controller('MeController', ['$scope', '$cookies', '$filter', 'MeFactory', 'DateService',
+  function($scope, $cookies, $filter, MeFactory, DateService) {
 
     $scope.userApiKey = $cookies.get('userApiKey');
 
@@ -16,6 +16,7 @@ angular.module('towersApp')
     // For displaying of graphs
     $scope.graphData = {
       claimDays: {
+        type: 'bar',
         data: [],
         labels: [],
         series: ['Days with most claims'],
@@ -29,6 +30,12 @@ angular.module('towersApp')
           }
         }
       },
+      claimsPerDay: {
+        type: 'line',
+        data: [],
+        labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        series: ['Claims per day this week'],
+      }
     };
 
     $scope.lastClaimedTower = {
@@ -43,6 +50,7 @@ angular.module('towersApp')
         $scope.totalItems = response.data.length;
 
         getDaysWithMostClaims(response.data);
+        getClaimsPerDay(response.data);
 
       }, function(error) {
         console.log(error);
@@ -118,4 +126,35 @@ angular.module('towersApp')
         $scope.graphData.claimDays.data.push(obj[1]);
       });
     }
+
+    // Get data for graph, displaying all claims made current week
+    var getClaimsPerDay = function(data) {
+      var thisYear = moment().format('YYYY');
+
+      // Get only the day without the time and remove dates from other year
+      data = data.filter(function(obj) {
+        if (obj.claimed_on.substring(0, 4) !== thisYear)
+          return null;
+
+        obj.claimed_on = obj.claimed_on.substring(0, 10);
+        return obj;
+      });
+
+      // Get the number of claims per day
+      data = _.countBy(data, function(obj) {
+        return obj.claimed_on;
+      });
+
+      var countsByDay = [];
+
+      // Return the count if exists, otherwise return 0
+      DateService.getDaysInWeek().forEach(function(obj) {
+        if (obj in data)
+          countsByDay.push(data[obj]);
+        else
+          countsByDay.push(0);
+      });
+      $scope.graphData.claimsPerDay.data = [countsByDay];
+    }
+
   }]);

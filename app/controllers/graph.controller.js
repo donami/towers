@@ -48,11 +48,13 @@ angular.module('towersApp')
     function init() {
       $scope.graphData = {
         towersByCity: {
+          type: 'bar',
           data: [],
           series: ['Cities with most towers'],
           labels: []
         },
         towerPlayerCount: {
+          type: 'bar',
           data: [],
           series: ['Towers with most player count'],
           labels: [],
@@ -60,27 +62,32 @@ angular.module('towersApp')
           dataset: []
         },
         towerHighestClaim: {
+          type: 'bar',
           data: [],
           series: ['Towers with most claims'],
           labels: [],
           dataset: []
         },
         geldBonus: {
+          type: 'bar',
           data: [],
           series: ['Highest geld bonus'],
           labels: []
         },
         towersBuilt: {
+          type: 'bar',
           data: [],
           series: ['Most towers built'],
           labels: []
         },
         geldCollected: {
+          type: 'bar',
           data: [],
           series: ['Most geld collected'],
           labels: []
         },
         claimCount: {
+          type: 'bar',
           data: [],
           series: ['Most towers claimed'],
           labels: [],

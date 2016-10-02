@@ -17,4 +17,35 @@ describe('filter', function() {
     });
   });
 
+  describe('filterMoons', function() {
+    it('should filter out options from secondSelect that is after the firstSelect', function() {
+      var firstSelect = {
+        iso8601: '2016-01-01'
+      };
+
+      var secondSelect = [
+        { iso8601: '2015-01-01' },
+        { iso8601: '2016-01-01' },
+        { iso8601: '2017-01-01' },
+        { iso8601: '2018-01-01' },
+      ];
+
+      var filtered = $filter('filterMoons')(secondSelect, firstSelect);
+      expect(filtered.length).toBe(3);
+    });
+
+    it('should return secondSelect if firstSelect is not defined', function() {
+      var secondSelect = [
+        { iso8601: '2015-01-01' },
+        { iso8601: '2016-01-01' },
+        { iso8601: '2017-01-01' },
+        { iso8601: '2018-01-01' },
+      ];
+
+      var filtered = $filter('filterMoons')(secondSelect);
+
+      expect(filtered).toEqual(secondSelect);
+    });
+  })
+
 })
