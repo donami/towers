@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "postinstall": "gulp build-js && gulp sass && gulp views"
   },
   "author": "Markus Hederström <d0namiz@gmail.com> (http://donami.com)",
   "license": "ISC",
@@ -34,5 +36,8 @@
     "karma-jasmine": "^1.0.2",
     "karma-ng-html2js-preprocessor": "^1.0.0",
     "karma-spec-reporter": "0.0.26"
+  },
+  "engines": {
+    "node": "5.4.1"
   }
 }
