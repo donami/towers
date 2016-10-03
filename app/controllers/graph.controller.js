@@ -430,6 +430,12 @@ angular.module('towersApp')
       loadData(startDate, endDate);
     }
 
+    // Reset filter
+    $scope.clearFilter = function() {
+      init();
+      loadData();
+    }
+
     // Scroll to anchor
     $scope.gotoAnchor = function(x) {
       var element = document.getElementById('anchor' + x);
