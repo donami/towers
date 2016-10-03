@@ -1,5 +1,5 @@
 angular.module('towersApp')
-  .controller('GraphController', ['$scope', 'TowerFactory', 'MoonFactory', '$q', '$filter', 'toastr', '$state', '$location', 'smoothScroll', function ($scope, TowerFactory, MoonFactory, $q, $filter, toastr, $state, $location, smoothScroll) {
+  .controller('GraphController', ['$scope', 'TowerFactory', 'DataFactory', 'MoonFactory', '$q', '$filter', 'toastr', '$state', '$location', 'smoothScroll', function ($scope, TowerFactory, DataFactory, MoonFactory, $q, $filter, toastr, $state, $location, smoothScroll) {
 
     init();
     loadData();
@@ -132,10 +132,30 @@ angular.module('towersApp')
 
       deferred.promise
         .then(function(response) {
-          getTopClaims(response.data);
-          getMostGeldCollected(response.data);
-          getMostTowersBuilt(response.data);
-          getMostGeldBonus(response.data);
+          // Get data for players with most claims
+          DataFactory.handleTopClaims(response.data).forEach(function(obj) {
+            $scope.graphData.claimCount.data.push(obj.claim_count);
+            $scope.graphData.claimCount.labels.push(obj.player_alias);
+          });
+
+          // Get the data for players collecting most geld
+          DataFactory.handleMostGeldCollected(response.data).forEach(function(obj) {
+            $scope.graphData.geldCollected.data.push(obj.geld_collected);
+            $scope.graphData.geldCollected.labels.push(obj.player_alias);
+          });
+
+          // Get data for players who built the most towers
+          DataFactory.handleMostTowersBuilt(response.data).forEach(function(obj) {
+            $scope.graphData.towersBuilt.data.push(obj.tower_count);
+            $scope.graphData.towersBuilt.labels.push(obj.player_alias);
+          });
+
+          // Get data for players with most geld bonus
+          DataFactory.handleMostGeldBonus(response.data).forEach(function(obj) {
+            $scope.graphData.geldBonus.data.push(obj.geld_bonus);
+            $scope.graphData.geldBonus.labels.push(obj.player_alias);
+          });
+
         }, function(error) {
           console.log(error);
         });
@@ -152,8 +172,11 @@ angular.module('towersApp')
 
       TowerFactory.getStats(startDate, endDate)
         .then(function(response) {
-          getTowersTopClaimed(response.data);
-          getTowersTopPlayerCount(response.data);
+          // Filter data to get towerst with most claims
+          $scope.graphData.towerHighestClaim = Object.assign($scope.graphData.towerHighestClaim, DataFactory.handleTowersTopClaimed(response.data));
+
+          // Filter out data to get towers with highest player count
+          $scope.graphData.towerPlayerCount = Object.assign($scope.graphData.towerPlayerCount, DataFactory.handleTowersPlayerCount(response.data));
         })
         .catch(function(error) {
           console.log(error);
@@ -161,181 +184,15 @@ angular.module('towersApp')
 
       TowerFactory.getTowers(startDate, endDate)
         .then(function(response) {
-          getCitiesWithMostTowers(response.data);
+          // Filter data to get cities with most towers built
+          DataFactory.handleCitiesWithMostTowers(response.data).forEach(function(obj) {
+            $scope.graphData.towersByCity.data.push(obj.claims);
+            $scope.graphData.towersByCity.labels.push(obj.city);
+          });
         })
         .catch(function(error) {
           console.log(error);
         });
-    }
-
-    // Get data for players with most claims
-    function getTopClaims(data) {
-      // Sort based on claim count
-      var sortedData = data.sort(function(a, b) {
-        return b.claim_count - a.claim_count;
-      });
-
-      // Get only the first ten of the sorted data
-      sortedData = sortedData.slice(0, 10);
-
-      sortedData.forEach(function(obj) {
-        $scope.graphData.claimCount.data.push(obj.claim_count);
-        $scope.graphData.claimCount.labels.push(obj.player_alias);
-      });
-    }
-
-    // Get the data for players collecting most geld
-    function getMostGeldCollected(data) {
-      // Sort based on geld collected count
-      var sortedData = data.sort(function(a, b) {
-        return b.geld_collected - a.geld_collected;
-      });
-
-      // Get only the first ten of the sorted data
-      sortedData = sortedData.slice(0, 10);
-
-      sortedData.forEach(function(obj) {
-        $scope.graphData.geldCollected.data.push(obj.geld_collected);
-        $scope.graphData.geldCollected.labels.push(obj.player_alias);
-      });
-    }
-
-    // Get data for players who built the most towers
-    function getMostTowersBuilt(data) {
-      // Sort based on towers built
-      var sortedData = data.sort(function(a, b) {
-        return b.tower_count - a.tower_count;
-      });
-
-      // Get only the first ten of the sorted data
-      sortedData = sortedData.slice(0, 10);
-
-      sortedData.forEach(function(obj) {
-        $scope.graphData.towersBuilt.data.push(obj.tower_count);
-        $scope.graphData.towersBuilt.labels.push(obj.player_alias);
-      });
-    }
-
-    // Get data for players with most geld bonus
-    function getMostGeldBonus(data) {
-      // Sort based on geld bonus
-      var sortedData = data.sort(function(a, b) {
-        return b.geld_bonus - a.geld_bonus;
-      });
-
-      // Get only the first ten of the sorted data
-      sortedData = sortedData.slice(0, 10);
-
-      sortedData.forEach(function(obj) {
-        $scope.graphData.geldBonus.data.push(obj.geld_bonus);
-        $scope.graphData.geldBonus.labels.push(obj.player_alias);
-      });
-    }
-
-    // Get the towers with highest claim count
-    function getTowersTopClaimed(data) {
-      // Sort data based on claim_count
-      data.sort(function(a, b) {
-        if (a.claim_count < b.claim_count) return 1;
-        if (a.claim_count > b.claim_count) return -1;
-        return 0;
-      });
-
-      // Get only the top of the sorted data
-      data = data.slice(0, 10);
-
-      TowerFactory.getTowers()
-        .then(function(response) {
-          return response.data;
-        })
-        .then(function(towers) {
-          data.forEach(function(obj) {
-
-            // Get the info for the tower to get the tower name
-            var tower = towers.find(function(found) {
-              return found.tower_id == obj.tower_id;
-            });
-
-            // Check if tower is undefind, if it is, display ID instead of name
-            if (tower) {
-              if (tower.tower_name) {
-                $scope.graphData.towerHighestClaim.labels.push(tower.tower_name);
-              }
-              else {
-                $scope.graphData.towerHighestClaim.labels.push('Tower#' + obj.tower_id);
-              }
-            }
-            else {
-              $scope.graphData.towerHighestClaim.labels.push('Tower#' + obj.tower_id);
-            }
-
-            $scope.graphData.towerHighestClaim.dataset.push({link: obj.tower_id});
-            $scope.graphData.towerHighestClaim.data.push(obj.claim_count);
-          });
-        });
-    }
-
-    // Get the towers with highest player count
-    function getTowersTopPlayerCount(data) {
-      // Sort data based on player_count
-      data.sort(function(a, b) {
-        if (a.player_count < b.player_count) return 1;
-        if (a.player_count > b.player_count) return -1;
-        return 0;
-      });
-
-      // Get only the top of the sorted data
-      data = data.slice(0, 10);
-
-      TowerFactory.getTowers()
-        .then(function(response) {
-          return response.data;
-        })
-        .then(function(towers) {
-          data.forEach(function(obj) {
-
-            // Get the info for the tower to get the tower name
-            var tower = towers.find(function(found) {
-              return found.tower_id == obj.tower_id;
-            });
-
-            // Check if tower is undefind, if it is, display ID instead of name
-            if (tower) {
-              if (tower.tower_name) {
-                $scope.graphData.towerPlayerCount.labels.push(tower.tower_name);
-              }
-              else {
-                $scope.graphData.towerPlayerCount.labels.push('Tower#' + obj.tower_id);
-              }
-            }
-            else {
-              $scope.graphData.towerPlayerCount.labels.push('Tower#' + obj.tower_id);
-            }
-
-            $scope.graphData.towerPlayerCount.data.push(obj.player_count);
-            $scope.graphData.towerPlayerCount.dataset.push({link: obj.tower_id});
-          });
-
-        });
-    }
-
-    // Get the cities that has the most towers built
-    function getCitiesWithMostTowers(data) {
-      var data = _.reject(data, function(obj) {
-        return obj.city == null;
-      });
-
-      var result = _.chain(data)
-        .countBy('city')
-        .pairs()
-        .sortBy(1).reverse()
-        .slice(0, 10)
-        .value();
-
-      result.forEach(function(obj) {
-        $scope.graphData.towersByCity.data.push(obj[1]);
-        $scope.graphData.towersByCity.labels.push(obj[0]);
-      });
     }
 
     $scope.filterData = function() {
