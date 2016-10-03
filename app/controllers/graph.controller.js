@@ -77,7 +77,7 @@ angular.module('towersApp')
           data: [],
           series: ['Towers with most player count'],
           labels: [],
-          options: {},
+          options: graphDefaultOptions,
           dataset: []
         },
         towerHighestClaim: {
@@ -316,17 +316,6 @@ angular.module('towersApp')
             $scope.graphData.towerPlayerCount.dataset.push({link: obj.tower_id});
           });
 
-          if (data.length && data[0].player_count) {
-            $scope.graphData.towerPlayerCount.options.scales = {
-              yAxes: [{
-                ticks: {
-                  min: 0,
-                  max: data[0].player_count + 3,
-                  stepSize: 1
-                }
-              }]
-            };
-          }
         });
     }
 
