@@ -1,7 +1,7 @@
 /* global langSwedish, langEnglish */
 'use strict';
 
-var app = angular.module('towersApp', ['ui.router', 'ui.bootstrap', 'ngCookies', 'chart.js', 'toastr', 'pascalprecht.translate', 'angular-cache']);
+var app = angular.module('towersApp', ['ui.router', 'ui.bootstrap', 'ngCookies', 'chart.js', 'toastr', 'pascalprecht.translate', 'angular-cache', 'smoothScroll']);
 
 app.config(['CacheFactoryProvider', function (CacheFactoryProvider) {
   angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });

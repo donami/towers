@@ -10,13 +10,11 @@ angular.module('towersApp')
         labels: '=',
         series: '=',
         options: '=',
+        graphTitle: '=',
         datasetoverride: '=',
       },
       link: function(scope, elem, attrs) {
-        scope.title = attrs.graphTitle;
-
         var canvas = elem.find('canvas');
-
         switch (scope.type) {
           case 'bar':
             canvas.addClass('chart-bar');

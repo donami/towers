@@ -1,5 +1,5 @@
 angular.module('towersApp')
-  .controller('GraphController', ['$scope', 'TowerFactory', 'MoonFactory', '$q', '$filter', 'toastr', '$state', function ($scope, TowerFactory, MoonFactory, $q, $filter, toastr, $state) {
+  .controller('GraphController', ['$scope', 'TowerFactory', 'MoonFactory', '$q', '$filter', 'toastr', '$state', '$location', 'smoothScroll', function ($scope, TowerFactory, MoonFactory, $q, $filter, toastr, $state, $location, smoothScroll) {
 
     init();
     loadData();
@@ -33,27 +33,31 @@ angular.module('towersApp')
     ];
     $scope.filter = $scope.filterOptions[0];
 
-    // Default options for graph
-    $scope.graphDefaultOptions = {
-      scales: {
-        yAxes: [{
-          ticks: {
-            min: 0,         // Graph starting at
-          }
-        }]
-      },
-      onClick: graphOnClick
-    };
 
     function init() {
+      // Default options for graph
+      var graphDefaultOptions = {
+        scales: {
+          yAxes: [{
+            ticks: {
+              min: 0,         // Graph starting at
+            }
+          }]
+        },
+        onClick: graphOnClick
+      };
+
       $scope.graphData = {
         towersByCity: {
+          title: '_CITIES_WITH_MOST_TOWERS',
           type: 'bar',
           data: [],
           series: ['Cities with most towers'],
-          labels: []
+          labels: [],
+          options: graphDefaultOptions,
         },
         towerPlayerCount: {
+          title: '_TOWERS_WITH_MOST_PLAYER_COUNT',
           type: 'bar',
           data: [],
           series: ['Towers with most player count'],
@@ -62,35 +66,45 @@ angular.module('towersApp')
           dataset: []
         },
         towerHighestClaim: {
+          title: '_TOWERS_WITH_MOST_CLAIMS',
           type: 'bar',
           data: [],
           series: ['Towers with most claims'],
           labels: [],
-          dataset: []
+          dataset: [],
+          options: graphDefaultOptions,
         },
         geldBonus: {
+          title: '_HIGHEST_GELD_BONUS',
           type: 'bar',
           data: [],
           series: ['Highest geld bonus'],
-          labels: []
+          labels: [],
+          options: graphDefaultOptions,
         },
         towersBuilt: {
+          title: '_MOST_TOWERS_BUILT',
           type: 'bar',
           data: [],
           series: ['Most towers built'],
-          labels: []
+          labels: [],
+          options: graphDefaultOptions,
         },
         geldCollected: {
+          title: '_MOST_GELD_COLLECTED',
           type: 'bar',
           data: [],
           series: ['Most geld collected'],
-          labels: []
+          labels: [],
+          options: graphDefaultOptions,
         },
         claimCount: {
+          title: '_MOST_TOWERS_CLAIMED',
           type: 'bar',
           data: [],
           series: ['Most towers claimed'],
           labels: [],
+          options: graphDefaultOptions,
         },
       };
     }
@@ -418,5 +432,16 @@ angular.module('towersApp')
       init();
       loadData(startDate, endDate);
     }
+
+    // Scroll to anchor
+    $scope.gotoAnchor = function(x) {
+      var element = document.getElementById('anchor' + x);
+      var options = {
+        duration: 700,
+        easing: 'easeInQuad',
+        offset: 0,
+      }
+      smoothScroll(element, options);
+    };
 
   }]);

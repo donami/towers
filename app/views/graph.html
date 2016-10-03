@@ -49,63 +49,41 @@
   <button class="btn btn-success" ng-click="filterData()">Filter</button>
   <!-- End filters -->
 
+  <div class="row">
 
-  <graph graph-title="_MOST_TOWERS_CLAIMED"
-    type="graphData.claimCount.type"
-    data="graphData.claimCount.data"
-    labels="graphData.claimCount.labels"
-    series="graphData.claimCount.series"
-    options="graphDefaultOptions">
-  </graph>
+    <!-- Col -->
+    <div class="col-md-9">
 
-  <graph graph-title="_MOST_GELD_COLLECTED"
-    type="graphData.geldCollected.type"
-    data="graphData.geldCollected.data"
-    labels="graphData.geldCollected.labels"
-    series="graphData.geldCollected.series"
-    options="graphDefaultOptions">
-  </graph>
+      <div ng-repeat="graph in graphData track by $index" id="anchor{{$index}}">
+        <graph graph-title="graph.title"
+          type="graph.type"
+          data="graph.data"
+          labels="graph.labels"
+          series="graph.series"
+          options="graph.options">
+        </graph>
+      </div>
 
-  <graph graph-title="_MOST_TOWERS_BUILT"
-    type="graphData.towersBuilt.type"
-    data="graphData.towersBuilt.data"
-    labels="graphData.towersBuilt.labels"
-    series="graphData.towersBuilt.series"
-    options="graphDefaultOptions">
-  </graph>
+    </div>
+    <!-- / Col -->
 
-  <graph graph-title="_HIGHEST_GELD_BONUS"
-    type="graphData.geldBonus.type"
-    data="graphData.geldBonus.data"
-    labels="graphData.geldBonus.labels"
-    series="graphData.geldBonus.series"
-    options="graphDefaultOptions">
-  </graph>
+    <!-- Col -->
+    <div class="col-md-3">
 
-  <graph graph-title="_TOWERS_WITH_MOST_CLAIMS"
-    type="graphData.towerHighestClaim.type"
-    data="graphData.towerHighestClaim.data"
-    labels="graphData.towerHighestClaim.labels"
-    series="graphData.towerHighestClaim.series"
-    options="graphDefaultOptions"
-    datasetoverride="graphData.towerHighestClaim.dataset">
-  </graph>
+      <div class="panel panel-primary">
+        <div class="panel-heading">Go to graph</div>
+        <div class="panel-body list-group no-padding">
 
-  <graph graph-title="_TOWERS_WITH_MOST_PLAYER_COUNT"
-    type="graphData.towerPlayerCount.type"
-    data="graphData.towerPlayerCount.data"
-    labels="graphData.towerPlayerCount.labels"
-    series="graphData.towerPlayerCount.series"
-    options="graphData.towerPlayerCount.options"
-    datasetoverride="graphData.towerPlayerCount.dataset">
-  </graph>
+          <div class="list-group-item" ng-repeat="graph in graphData track by $index">
+            <span ng-click="gotoAnchor($index)" class="pointer">{{ graph.series[0] }}</span>
+          </div>
 
-  <graph graph-title="_CITIES_WITH_MOST_TOWERS"
-    type="graphData.towersByCity.type"
-    data="graphData.towersByCity.data"
-    labels="graphData.towersByCity.labels"
-    series="graphData.towersByCity.series"
-    options="graphDefaultOptions">
-  </graph>
+        </div>
+      </div>
+
+    </div>
+    <!-- / Col -->
+
+  </div>
 
 </div>

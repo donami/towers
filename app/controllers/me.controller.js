@@ -16,6 +16,7 @@ angular.module('towersApp')
     // For displaying of graphs
     $scope.graphData = {
       claimDays: {
+        title: '_DAYS_WITH_MOST_CLAIMS',
         type: 'bar',
         data: [],
         labels: [],
@@ -31,6 +32,7 @@ angular.module('towersApp')
         }
       },
       claimsPerDay: {
+        title: 'Claims per day this week',
         type: 'line',
         data: [],
         labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],

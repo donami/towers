@@ -31,6 +31,12 @@ h1.page-title {
 .pointer {
   cursor: pointer;
 }
+.no-padding {
+  padding: 0;
+}
+.no-margin {
+  margin: 0;
+}
 .medal {
   background: url('/assets/medal.png');
   width: 100px;
@@ -47,7 +53,6 @@ h1.page-title {
     background-position: -200px 0;
   }
 }
-
 
 /** Spinner **/
 .glyphicon.spinner {
