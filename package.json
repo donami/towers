@@ -19,15 +19,15 @@
     "morgan": "^1.7.0",
     "request": "^2.74.0",
     "request-promise": "^4.1.1",
-    "underscore": "^1.8.3"
-  },
-  "devDependencies": {
+    "underscore": "^1.8.3",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-jshint": "^2.0.1",
     "gulp-sass": "^2.3.2",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7",
+  },
+  "devDependencies": {
     "jasmine-core": "^2.5.2",
     "jshint": "^2.9.3",
     "jshint-stylish": "^2.2.1",
