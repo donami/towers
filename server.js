@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 
 var apiRoutes = require('./routes/api');
-// var achievementRoutes = require('./routes/achievements');
 
 var app = express();
 
@@ -21,7 +20,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use('/api', apiRoutes);
-// app.use('/achievement', achievementRoutes);
 
 app.get('*', function(req, res) {
   res.sendFile('/public/index.html', { root: __dirname });
