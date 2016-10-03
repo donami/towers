@@ -11,7 +11,7 @@ describe('Graph directive', function() {
     scope.labels = ['Label 1', 'Label 2'];
     scope.series = ['Series 1'];
 
-    element = '<graph graph-title="A title" data="data" labels="labels" series="series"></graph>';
+    element = '<graph graph-title="title" data="data" labels="labels" series="series"></graph>';
 
     element = $compile(element)(scope);
 
@@ -49,9 +49,10 @@ describe('Graph directive', function() {
 
   it('should not display canvas if there is no data', function() {
     scope.data = [];
-
     scope.$digest();
 
-    expect(element.html()).not.toContain('canvas');
+    var canvas = element.find('canvas');
+
+    expect(canvas.hasClass('ng-hide')).toBe(true);
   });
 })

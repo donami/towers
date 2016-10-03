@@ -3,7 +3,7 @@ angular.module('towersApp')
 
     var DataFactory = {};
 
-    // Get top list with the towers that has had most claims
+    // Handle data to get a sorted list of cities with most towers built
     DataFactory.handleCitiesWithMostTowers = function(data) {
       var data = _.reject(data, function(obj) {
         return obj.city == null;
@@ -19,7 +19,7 @@ angular.module('towersApp')
       result = result.map(function(obj) {
         return {
           city: obj[0],
-          claims: obj[1]
+          amount: obj[1]
         };
       });
 

@@ -186,7 +186,7 @@ angular.module('towersApp')
         .then(function(response) {
           // Filter data to get cities with most towers built
           DataFactory.handleCitiesWithMostTowers(response.data).forEach(function(obj) {
-            $scope.graphData.towersByCity.data.push(obj.claims);
+            $scope.graphData.towersByCity.data.push(obj.amount);
             $scope.graphData.towersByCity.labels.push(obj.city);
           });
         })
