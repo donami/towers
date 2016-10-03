@@ -12,6 +12,8 @@
     <h1 class="page-title">{{ '_VIEW_TOWER' | translate }}</h1>
   </div>
 
+  <spinner ng-if="state.loading"></spinner>
+
   <div ng-if="!tower && error">
     <div class="alert alert-warning" ng-bind="error.message"></div>
   </div>
