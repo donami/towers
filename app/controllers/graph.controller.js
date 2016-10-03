@@ -35,6 +35,21 @@ angular.module('towersApp')
 
 
     function init() {
+      // Click event for graph
+      var graphOnClick = function(evt) {
+        var element = this.getElementsAtEvent(evt)[0];
+        if (!element)
+          return false;
+
+        var index = element._index;
+
+        if (!element._chart.config.data.datasets[0][index])
+          return false;
+
+        var link = element._chart.config.data.datasets[0][index].link;
+        $state.go('app.towerSingle', {id: link});
+      }
+
       // Default options for graph
       var graphDefaultOptions = {
         scales: {
@@ -151,21 +166,6 @@ angular.module('towersApp')
         .catch(function(error) {
           console.log(error);
         });
-    }
-
-    // Click event for graph
-    function graphOnClick(evt) {
-      var element = this.getElementsAtEvent(evt)[0];
-      if (!element)
-        return false;
-
-      var index = element._index;
-
-      if (!element._chart.config.data.datasets[0][index])
-        return false;
-
-      var link = element._chart.config.data.datasets[0][index].link;
-      $state.go('app.towerSingle', {id: link});
     }
 
     // Get data for players with most claims
@@ -317,17 +317,14 @@ angular.module('towersApp')
           });
 
           if (data.length && data[0].player_count) {
-            $scope.graphData.towerPlayerCount.options = {
-              onClick: graphOnClick,
-              scales: {
-                yAxes: [{
-                  ticks: {
-                    min: 0,
-                    max: data[0].player_count + 3,
-                    stepSize: 1
-                  }
-                }]
-              }
+            $scope.graphData.towerPlayerCount.options.scales = {
+              yAxes: [{
+                ticks: {
+                  min: 0,
+                  max: data[0].player_count + 3,
+                  stepSize: 1
+                }
+              }]
             };
           }
         });

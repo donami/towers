@@ -13,42 +13,6 @@
     <h1 class="page-title">Stats</h1>
   </div>
 
-  <!-- Filters -->
-  <div class="form-group">
-
-    <label for="filter">Filter</label>
-    <select class="form-control" ng-options="o.name for o in filterOptions" ng-model="filter"></select>
-
-  </div>
-
-  <div class="form-group" ng-if="filter.value == 'filter_by_year'">
-
-    <label for="filter">{{ '_CHOOSE_YEAR' | translate }}</label>
-    <select class="form-control" ng-options="o.name for o in yearOptions" ng-model="$parent.selectedYear"></select>
-
-  </div>
-
-  <div ng-if="filter.value == 'filter_by_new_moons'">
-
-    <h4>{{ '_FILTER_BY_NEW_MOON' | translate }}</h4>
-    <div class="form-group">
-
-      <label for="filterByMoonStart">{{ '_FROM' | translate }}</label>
-      <select class="form-control" ng-options="(o.iso8601 | date) for o in moons" ng-model="$parent.filterByMoonStart"></select>
-
-    </div>
-
-    <div class="form-group">
-      <label for="filterByMoonEnd">{{ '_TO' | translate }}</label>
-      <select class="form-control" ng-options="(o.iso8601 | date) for o in moons | filterMoons:$parent.filterByMoonStart" ng-model="$parent.filterByMoonEnd"></select>
-
-    </div>
-
-  </div>
-
-  <button class="btn btn-success" ng-click="filterData()">Filter</button>
-  <!-- End filters -->
-
   <div class="row">
 
     <!-- Col -->
@@ -69,6 +33,49 @@
 
     <!-- Col -->
     <div class="col-md-3">
+
+      <!-- Filters -->
+      <div class="panel panel-primary">
+        <div class="panel-heading">Filter</div>
+        <div class="panel-body">
+
+          <div class="form-group">
+
+            <label for="filter">Filter</label>
+            <select class="form-control" ng-options="o.name for o in filterOptions" ng-model="filter"></select>
+
+          </div>
+
+          <div class="form-group" ng-if="filter.value == 'filter_by_year'">
+
+            <label for="filter">{{ '_CHOOSE_YEAR' | translate }}</label>
+            <select class="form-control" ng-options="o.name for o in yearOptions" ng-model="$parent.selectedYear"></select>
+
+          </div>
+
+          <div ng-if="filter.value == 'filter_by_new_moons'">
+
+            <h4>{{ '_FILTER_BY_NEW_MOON' | translate }}</h4>
+            <div class="form-group">
+
+              <label for="filterByMoonStart">{{ '_FROM' | translate }}</label>
+              <select class="form-control" ng-options="(o.iso8601 | date) for o in moons" ng-model="$parent.filterByMoonStart"></select>
+
+            </div>
+
+            <div class="form-group">
+              <label for="filterByMoonEnd">{{ '_TO' | translate }}</label>
+              <select class="form-control" ng-options="(o.iso8601 | date) for o in moons | filterMoons:$parent.filterByMoonStart" ng-model="$parent.filterByMoonEnd"></select>
+
+            </div>
+
+          </div>
+
+          <button class="btn btn-success" ng-click="filterData()">Filter</button>
+
+        </div>
+      </div>
+      <!-- End filters -->
 
       <div class="panel panel-primary">
         <div class="panel-heading">Go to graph</div>
