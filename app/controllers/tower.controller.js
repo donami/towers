@@ -1,5 +1,5 @@
 angular.module('towersApp')
-  .controller('TowerController', ['$scope', 'TowerFactory', '$stateParams', function($scope, TowerFactory, $stateParams) {
+  .controller('TowerController', ['$scope', 'TowerFactory', '$stateParams', 'MapService', function($scope, TowerFactory, $stateParams, MapService) {
 
     $scope.state = {
       loading: true,
@@ -12,7 +12,13 @@ angular.module('towersApp')
         .then(function(response) {
           $scope.state.loading = false;
           $scope.tower = response.data;
-        }, function(error) {
+
+          return MapService.getMap($scope.tower.formatted_address);
+        })
+        .then(function(response) {
+          $scope.map = response.map;
+        })
+        .catch(function(error) {
           $scope.state.loading = false;
           $scope.error = {
             type: 'Unable to load tower: ' + error.data.message,
