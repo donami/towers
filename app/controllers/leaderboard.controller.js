@@ -63,8 +63,11 @@ angular.module('towersApp')
       MoonFactory.getNewMoons()
         .then(function(response) {
           var today = new Date();
+          var date;
+          var minimumDate = new Date('2015-08-15')            // Only get new moons after this date
           var newMoons = response.data.filter(function(obj) {
-            return today > new Date(obj.iso8601);
+            date = new Date(obj.iso8601);
+            return today > date && date > minimumDate;
           });
 
           $scope.newMoons = newMoons;
