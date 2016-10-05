@@ -48,27 +48,27 @@
     <table class="table table-striped">
       <tr>
         <th>{{ '_CLAIMS_ON_TOWER' | translate }}</th>
-        <td>{{ tower.stats.claim_count }}</td>
+        <td>{{ tower.stats.claim_count || '0' }}</td>
       </tr>
       <tr>
         <th>{{ '_PLAYERS_CLAIMED_TOWER' | translate }}</th>
-        <td>{{ tower.stats.player_count }}</td>
+        <td>{{ tower.stats.player_count || '0' }}</td>
       </tr>
       <tr>
         <th>{{ '_FIRST_CLAIMED_ON' | translate }}</th>
-        <td>{{ tower.stats.first_claimed_on | date:'mediumDate'}}</td>
+        <td>{{ (tower.stats.first_claimed_on | date:'mediumDate') || 'Never' }}</td>
       </tr>
       <tr>
         <th>{{ '_LAST_CLAIMED_ON' | translate }}</th>
-        <td>{{ tower.stats.last_claimed_on | date:'mediumDate' }}</td>
+        <td>{{ (tower.stats.last_claimed_on | date:'mediumDate') || 'Never' }}</td>
       </tr>
       <tr>
         <th>{{ '_TOTAL_GELD_COLLECTED' | translate }}</th>
-        <td>{{ tower.stats.total_geld_collected }}</td>
+        <td>{{ tower.stats.total_geld_collected || '0' }}</td>
       </tr>
       <tr>
         <th>{{ '_TOTAL_GELD_BONUS' | translate }}</th>
-        <td>{{ tower.stats.total_geld_bonus }}</td>
+        <td>{{ tower.stats.total_geld_bonus || '0' }}</td>
       </tr>
     </table>
 
