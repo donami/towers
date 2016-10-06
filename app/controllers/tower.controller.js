@@ -1,8 +1,9 @@
 angular.module('towersApp')
-  .controller('TowerController', ['$scope', 'TowerFactory', '$stateParams', 'MapService', function($scope, TowerFactory, $stateParams, MapService) {
+  .controller('TowerController', ['$scope', 'TowerFactory', 'MeFactory', '$stateParams', 'MapService', function($scope, TowerFactory, MeFactory, $stateParams, MapService) {
 
     $scope.state = {
       loading: true,
+      view: 'main'
     };
 
     findTowerById($stateParams.id);
@@ -17,6 +18,7 @@ angular.module('towersApp')
         })
         .then(function(response) {
           $scope.map = response.map;
+          getLog();
         })
         .catch(function(error) {
           $scope.state.loading = false;
@@ -26,5 +28,32 @@ angular.module('towersApp')
           };
         });
     }
+
+    function getLog() {
+      MeFactory.getClaims()
+        .then(function(response) {
+          // Get claims on this tower
+          var data = response.data.filter(function(obj) {
+            return obj.tower_id == $stateParams.id;
+          });
+
+          // Sort the data
+          data.sort(function(a, b) {
+            if (a.claimed_on > b.claimed_on) return -1;
+            if (a.claimed_on < b.claimed_on) return 1;
+
+            return 0;
+          });
+
+          $scope.log = data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
+
+    $scope.changeView = function(view) {
+      $scope.state.view = view;
+    };
 
   }]);
