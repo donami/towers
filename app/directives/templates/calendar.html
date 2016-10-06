@@ -1,0 +1,37 @@
+<div class="calendar">
+
+  <div class="row">
+    <div class="col-md-2 prev-button">
+      <button class="btn btn-primary" ng-click="prevMonth()">Previous month</button>
+    </div>
+
+    <div class="col-md-8 month-name">
+      <h2>{{ Calendar.currDate.format('MMMM')}}</h2>
+    </div>
+
+    <div class="col-md-2 next-button">
+      <button class="btn btn-primary" ng-click="nextMonth()">Next month</button>
+    </div>
+  </div>
+
+  <div class="day-names">
+    <div class="day-name">Monday</div>
+    <div class="day-name">Tuesday</div>
+    <div class="day-name">Wednesday</div>
+    <div class="day-name">Thursday</div>
+    <div class="day-name">Friday</div>
+    <div class="day-name">Saturday</div>
+    <div class="day-name">Sunday</div>
+  </div>
+
+  <div class="days">
+
+    <div ng-repeat="i in range(Calendar.days[0].date.isoWeekday() - 1) track by $index" class="day empty"></div>
+    <div ng-repeat="day in Calendar.days" class="day" ng-class="{'has-claims': day.claims.length,'break': (day.date.isoWeekday() == 1)}">
+      <div class="day-number">{{ day.date.format('DD') }}</div>
+      <popup ng-if="day.claims.length" claims="day.claims"></popup>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,78 @@
+$calendar-day-padding: 10px;
+$calendar-day-width: percentage(1/7);
+$calendar-border-style: #ddd 1px solid;
+
+.calendar {
+
+  .prev-button {
+    text-align: left;
+  }
+  .next-button {
+    text-align: right;
+  }
+
+  .month-name {
+    h2 {
+      margin: 0 !important;
+      text-align: center;
+    }
+  }
+
+  .day-names {
+    overflow: hidden;
+
+    .day-name {
+      padding: $calendar-day-padding;
+      width: $calendar-day-width;
+      float: left;
+      text-align: center;
+      border-bottom: $calendar-border-style;
+      font-weight: bold;
+    }
+  }
+
+  .days {
+
+    .day {
+      padding: $calendar-day-padding;
+      width: $calendar-day-width;
+      height: 100px;
+      position: relative;
+
+      border-bottom: $calendar-border-style;
+      border-right: $calendar-border-style;
+      float: left;
+
+      &:first-of-type {
+        border-left: $calendar-border-style;
+      }
+      &.empty { }
+      &.break {
+        border-left: $calendar-border-style;
+        clear: both;
+      }
+      &.has-claims {
+        background: #E7F4F2;
+
+        &:hover {
+          background: #93e2d5;
+        }
+      }
+
+      .day-number {
+        font-weight: bold;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+      }
+    }
+
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+  }
+
+}

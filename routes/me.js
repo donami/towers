@@ -26,10 +26,14 @@ router.get('/latest-claim', function(req, res) {
 });
 
 // Display personal stats
-router.get('/', function(req, res) {
+router.get('/:startDate?/:endDate?', function(req, res) {
   var options = {
     uri: api.API_PERSONAL + '?apiKey=' + req.cookies.userApiKey + '&start=2000-01-01&end=2020-01-01',
     json: true,
+  };
+
+  if (req.params.startDate && req.params.endDate) {
+    options.uri = api.API_PERSONAL + '?apiKey=' + req.cookies.userApiKey + '&start=' + req.params.startDate + '&end=' + req.params.endDate;
   };
 
   request(options)

@@ -4,6 +4,10 @@ angular.module('towersApp')
 
     $scope.userApiKey = $cookies.get('userApiKey');
 
+    $scope.state = {
+      view: 'main'
+    };
+
     $scope.claimedTowers = [];
 
     $scope.totalItems = 0;
@@ -39,6 +43,10 @@ angular.module('towersApp')
         series: ['Claims per day this week'],
       }
     };
+
+    $scope.changeView = function(view) {
+      $scope.state.view = view;
+    }
 
     $scope.lastClaimedTower = {
       tower_id: 0,

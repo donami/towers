@@ -1,5 +1,8 @@
+@import 'mixins';
 @import 'styles';
 @import 'misc';
+@import 'calendar';
+
 
 body {
   background: $background-color;
