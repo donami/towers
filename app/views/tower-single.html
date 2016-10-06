@@ -17,8 +17,8 @@
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-          <li><a class="pointer" ng-click="changeView('main')">Information</a></li>
-          <li><a class="pointer" ng-click="changeView('log')">Log</a></li>
+          <li ng-class="{active: state.view == 'main'}"><a class="pointer" ng-click="changeView('main')">Information</a></li>
+          <li ng-class="{active: state.view == 'log'}"><a class="pointer" ng-click="changeView('log')">Log</a></li>
         </ul>
       </div>
     </div>

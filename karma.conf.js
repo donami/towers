@@ -43,7 +43,6 @@ module.exports = function(config) {
       'app/test/directives/graph.spec.js',
       'app/test/directives/medal.spec.js',
       'app/test/filters/filters.spec.js',
-      'app/test/controllers/home.controller.spec.js',
       'app/test/controllers/achievement.controller.spec.js',
       'app/test/services/TowerFactory.spec.js',
       'app/test/services/DataFactory.spec.js',

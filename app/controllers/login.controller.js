@@ -13,7 +13,7 @@ angular.module('towersApp')
           AuthService.setAuthed(true);
 
           toastr.success('You are now logged in', 'Success');
-          $state.go('app.home');
+          $state.go('app.me');
         }, function(error) {
           toastr.clear();
           toastr.error('The API key was not correct', 'Invalid API key');

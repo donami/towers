@@ -10,18 +10,13 @@ angular.module('towersApp').config(['$stateProvider', '$urlRouterProvider', '$lo
       url: '',
       templateUrl: 'views/layout.html'
     })
-    .state('app.home', {
-      url: '/',
-      templateUrl: 'views/home.html',
-      controller: 'HomeController'
-    })
     .state('app.about', {
       url: '/about',
       templateUrl: 'views/about.html',
       controller: 'AboutController'
     })
     .state('app.me', {
-      url: '/me',
+      url: '/',
       templateUrl: 'views/me.html',
       controller: 'MeController'
     })
