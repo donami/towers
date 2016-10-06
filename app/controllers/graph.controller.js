@@ -144,12 +144,6 @@ angular.module('towersApp')
             $scope.graphData.geldCollected.labels.push(obj.player_alias);
           });
 
-          // Get data for players who built the most towers
-          DataFactory.handleMostTowersBuilt(response.data).forEach(function(obj) {
-            $scope.graphData.towersBuilt.data.push(obj.tower_count);
-            $scope.graphData.towersBuilt.labels.push(obj.player_alias);
-          });
-
           // Get data for players with most geld bonus
           DataFactory.handleMostGeldBonus(response.data).forEach(function(obj) {
             $scope.graphData.geldBonus.data.push(obj.geld_bonus);
@@ -167,6 +161,18 @@ angular.module('towersApp')
             data: response.data
           });
         }, function(error) {
+          console.log(error);
+        });
+
+      TowerFactory.getLeaderboardTowerBuilder(startDate, endDate)
+        .then(function(response) {
+          // Get data for players who built the most towers
+          DataFactory.handleMostTowersBuilt(response.data).forEach(function(obj) {
+            $scope.graphData.towersBuilt.data.push(obj.count);
+            $scope.graphData.towersBuilt.labels.push(obj.player_alias);
+          });
+        })
+        .catch(function(error) {
           console.log(error);
         });
 

@@ -27,6 +27,13 @@ angular.module('towersApp')
         return $http.get('/api/leaderboard', { cache: dataCache });
       };
 
+      TowerFactory.getLeaderboardTowerBuilder = function(startDate, endDate) {
+        if (startDate && endDate) {
+          return $http.get('/api/leaderboard/tower-builder/' + startDate + '/' + endDate, { cache: dataCache });
+        }
+        return $http.get('/api/leaderboard/tower-builder', { cache: dataCache });
+      };
+
       TowerFactory.getLeaderboardMoons = function(date) {
         if (!date)
           return false;

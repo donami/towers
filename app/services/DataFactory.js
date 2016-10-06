@@ -172,7 +172,7 @@ angular.module('towersApp')
     DataFactory.handleMostTowersBuilt = function(data) {
       // Sort based on towers built
       var sortedData = data.sort(function(a, b) {
-        return b.tower_count - a.tower_count;
+        return b.count - a.count;
       });
 
       // Get only the first ten of the sorted data
