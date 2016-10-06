@@ -27,7 +27,7 @@
 
     <tbody>
       <tr data-ng-repeat="tower in towers | filter: paginate">
-        <td><a ui-sref="app.towerSingle({id: tower.tower_id})">{{ tower.tower_name || '-' }}</a></td>
+        <td><a ui-sref="app.towerSingle({id: tower.tower_id})">{{ tower.tower_name || 'ID: ' + tower.tower_id }}</a></td>
         <td>{{ tower.country}}</td>
         <td>{{ tower.created_on | date:'mediumDate' }}</td>
         <td>{{ tower.player_alias }}</td>
