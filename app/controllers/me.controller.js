@@ -29,7 +29,7 @@ angular.module('towersApp')
           scales: {
             yAxes: [{
               ticks: {
-                min: 0,         // Graph starting at
+                min: 0,
               }
             }]
           }
@@ -37,10 +37,20 @@ angular.module('towersApp')
       },
       claimsPerDay: {
         title: 'Claims per day this week',
-        type: 'line',
+        type: 'bar',
         data: [],
         labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         series: ['Claims per day this week'],
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                stepSize: 1,
+                min: 0,
+              }
+            }]
+          }
+        }
       }
     };
 
@@ -170,6 +180,10 @@ angular.module('towersApp')
         else
           countsByDay.push(0);
       });
+
+      // Set max value based on max value of week
+      $scope.graphData.claimsPerDay.options.scales.yAxes[0].ticks.max = (Math.max.apply(Math, countsByDay) + 1);
+
       $scope.graphData.claimsPerDay.data = [countsByDay];
     }
 
