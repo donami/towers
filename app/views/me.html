@@ -56,7 +56,7 @@
 
       <thead>
         <tr>
-          <th class="col-md-2 pointer" ng-click="sortBy('tower_id', true)">{{ '_TOWER' | translate }}</th>
+          <th class="col-md-2 pointer" ng-click="sortBy('meta.tower_name', true)">{{ '_TOWER' | translate }}</th>
           <th class="col-md-2 pointer" ng-click="sortBy('claimed_on')">{{ '_CLAIMED_ON' | translate}}</th>
           <th class="col-md-6 pointer" ng-click="sortBy('formatted_address')">{{ '_ADDRESS' | translate }}</th>
           <th class="col-md-1 pointer" ng-click="sortBy('geld_collected', true)">{{ '_GELD_COLLECTED' | translate }}</th>
@@ -66,7 +66,12 @@
 
       <tbody>
         <tr ng-repeat="tower in claimedTowers | filter: paginate">
-          <td><a ui-sref="app.towerSingle({id: tower.tower_id})">ID: {{ tower.tower_id }}</a></td>
+          <td ng-if="!tower.meta">
+            <a ui-sref="app.towerSingle({id: tower.tower_id})">ID: {{ tower.tower_id }}</a>
+          </td>
+          <td ng-if="tower.meta">
+            <a ui-sref="app.towerSingle({id: tower.tower_id})">{{ tower.meta.tower_name || 'ID: ' + tower.tower_id }}</a>
+          </td>
           <td>{{ tower.claimed_on | date:'mediumDate' }}</td>
           <td>{{ tower.formatted_address }}</td>
           <td>{{ tower.geld_collected | number:0 }}</td>

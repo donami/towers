@@ -1,7 +1,30 @@
 angular.module('towersApp')
-  .factory('DataFactory', ['TowerFactory', function(TowerFactory) {
+  .factory('DataFactory', ['TowerFactory', '$q', function(TowerFactory, $q) {
 
     var DataFactory = {};
+
+    DataFactory.attatchMetaToClaims = function(data) {
+      var deferred = $q.defer();
+
+      TowerFactory.getTowers()
+        .then(function(response) {
+          data = data.map(function(obj) {
+            var meta = response.data.find(function(search) {
+              return search.tower_id == obj.tower_id;
+            });
+
+            obj.meta = meta;
+            return obj;
+          });
+
+          deferred.resolve(data);
+        })
+        .catch(function(error) {
+          deferred.reject(error);
+        })
+
+        return deferred.promise;
+    };
 
     // Handle data to get a sorted list of cities with most towers built
     DataFactory.handleCitiesWithMostTowers = function(data) {

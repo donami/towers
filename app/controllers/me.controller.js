@@ -1,6 +1,6 @@
 angular.module('towersApp')
-  .controller('MeController', ['$scope', '$cookies', '$filter', 'MeFactory', 'DateService',
-  function($scope, $cookies, $filter, MeFactory, DateService) {
+  .controller('MeController', ['$scope', '$cookies', '$filter', 'MeFactory', 'DateService', 'DataFactory',
+  function($scope, $cookies, $filter, MeFactory, DateService, DataFactory) {
 
     $scope.userApiKey = $cookies.get('userApiKey');
 
@@ -48,8 +48,14 @@ angular.module('towersApp')
 
     MeFactory.getClaims()
       .then(function(response) {
-        $scope.claimedTowers = $filter('orderBy')(response.data, $scope.orderBy, $scope.reverse);
-        $scope.totalItems = response.data.length;
+        DataFactory.attatchMetaToClaims(response.data)
+          .then(function(data) {
+            $scope.claimedTowers = $filter('orderBy')(data, $scope.orderBy, $scope.reverse);
+            $scope.totalItems = data.length;
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
 
         getDaysWithMostClaims(response.data);
         getClaimsPerDay(response.data);
