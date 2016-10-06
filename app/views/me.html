@@ -31,7 +31,7 @@
       <table class="table table-striped table-bordered">
         <tr>
           <th>{{ '_NAME' | translate }}:</th>
-          <td>{{ lastClaimedTower.info.tower_name || '-' }}</td>
+          <td><a ui-sref="app.towerSingle({id: lastClaimedTower.tower_id})">{{ lastClaimedTower.info.tower_name || 'ID: ' + lastClaimedTower.tower_id }}</a></td>
         </tr>
         <tr>
           <th>{{ '_BUILD_DATE' | translate }}:</th>
