@@ -97,7 +97,9 @@
   <!-- Log view -->
   <div ng-if="state.view == 'log'">
 
-    <table class="table table-striped">
+    <div ng-if="!log.length" class="alert alert-warning">You have not made any claims on this tower</div>
+
+    <table class="table table-striped" ng-if="log.length">
       <thead>
         <tr>
           <th>Date claimed</th>
