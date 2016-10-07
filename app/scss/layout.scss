@@ -23,6 +23,26 @@ a {
   }
 }
 
+@media screen and (max-width: 1200px) {
+  ul.menu {
+    &>li {
+      display: none;
+    }
+    li.menu-dropdown {
+      border-left: #b0b0b0 1px solid;
+      font-size: 2em;
+      display: block !important;
+
+      li {
+        a {
+          text-align: left !important;
+          line-height: 50px !important;
+        }
+      }
+    }
+  }
+}
+
 div#header {
   background: #e8e5e5;
 
@@ -32,10 +52,9 @@ div#header {
 
   ul.menu {
     list-style: none;
-    overflow: hidden;
     margin-bottom: 0;
 
-    li {
+    &>li {
       float: left;
 
       a {
@@ -58,6 +77,11 @@ div#header {
           text-decoration: none;
         }
       }
+
+      &.menu-dropdown {
+        display: none;
+      }
+
       &:first-child {
         border-left: #b0b0b0 1px solid;
       }
