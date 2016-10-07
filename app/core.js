@@ -29,6 +29,16 @@ app.run(['$cookies', '$state', '$rootScope', function($cookies, $state, $rootSco
 
 }]);
 
+app.run(['$rootScope', '$state', function($rootScope, $state) {
+  // If parent state has redirectTo property, use it to change state
+  $rootScope.$on('$stateChangeStart', function(evt, to, params) {
+    if (to.redirectTo) {
+      evt.preventDefault();
+      $state.go(to.redirectTo, params)
+    }
+  });
+}]);
+
 app.config(['$translateProvider', function($translateProvider) {
   $translateProvider.translations('en', langEnglish);
 

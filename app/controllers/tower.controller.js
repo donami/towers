@@ -3,7 +3,6 @@ angular.module('towersApp')
 
     $scope.state = {
       loading: true,
-      view: 'main'
     };
 
     findTowerById($stateParams.id);
@@ -51,9 +50,5 @@ angular.module('towersApp')
           console.log(error);
         });
     }
-
-    $scope.changeView = function(view) {
-      $scope.state.view = view;
-    };
 
   }]);

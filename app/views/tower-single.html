@@ -12,13 +12,13 @@
 
     <div class="options">
       <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           View
           <span class="caret"></span>
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-          <li ng-class="{active: state.view == 'main'}"><a class="pointer" ng-click="changeView('main')">Information</a></li>
-          <li ng-class="{active: state.view == 'log'}"><a class="pointer" ng-click="changeView('log')">Log</a></li>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+          <li><a ui-sref=".main">Information</a></li>
+          <li><a ui-sref=".log">Log</a></li>
         </ul>
       </div>
     </div>
@@ -32,99 +32,6 @@
     <div class="alert alert-warning" ng-bind="error.message"></div>
   </div>
 
-  <!-- Main view -->
-  <div ng-if="tower && state.view == 'main'">
-
-    <div class="row">
-
-      <div ng-class="{'col-md-6': map, 'col-md-12': !map}">
-        <table class="table table-striped">
-          <tr>
-            <th>{{ '_NAME' | translate }}</th>
-            <td>{{ tower.tower_name || '-' }}</td>
-          </tr>
-          <tr>
-            <th>{{ '_COUNTRY' | translate }}</th>
-            <td>{{ tower.country }}</td>
-          </tr>
-          <tr>
-            <th>{{ '_BUILD_DATE' | translate }}</th>
-            <td>{{ tower.created_on | date }}</td>
-          </tr>
-          <tr>
-            <th>{{ '_CREATOR' | translate }}</th>
-            <td>{{ tower.player_alias }}</td>
-          </tr>
-          <tr>
-            <th>{{ '_ADDRESS' | translate }}</th>
-            <td>{{ tower.formatted_address }}</td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="col-md-6" ng-if="map">
-        <div id="map">
-          <img src="{{ map }}" class="img-thumbnail" alt=""/>
-        </div>
-      </div>
-
-    </div>
-
-    <h2>{{ '_TOWER_STATS' | translate }}</h2>
-
-    <table class="table table-striped">
-      <tr>
-        <th>{{ '_CLAIMS_ON_TOWER' | translate }}</th>
-        <td>{{ tower.stats.claim_count || '0' }}</td>
-      </tr>
-      <tr>
-        <th>{{ '_PLAYERS_CLAIMED_TOWER' | translate }}</th>
-        <td>{{ tower.stats.player_count || '0' }}</td>
-      </tr>
-      <tr>
-        <th>{{ '_FIRST_CLAIMED_ON' | translate }}</th>
-        <td>{{ (tower.stats.first_claimed_on | date:'mediumDate') || 'Never' }}</td>
-      </tr>
-      <tr>
-        <th>{{ '_LAST_CLAIMED_ON' | translate }}</th>
-        <td>{{ (tower.stats.last_claimed_on | date:'mediumDate') || 'Never' }}</td>
-      </tr>
-      <tr>
-        <th>{{ '_TOTAL_GELD_COLLECTED' | translate }}</th>
-        <td>{{ tower.stats.total_geld_collected || '0' }}</td>
-      </tr>
-      <tr>
-        <th>{{ '_TOTAL_GELD_BONUS' | translate }}</th>
-        <td>{{ tower.stats.total_geld_bonus || '0' }}</td>
-      </tr>
-    </table>
-
-  </div>
-  <!-- / Main view -->
-
-  <!-- Log view -->
-  <div ng-if="state.view == 'log'">
-
-    <div ng-if="!log.length" class="alert alert-warning">You have not made any claims on this tower</div>
-
-    <table class="table table-striped" ng-if="log.length">
-      <thead>
-        <tr>
-          <th>Date claimed</th>
-          <th>Geld collected</th>
-          <th>Geld bonus</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="event in log">
-          <td>{{ event.claimed_on | date:'mediumDate' }}</td>
-          <td>{{ event.geld_collected | number:0 }}</td>
-          <td>{{ event.geld_bonus | number:0 }}</td>
-        </tr>
-      </tbody>
-    </table>
-
-  </div>
-  <!-- / Log view -->
+  <div ui-view></div>
 
 </div>

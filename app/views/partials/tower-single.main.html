@@ -1,0 +1,69 @@
+<!-- Main view -->
+<div ng-if="tower">
+
+  <div class="row">
+
+    <div ng-class="{'col-md-6': map, 'col-md-12': !map}">
+      <table class="table table-striped">
+        <tr>
+          <th>{{ '_NAME' | translate }}</th>
+          <td>{{ tower.tower_name || '-' }}</td>
+        </tr>
+        <tr>
+          <th>{{ '_COUNTRY' | translate }}</th>
+          <td>{{ tower.country }}</td>
+        </tr>
+        <tr>
+          <th>{{ '_BUILD_DATE' | translate }}</th>
+          <td>{{ tower.created_on | date }}</td>
+        </tr>
+        <tr>
+          <th>{{ '_CREATOR' | translate }}</th>
+          <td>{{ tower.player_alias }}</td>
+        </tr>
+        <tr>
+          <th>{{ '_ADDRESS' | translate }}</th>
+          <td>{{ tower.formatted_address }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="col-md-6" ng-if="map">
+      <div id="map">
+        <img src="{{ map }}" class="img-thumbnail" alt=""/>
+      </div>
+    </div>
+
+  </div>
+
+  <h2>{{ '_TOWER_STATS' | translate }}</h2>
+
+  <table class="table table-striped">
+    <tr>
+      <th>{{ '_CLAIMS_ON_TOWER' | translate }}</th>
+      <td>{{ tower.stats.claim_count || '0' }}</td>
+    </tr>
+    <tr>
+      <th>{{ '_PLAYERS_CLAIMED_TOWER' | translate }}</th>
+      <td>{{ tower.stats.player_count || '0' }}</td>
+    </tr>
+    <tr>
+      <th>{{ '_FIRST_CLAIMED_ON' | translate }}</th>
+      <td>{{ (tower.stats.first_claimed_on | date:'mediumDate') || 'Never' }}</td>
+    </tr>
+    <tr>
+      <th>{{ '_LAST_CLAIMED_ON' | translate }}</th>
+      <td>{{ (tower.stats.last_claimed_on | date:'mediumDate') || 'Never' }}</td>
+    </tr>
+    <tr>
+      <th>{{ '_TOTAL_GELD_COLLECTED' | translate }}</th>
+      <td>{{ tower.stats.total_geld_collected || '0' }}</td>
+    </tr>
+    <tr>
+      <th>{{ '_TOTAL_GELD_BONUS' | translate }}</th>
+      <td>{{ tower.stats.total_geld_bonus || '0' }}</td>
+    </tr>
+  </table>
+
+</div>
+<!-- / Main view -->

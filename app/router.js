@@ -39,6 +39,15 @@ angular.module('towersApp').config(['$stateProvider', '$urlRouterProvider', '$lo
       url: '/tower/:id',
       templateUrl: 'views/tower-single.html',
       controller: 'TowerController',
+      redirectTo: 'app.towerSingle.main',
+    })
+    .state('app.towerSingle.main', {
+      url: '/',
+      templateUrl: 'views/partials/tower-single.main.html',
+    })
+    .state('app.towerSingle.log', {
+      url: '/log',
+      templateUrl: 'views/partials/tower-single.log.html',
     })
     .state('app.leaderboard', {
       url: '/leaderboard',
