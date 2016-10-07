@@ -13,10 +13,9 @@
       </div>
 
       <div class="col-md-3">
-        <!-- TODO: date format not displaying correctly -->
-        <div ng-if="data.createdAt" class="achieved-at"><strong>Achieved at:</strong> {{ data.createdAt | date }}</div>
+        <div ng-if="data.createdAt" class="achieved-at"><strong>Achieved at:</strong> {{ data.createdAt | dateToISO | date }}</div>
       </div>
-      
+
     </div>
 
   </div>
