@@ -35,28 +35,40 @@
   <!-- Main view -->
   <div ng-if="tower && state.view == 'main'">
 
-    <table class="table table-striped">
-      <tr>
-        <th>{{ '_NAME' | translate }}</th>
-        <td>{{ tower.tower_name || '-' }}</td>
-      </tr>
-      <tr>
-        <th>{{ '_COUNTRY' | translate }}</th>
-        <td>{{ tower.country }}</td>
-      </tr>
-      <tr>
-        <th>{{ '_BUILD_DATE' | translate }}</th>
-        <td>{{ tower.created_on | date }}</td>
-      </tr>
-      <tr>
-        <th>{{ '_CREATOR' | translate }}</th>
-        <td>{{ tower.player_alias }}</td>
-      </tr>
-      <tr>
-        <th>{{ '_ADDRESS' | translate }}</th>
-        <td>{{ tower.formatted_address }}</td>
-      </tr>
-    </table>
+    <div class="row">
+
+      <div ng-class="{'col-md-6': map, 'col-md-12': !map}">
+        <table class="table table-striped">
+          <tr>
+            <th>{{ '_NAME' | translate }}</th>
+            <td>{{ tower.tower_name || '-' }}</td>
+          </tr>
+          <tr>
+            <th>{{ '_COUNTRY' | translate }}</th>
+            <td>{{ tower.country }}</td>
+          </tr>
+          <tr>
+            <th>{{ '_BUILD_DATE' | translate }}</th>
+            <td>{{ tower.created_on | date }}</td>
+          </tr>
+          <tr>
+            <th>{{ '_CREATOR' | translate }}</th>
+            <td>{{ tower.player_alias }}</td>
+          </tr>
+          <tr>
+            <th>{{ '_ADDRESS' | translate }}</th>
+            <td>{{ tower.formatted_address }}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-md-6" ng-if="map">
+        <div id="map">
+          <img src="{{ map }}" class="img-thumbnail" alt=""/>
+        </div>
+      </div>
+
+    </div>
 
     <h2>{{ '_TOWER_STATS' | translate }}</h2>
 
@@ -86,10 +98,6 @@
         <td>{{ tower.stats.total_geld_bonus || '0' }}</td>
       </tr>
     </table>
-
-    <div id="map" ng-if="map">
-      <img src="{{ map }}" alt=""/>
-    </div>
 
   </div>
   <!-- / Main view -->
