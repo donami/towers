@@ -16,24 +16,7 @@
   <div class="row">
 
     <!-- Col -->
-    <div class="col-md-9">
-
-      <div ng-repeat="graph in graphData track by $index" id="anchor{{$index}}">
-        <graph graph-title="graph.title"
-          type="graph.type"
-          data="graph.data"
-          labels="graph.labels"
-          series="graph.series"
-          datasetoverride="graph.dataset"
-          options="graph.options">
-        </graph>
-      </div>
-
-    </div>
-    <!-- / Col -->
-
-    <!-- Col -->
-    <div class="col-md-3">
+    <div class="col-md-3 col-md-push-9">
 
       <!-- Filters -->
       <div class="panel panel-primary">
@@ -88,6 +71,23 @@
           </div>
 
         </div>
+      </div>
+
+    </div>
+    <!-- / Col -->
+
+    <!-- Col -->
+    <div class="col-md-9 col-md-pull-3">
+
+      <div ng-repeat="graph in graphData track by $index" id="anchor{{$index}}">
+        <graph graph-title="graph.title"
+          type="graph.type"
+          data="graph.data"
+          labels="graph.labels"
+          series="graph.series"
+          datasetoverride="graph.dataset"
+          options="graph.options">
+        </graph>
       </div>
 
     </div>
