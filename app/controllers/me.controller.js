@@ -1,12 +1,18 @@
 angular.module('towersApp')
-  .controller('MeController', ['$scope', '$cookies', '$filter', 'MeFactory', 'DateService', 'DataFactory',
-  function($scope, $cookies, $filter, MeFactory, DateService, DataFactory) {
+  .controller('MeController', ['$scope', '$state', '$cookies', '$filter', 'MeFactory', 'DateService', 'DataFactory',
+  function($scope, $state, $cookies, $filter, MeFactory, DateService, DataFactory) {
 
     $scope.userApiKey = $cookies.get('userApiKey');
 
     $scope.state = {
-      view: 'main'
+      view: $state.current.name
     };
+
+    $scope.$watch(function() {
+      return $state.current.name
+    }, function(newVal, oldVal) {
+      $scope.state.view = newVal;
+    });
 
     $scope.claimedTowers = [];
 
@@ -53,10 +59,6 @@ angular.module('towersApp')
         }
       }
     };
-
-    $scope.changeView = function(view) {
-      $scope.state.view = view;
-    }
 
     $scope.lastClaimedTower = {
       tower_id: 0,
