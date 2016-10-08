@@ -66,6 +66,15 @@ angular.module('towersApp').config(['$stateProvider', '$urlRouterProvider', '$lo
       url: '/leaderboard',
       templateUrl: 'views/leaderboard.html',
       controller: 'LeaderboardController',
+      redirectTo: 'app.leaderboard.main',
+    })
+    .state('app.leaderboard.main', {
+      url: '/',
+      templateUrl: 'views/partials/leaderboard.main.html',
+    })
+    .state('app.leaderboard.new-moons', {
+      url: '/new-moons',
+      templateUrl: 'views/partials/leaderboard.new-moons.html',
     })
     .state('app.hallOfFame', {
       url: '/hall-of-fame',

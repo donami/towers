@@ -1,0 +1,28 @@
+<!-- Overall leaderboard -->
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th class="col-md-1 pointer" ng-click="setSort('player_alias')">{{ '_PLAYER' | translate }}</th>
+      <th class="col-md-1 pointer" ng-click="setSort('claim_count', true)">{{ '_CLAIMS' | translate }}</th>
+      <th class="col-md-1 pointer" ng-click="setSort('tower_count', true)">{{ '_TOWER_COUNT' | translate }}</th>
+      <th class="col-md-1 pointer" ng-click="setSort('first_claimed_on')">{{ '_FIRST_CLAIM' | translate }}</th>
+      <th class="col-md-1 pointer" ng-click="setSort('last_claimed_on')">{{ '_LAST_CLAIM' | translate }}</th>
+      <th class="col-md-1 pointer" ng-click="setSort('geld_collected', true)">{{ '_GELD_COLLECTED' | translate }}</th>
+      <th class="col-md-1 pointer" ng-click="setSort('geld_bonus', true)">{{ '_GELD_BONUS' | translate }}</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr data-ng-repeat="row in leaderboard | orderBy:orderBy:reverseOrder">
+      <td>{{ row.player_alias || 'No alias' }}</td>
+      <td>{{ row.claim_count }}</td>
+      <td>{{ row.tower_count }}</td>
+      <td>{{ row.first_claimed_on | date:'mediumDate' }}</td>
+      <td>{{ row.last_claimed_on | date:'mediumDate' }}</td>
+      <td>{{ row.geld_collected | number:0 }}</td>
+      <td>{{ row.geld_bonus | number:0 }}</td>
+    </tr>
+  </tbody>
+
+</table>
+<!-- / Overall leaderboard -->

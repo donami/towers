@@ -1,8 +1,8 @@
 angular.module('towersApp')
-  .controller('LeaderboardController', ['$scope', 'TowerFactory', 'MoonFactory', 'toastr', function($scope, TowerFactory, MoonFactory, toastr) {
+  .controller('LeaderboardController', ['$scope', 'TowerFactory', 'MoonFactory', '$state', 'toastr', function($scope, TowerFactory, MoonFactory, $state, toastr) {
 
     $scope.state = {
-      view: 'overall',
+      view: $state.current.name,
     };
 
     $scope.leaderboard = [];
@@ -16,17 +16,24 @@ angular.module('towersApp')
     function init() {
       switch ($scope.state.view) {
 
-        case 'geldByNewMoon':
+        case 'app.leaderboard.new-moons':
           loadNewMoons();
           getLeaderboardMoons();
           break;
 
-        case 'overall':
+        case 'app.leaderboard.main':
         default:
           getLeaderboard();
 
       }
     }
+
+    $scope.$watch(function() {
+      return $state.current.name;
+    }, function(newVal, oldVal) {
+      $scope.state.view = newVal;
+      init();
+    });
 
     $scope.setSort = function(property, asFloat) {
       sort(property, asFloat);
@@ -102,12 +109,14 @@ angular.module('towersApp')
     }
 
     $scope.selectNewMoon = function() {
-      getLeaderboardMoons($scope.selectedNewMoon.iso8601);
+      if ($scope.selectedNewMoon) {
+        getLeaderboardMoons($scope.selectedNewMoon.iso8601);
+      }
     }
 
-    $scope.changeView = function(view) {
-      $scope.state.view = view;
-      init();
-    };
+    // $scope.changeView = function(view) {
+    //   $scope.state.view = view;
+    //   init();
+    // };
 
   }]);
