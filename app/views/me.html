@@ -16,6 +16,9 @@
       <a ui-sref=".calendar" class="btn btn-default" ng-class="{'btn-info': state.view == 'app.me.calendar'}">
         <span ng-if="state.loading" class="glyphicon glyphicon-refresh spinner"></span> Calendar
       </a>
+      <a ui-sref=".graphs" class="btn btn-default" ng-class="{'btn-info': state.view == 'app.me.graphs'}">
+        <span ng-if="state.loading" class="glyphicon glyphicon-refresh spinner"></span> My graphs
+      </a>
     </div>
     <h1 class="page-title">{{ '_PERSONAL_VIEW' | translate }}</h1>
   </div>

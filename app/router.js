@@ -29,6 +29,10 @@ angular.module('towersApp').config(['$stateProvider', '$urlRouterProvider', '$lo
       url: 'me/calendar',
       templateUrl: 'views/partials/me.calendar.html',
     })
+    .state('app.me.graphs', {
+      url: 'me/graphs',
+      templateUrl: 'views/partials/me.graphs.html',
+    })
     .state('app.graph', {
       url: '/stats',
       templateUrl: 'views/graph.html',
