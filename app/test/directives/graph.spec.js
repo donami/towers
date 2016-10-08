@@ -55,4 +55,4 @@ describe('Graph directive', function() {
 
     expect(canvas.hasClass('ng-hide')).toBe(true);
   });
-})
+});

@@ -1,5 +1,12 @@
-angular.module('towersApp')
-  .controller('LoginController', ['$scope', '$cookies', '$state', 'AuthService', 'toastr', function($scope, $cookies, $state, AuthService, toastr) {
+(function() {
+  'use strict';
+
+  angular
+    .module('towersApp')
+    .controller('LoginController', LoginController);
+
+  LoginController.$inject = ['$scope', '$cookies', '$state', 'AuthService', 'toastr'];
+  function LoginController($scope, $cookies, $state, AuthService, toastr) {
     var vm = this;
     vm.submitApiKey = submitApiKey;
 
@@ -19,6 +26,7 @@ angular.module('towersApp')
           toastr.clear();
           toastr.error('The API key was not correct', 'Invalid API key');
         });
-    };
+    }
 
-  }]);
+  }
+})();

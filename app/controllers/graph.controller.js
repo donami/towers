@@ -1,5 +1,12 @@
-angular.module('towersApp')
-  .controller('GraphController', ['TowerFactory', 'DataFactory', 'MoonFactory', '$q', '$filter', 'toastr', '$state', '$location', 'smoothScroll', function (TowerFactory, DataFactory, MoonFactory, $q, $filter, toastr, $state, $location, smoothScroll) {
+(function() {
+  'use strict';
+
+  angular
+    .module('towersApp')
+    .controller('GraphController', GraphController);
+
+  GraphController.$inject = ['TowerFactory', 'DataFactory', 'MoonFactory', '$q', '$filter', 'toastr', '$state', '$location', 'smoothScroll'];
+  function GraphController(TowerFactory, DataFactory, MoonFactory, $q, $filter, toastr, $state, $location, smoothScroll) {
     var vm = this;
 
     init();
@@ -44,7 +51,7 @@ angular.module('towersApp')
 
         var link = element._chart.config.data.datasets[0][index].link;
         $state.go('app.towerSingle', {id: link});
-      }
+      };
 
       // Default options for graph
       var graphDefaultOptions = {
@@ -211,45 +218,47 @@ angular.module('towersApp')
 
     function filterData() {
       var value = vm.filter.value;
+      var startDate;
+      var endDate;
 
       switch (value) {
         case 'no_filter':
-          var endDate = moment().add(10, 'years').format('YYYY-MM-DD');
+          endDate = moment().add(10, 'years').format('YYYY-MM-DD');
 
           doFilter('2000-01-01', endDate);
         break;
         case 'last_week':
-          var startDate = moment().startOf('isoweek').subtract(2, 'weeks').format('YYYY-MM-DD');
-          var endDate = moment().startOf('isoweek').subtract(1, 'weeks').subtract(1, 'days').format('YYYY-MM-DD');
+          startDate = moment().startOf('isoweek').subtract(2, 'weeks').format('YYYY-MM-DD');
+          endDate = moment().startOf('isoweek').subtract(1, 'weeks').subtract(1, 'days').format('YYYY-MM-DD');
 
           doFilter(startDate, endDate);
           break;
 
         case 'last_seven_days':
-          var startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
-          var endDate = moment().format('YYYY-MM-DD');
+          startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
+          endDate = moment().format('YYYY-MM-DD');
 
           doFilter(startDate, endDate);
           break;
 
         case 'today':
-          var startDate = moment().format('YYYY-MM-DD');
-          var endDate = moment().add(1, 'days').format('YYYY-MM-DD');
+          startDate = moment().format('YYYY-MM-DD');
+          endDate = moment().add(1, 'days').format('YYYY-MM-DD');
 
           doFilter(startDate, endDate);
           break;
 
         case 'yesterday':
-          var startDate = moment().subtract(1, 'days').format('YYYY-MM-DD');
-          var endDate = moment().format('YYYY-MM-DD');
+          startDate = moment().subtract(1, 'days').format('YYYY-MM-DD');
+          endDate = moment().format('YYYY-MM-DD');
 
           doFilter(startDate, endDate);
           break;
 
 
         case 'current_year':
-          var startDate = moment().startOf('year').format('YYYY-MM-DD');
-          var endDate = moment().endOf('year').format('YYYY-MM-DD');
+          startDate = moment().startOf('year').format('YYYY-MM-DD');
+          endDate = moment().endOf('year').format('YYYY-MM-DD');
 
           doFilter(startDate, endDate);
           break;
@@ -261,15 +270,15 @@ angular.module('towersApp')
           }
           var filteredYear = vm.selectedYear.value;
 
-          var startDate = moment(filteredYear + '-01-01').startOf('year').format('YYYY-MM-DD');
-          var endDate = moment(filteredYear + '-01-01').endOf('year').format('YYYY-MM-DD');
+          startDate = moment(filteredYear + '-01-01').startOf('year').format('YYYY-MM-DD');
+          endDate = moment(filteredYear + '-01-01').endOf('year').format('YYYY-MM-DD');
 
           doFilter(startDate, endDate);
           break;
 
         case 'filter_by_new_moons':
-          var startDate = moment(vm.filterByMoonStart.iso8601).format('YYYY-MM-DD');
-          var endDate = moment(vm.filterByMoonEnd.iso8601).format('YYYY-MM-DD');
+          startDate = moment(vm.filterByMoonStart.iso8601).format('YYYY-MM-DD');
+          endDate = moment(vm.filterByMoonEnd.iso8601).format('YYYY-MM-DD');
 
           if (startDate > endDate) {
             toastr.error('The last new moon could not be before the first', 'Ooops..');
@@ -283,7 +292,7 @@ angular.module('towersApp')
         default:
 
       }
-    };
+    }
 
     function doFilter(startDate, endDate) {
       init();
@@ -303,8 +312,10 @@ angular.module('towersApp')
         duration: 700,
         easing: 'easeInQuad',
         offset: 0,
-      }
+      };
       smoothScroll(element, options);
-    };
+    }
 
-  }]);
+  }
+
+})();

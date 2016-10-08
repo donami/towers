@@ -1,7 +1,13 @@
-angular.module('towersApp')
-  .controller('MeController', ['$scope', '$state', '$cookies', '$filter', 'MeFactory', 'DateService', 'DataFactory',
-  function($scope, $state, $cookies, $filter, MeFactory, DateService, DataFactory) {
+(function() {
+  'use strict';
 
+  angular
+    .module('towersApp')
+    .controller('MeController', MeController);
+
+  MeController.$inject = ['$scope', '$state', '$cookies', '$filter', 'MeFactory', 'DateService', 'DataFactory'];
+
+  function MeController($scope, $state, $cookies, $filter, MeFactory, DateService, DataFactory) {
     var vm = this;
     vm.userApiKey = $cookies.get('userApiKey');
     vm.state = {
@@ -66,14 +72,14 @@ angular.module('towersApp')
     }
 
     $scope.$watch(function() {
-      return $state.current.name
+      return $state.current.name;
     }, function(newVal, oldVal) {
       vm.state.view = newVal;
     });
 
     // Get your claims
     function getClaims() {
-      MeFactory.getClaims()
+      return MeFactory.getClaims()
         .then(function(response) {
           DataFactory.attatchMetaToClaims(response.data)
             .then(function(data) {
@@ -94,7 +100,7 @@ angular.module('towersApp')
 
     // Get the latest claimed tower
     function getLatestClaimedTower() {
-      MeFactory.getLatestClaimedTower()
+      return MeFactory.getLatestClaimedTower()
         .then(function(response) {
           var claimedTower = {};
 
@@ -125,7 +131,7 @@ angular.module('towersApp')
       end = begin + vm.numPerPage;
       index = vm.claimedTowers.indexOf(value);
       return (begin <= index && index < end);
-    };
+    }
 
     // Sort the table
     function sortBy(property, parseFloat) {
@@ -140,7 +146,7 @@ angular.module('towersApp')
       }
 
       vm.claimedTowers = $filter('orderBy')(vm.claimedTowers, vm.orderBy, vm.reverse);
-    };
+    }
 
 
     // Get the days that user has claimed the most towers
@@ -196,6 +202,7 @@ angular.module('towersApp')
       // Set max value based on max value of week
       vm.graphData.claimsPerDay.options.scales.yAxes[0].ticks.max = (Math.max.apply(Math, countsByDay) + 1);
       vm.graphData.claimsPerDay.data = [countsByDay];
-    }
+    };
 
-  }]);
+  }
+})();

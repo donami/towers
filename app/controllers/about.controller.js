@@ -1,6 +1,13 @@
-angular.module('towersApp')
-  .controller('AboutController', ['$scope', function($scope) {
+(function() {
+  'use strict';
 
-    // Code
+  angular
+    .module('towersApp')
+    .controller('AboutController', AboutController);
 
-  }]);
+  AboutController.$inject = ['$scope'];
+  function AboutController($scope) {
+
+  }
+
+})();

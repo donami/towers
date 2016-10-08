@@ -1,5 +1,12 @@
-angular.module('towersApp')
-  .controller('LeaderboardController', ['$scope', 'TowerFactory', 'MoonFactory', '$state', 'toastr', function($scope, TowerFactory, MoonFactory, $state, toastr) {
+(function() {
+  'use strict';
+
+  angular
+    .module('towersApp')
+    .controller('LeaderboardController', LeaderboardController);
+
+  LeaderboardController.$inject = ['$scope', 'TowerFactory', 'MoonFactory', '$state', 'toastr'];
+  function LeaderboardController($scope, TowerFactory, MoonFactory, $state, toastr) {
     var vm = this;
 
     vm.state = {
@@ -23,9 +30,8 @@ angular.module('towersApp')
           break;
 
         case 'app.leaderboard.main':
-        default:
           getLeaderboard();
-
+          break;
       }
     }
 
@@ -38,7 +44,7 @@ angular.module('towersApp')
 
     function setSort(property, asFloat) {
       sort(property, asFloat);
-    };
+    }
 
     function sort(property, asFloat) {
       if (property == vm.orderBy) vm.reverseOrder = !vm.reverseOrder;
@@ -72,7 +78,7 @@ angular.module('towersApp')
         .then(function(response) {
           var today = new Date();
           var date;
-          var minimumDate = new Date('2015-08-15')            // Only get new moons after this date
+          var minimumDate = new Date('2015-08-15');            // Only get new moons after this date
           var newMoons = response.data.filter(function(obj) {
             date = new Date(obj.iso8601);
             return today > date && date > minimumDate;
@@ -115,4 +121,6 @@ angular.module('towersApp')
       }
     }
 
-  }]);
+  }
+
+})();

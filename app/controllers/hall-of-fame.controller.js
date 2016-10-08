@@ -1,5 +1,12 @@
-angular.module('towersApp')
-  .controller('HallOfFameController', ['$scope', 'TowerFactory', function($scope, TowerFactory) {
+(function() {
+  'use strict';
+
+  angular
+    .module('towersApp')
+    .controller('HallOfFameController', HallOfFameController);
+
+  HallOfFameController.$inject = ['$scope', 'TowerFactory'];
+  function HallOfFameController($scope, TowerFactory) {
     var vm = this;
     vm.countries = [];
 
@@ -15,4 +22,6 @@ angular.module('towersApp')
         });
     }
 
-  }]);
+  }
+
+})();

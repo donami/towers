@@ -1,6 +1,11 @@
-angular.module('towersApp')
-  .directive('achievement', [function() {
+(function() {
+  'use strict';
 
+  angular
+    .module('towersApp')
+    .directive('achievement', achievement);
+
+  function achievement() {
     return {
       restrict: 'AE',
       templateUrl: 'templates/achievement.html',
@@ -14,5 +19,6 @@ angular.module('towersApp')
         }
       }
     };
+  }
 
-  }]);
+})();

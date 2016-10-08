@@ -46,6 +46,6 @@ describe('filter', function() {
 
       expect(filtered).toEqual(secondSelect);
     });
-  })
+  });
 
-})
+});

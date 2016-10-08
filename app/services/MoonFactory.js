@@ -1,17 +1,26 @@
-'use strict';
+(function() {
+  'use strict';
 
-angular.module('towersApp')
-  .factory('MoonFactory', ['$http', 'DataCache', function($http, DataCache) {
+  angular
+    .module('towersApp')
+    .factory('MoonFactory', MoonFactory);
 
-      var urlBase = '/api/new-moons';
+  MoonFactory.$inject = ['$http', 'DataCache'];
+  function MoonFactory($http, DataCache) {
 
-      var MeFactory = {};
+    var urlBase = '/api/new-moons';
+    var dataCache = DataCache.get();
 
-      var dataCache = DataCache.get();
+    var factory = {
+      getNewMoons: getNewMoons,
+    };
 
-      MeFactory.getNewMoons = function() {
-        return $http.get(urlBase, { cache: dataCache });
-      };
+    return factory;
 
-      return MeFactory;
-  }]);
+    function getNewMoons() {
+      return $http.get(urlBase, { cache: dataCache });
+    }
+
+  }
+
+})();

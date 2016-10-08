@@ -1,5 +1,12 @@
-angular.module('towersApp')
-  .controller('AchievementController', ['AchievementFactory', 'toastr', function(AchievementFactory, toastr) {
+(function() {
+  'use strict';
+
+  angular
+    .module('towersApp')
+    .controller('AchievementController', AchievementController);
+
+  AchievementController.$inject = ['AchievementFactory', 'toastr'];
+  function AchievementController(AchievementFactory, toastr) {
     var vm = this;
     vm.achievements = [];
     vm.state = {
@@ -34,7 +41,8 @@ angular.module('towersApp')
         })
         .catch(function(error) {
           console.log(error);
-        })
+        });
     }
+  }
 
-  }]);
+})();

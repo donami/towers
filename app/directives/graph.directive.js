@@ -1,5 +1,12 @@
-angular.module('towersApp')
-  .directive('graph', ['$compile', function($compile) {
+(function() {
+  'use strict';
+
+  angular
+    .module('towersApp')
+    .directive('graph', graph);
+    
+  graph.$inject = ['$compile'];
+  function graph($compile) {
     return {
       restrict: 'AE',
       replace: 'true',
@@ -29,4 +36,6 @@ angular.module('towersApp')
         $compile(elem)(scope);
       }
     };
-  }]);
+  }
+
+})();

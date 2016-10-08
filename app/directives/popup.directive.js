@@ -1,5 +1,11 @@
-angular.module('towersApp')
-  .directive('popup', [function() {
+(function() {
+  'use strict';
+
+  angular
+    .module('towersApp')
+    .directive('popup', popup);
+
+  function popup() {
     return {
       restrict: 'AE',
       scope: {
@@ -20,4 +26,5 @@ angular.module('towersApp')
 
       }
     };
-  }]);
+  }
+})();

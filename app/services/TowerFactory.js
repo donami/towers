@@ -1,60 +1,76 @@
-'use strict';
+(function() {
+  'use strict';
 
-angular.module('towersApp')
-  .factory('TowerFactory', ['$http', 'DataCache', function($http, DataCache) {
+  angular
+    .module('towersApp')
+    .factory('TowerFactory', TowerFactory);
 
-      var urlBase = '/api/towers';
+  TowerFactory.$inject = ['$http', 'DataCache'];
+  function TowerFactory($http, DataCache) {
 
-      var TowerFactory = {};
+    var urlBase = '/api/towers';
+    var dataCache = DataCache.get();
 
-      var dataCache = DataCache.get();
+    var factory = {
+      getTowers: getTowers,
+      findById: findById,
+      getLeaderboard: getLeaderboard,
+      getLeaderboardTowerBuilder: getLeaderboardTowerBuilder,
+      getLeaderboardMoons: getLeaderboardMoons,
+      getStats: getStats,
+      getTopLeaderboard: getTopLeaderboard,
+      getFirstInCountry: getFirstInCountry,
+    };
 
-      TowerFactory.getTowers = function(startDate, endDate) {
-        if (startDate && endDate) {
-          return $http.get('/api/tower/all/' + startDate + '/' + endDate, { cache: dataCache });
-        }
-        return $http.get('/api/tower/all', { cache: dataCache });
-      };
+    return factory;
 
-      TowerFactory.findById = function(id) {
-        return $http.get('/api/tower/' + id, { cache: dataCache });
-      };
+    function getTowers(startDate, endDate) {
+      if (startDate && endDate) {
+        return $http.get('/api/tower/all/' + startDate + '/' + endDate, { cache: dataCache });
+      }
+      return $http.get('/api/tower/all', { cache: dataCache });
+    }
 
-      TowerFactory.getLeaderboard = function(startDate, endDate) {
-        if (startDate && endDate) {
-          return $http.get('/api/leaderboard/' + startDate + '/' + endDate, { cache: dataCache });
-        }
-        return $http.get('/api/leaderboard', { cache: dataCache });
-      };
+    function findById(id) {
+      return $http.get('/api/tower/' + id, { cache: dataCache });
+    }
 
-      TowerFactory.getLeaderboardTowerBuilder = function(startDate, endDate) {
-        if (startDate && endDate) {
-          return $http.get('/api/leaderboard/tower-builder/' + startDate + '/' + endDate, { cache: dataCache });
-        }
-        return $http.get('/api/leaderboard/tower-builder', { cache: dataCache });
-      };
+    function getLeaderboard(startDate, endDate) {
+      if (startDate && endDate) {
+        return $http.get('/api/leaderboard/' + startDate + '/' + endDate, { cache: dataCache });
+      }
+      return $http.get('/api/leaderboard', { cache: dataCache });
+    }
 
-      TowerFactory.getLeaderboardMoons = function(date) {
-        if (!date)
-          return false;
+    function getLeaderboardTowerBuilder(startDate, endDate) {
+      if (startDate && endDate) {
+        return $http.get('/api/leaderboard/tower-builder/' + startDate + '/' + endDate, { cache: dataCache });
+      }
+      return $http.get('/api/leaderboard/tower-builder', { cache: dataCache });
+    }
 
-        return $http.get('/api/leaderboard/moons/' + date, { cache: dataCache });
-      };
+    function getLeaderboardMoons(date) {
+      if (!date)
+        return false;
 
-      TowerFactory.getStats = function(startDate, endDate) {
-        if (startDate && endDate) {
-          return $http.get('/api/tower/stats/' + startDate + '/' + endDate, { cache: dataCache });
-        }
-        return $http.get('/api/tower/stats', { cache: dataCache });
-      };
+      return $http.get('/api/leaderboard/moons/' + date, { cache: dataCache });
+    }
 
-      TowerFactory.getTopLeaderboard = function() {
-        return $http.get('/api/leaderboard/top', { cache: dataCache });
-      };
+    function getStats(startDate, endDate) {
+      if (startDate && endDate) {
+        return $http.get('/api/tower/stats/' + startDate + '/' + endDate, { cache: dataCache });
+      }
+      return $http.get('/api/tower/stats', { cache: dataCache });
+    }
 
-      TowerFactory.getFirstInCountry = function() {
-        return $http.get('/api/hall-of-fame/first-tower', { cache: dataCache });
-      };
+    function getTopLeaderboard() {
+      return $http.get('/api/leaderboard/top', { cache: dataCache });
+    }
 
-      return TowerFactory;
-  }]);
+    function getFirstInCountry() {
+      return $http.get('/api/hall-of-fame/first-tower', { cache: dataCache });
+    }
+
+  }
+
+})();

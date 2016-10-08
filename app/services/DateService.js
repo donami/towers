@@ -11,5 +11,5 @@ angular.module('towersApp')
       });
 
       return days;
-    }
+    };
   }]);

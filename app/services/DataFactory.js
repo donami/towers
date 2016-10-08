@@ -1,9 +1,26 @@
-angular.module('towersApp')
-  .factory('DataFactory', ['TowerFactory', '$q', function(TowerFactory, $q) {
+(function() {
+  'use strict';
 
-    var DataFactory = {};
+  angular
+    .module('towersApp')
+    .factory('DataFactory', DataFactory);
 
-    DataFactory.attatchMetaToClaims = function(data) {
+  DataFactory.$inject = ['TowerFactory', '$q'];
+  function DataFactory(TowerFactory, $q) {
+    var factory = {
+      attatchMetaToClaims: attatchMetaToClaims,
+      handleCitiesWithMostTowers: handleCitiesWithMostTowers,
+      handleTowersPlayerCount: handleTowersPlayerCount,
+      handleTowersTopClaimed: handleTowersTopClaimed,
+      handleMostGeldBonus: handleMostGeldBonus,
+      handleMostTowersBuilt: handleMostTowersBuilt,
+      handleMostGeldCollected: handleMostGeldCollected,
+      handleTopClaims: handleTopClaims,
+    };
+
+    return factory;
+
+    function attatchMetaToClaims(data) {
       var deferred = $q.defer();
 
       TowerFactory.getTowers()
@@ -21,15 +38,15 @@ angular.module('towersApp')
         })
         .catch(function(error) {
           deferred.reject(error);
-        })
+        });
 
         return deferred.promise;
-    };
+    }
 
     // Handle data to get a sorted list of cities with most towers built
-    DataFactory.handleCitiesWithMostTowers = function(data) {
-      var data = _.reject(data, function(obj) {
-        return obj.city == null;
+    function handleCitiesWithMostTowers(data) {
+      data = _.reject(data, function(obj) {
+        return obj.city === null;
       });
 
       var result = _.chain(data)
@@ -47,10 +64,10 @@ angular.module('towersApp')
       });
 
       return result;
-    };
+    }
 
     // Handle data to get the towers with highest player count
-    DataFactory.handleTowersPlayerCount = function(data) {
+    function handleTowersPlayerCount(data) {
       // Sort data based on player_count
       data.sort(function(a, b) {
         if (a.player_count < b.player_count) return 1;
@@ -101,9 +118,9 @@ angular.module('towersApp')
         dataset: dataset,
         data: values,
       };
-    };
+    }
 
-    DataFactory.handleTowersTopClaimed = function(data) {
+    function handleTowersTopClaimed(data) {
       // Sort data based on claim_count
       data.sort(function(a, b) {
         if (a.claim_count < b.claim_count) return 1;
@@ -153,10 +170,10 @@ angular.module('towersApp')
         dataset: dataset,
         data: values,
       };
-    };
+    }
 
     // Sort data to get the players with most geld bonus
-    DataFactory.handleMostGeldBonus = function(data) {
+    function handleMostGeldBonus(data) {
       // Sort based on geld bonus
       var sortedData = data.sort(function(a, b) {
         return b.geld_bonus - a.geld_bonus;
@@ -166,10 +183,10 @@ angular.module('towersApp')
       sortedData = sortedData.slice(0, 10);
 
       return sortedData;
-    };
+    }
 
     // Sort data to get the players who have built most towers
-    DataFactory.handleMostTowersBuilt = function(data) {
+    function handleMostTowersBuilt(data) {
       // Sort based on towers built
       var sortedData = data.sort(function(a, b) {
         return b.count - a.count;
@@ -179,10 +196,10 @@ angular.module('towersApp')
       sortedData = sortedData.slice(0, 10);
 
       return sortedData;
-    };
+    }
 
     // Sort data to get players who collected most geld
-    DataFactory.handleMostGeldCollected = function(data) {
+    function handleMostGeldCollected(data) {
       // Sort based on geld collected count
       var sortedData = data.sort(function(a, b) {
         return b.geld_collected - a.geld_collected;
@@ -192,10 +209,10 @@ angular.module('towersApp')
       sortedData = sortedData.slice(0, 10);
 
       return sortedData;
-    };
+    }
 
     // Sort data to get players who claimed most towers
-    DataFactory.handleTopClaims = function(data) {
+    function handleTopClaims(data) {
       // Sort based on claim count
       var sortedData = data.sort(function(a, b) {
         return b.claim_count - a.claim_count;
@@ -205,7 +222,7 @@ angular.module('towersApp')
       sortedData = sortedData.slice(0, 10);
 
       return sortedData;
-    };
+    }
 
-    return DataFactory;
-  }]);
+  }
+})();

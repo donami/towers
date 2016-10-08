@@ -10,7 +10,7 @@ describe('TowerFactory', function() {
   describe('getLeaderboardMoons', function() {
     it('should return false if no date provided', function() {
       expect(TowerFactory.getLeaderboardMoons()).toBeFalsy();
-    })
+    });
   });
 
 });

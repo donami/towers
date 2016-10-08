@@ -1,6 +1,12 @@
-angular.module('towersApp')
-  .service('MapService', ['$http', '$q', function($http, $q) {
+(function() {
+  'use strict';
 
+  angular
+    .module('towersApp')
+    .service('MapService', MapService);
+
+  MapService.$inject = ['$http', '$q'];
+  function MapService($http, $q) {
     // Get link to image of map based on formatted address
     this.getMap = function(address) {
       address = encodeURIComponent(address);
@@ -16,7 +22,7 @@ angular.module('towersApp')
             var map = 'https://maps.googleapis.com/maps/api/staticmap?center=' + address + '&zoom=13&size=600x300&maptype=roadmap&markers=color:green%7C' + lat + ',' + lng + '&key=AIzaSyAsv5cUVztNbGdJbtK1mgE1ag7YQtq3lCY';
             deferred.resolve({ map: map });
           }
-          deferred.reject({data: {message: 'No map found'}});
+          deferred.reject({data: { message: 'No map found' }, id: 'no_map_found' });
         })
         .catch(function(error) {
           deferred.reject(error);
@@ -25,4 +31,6 @@ angular.module('towersApp')
       return deferred.promise;
     };
 
-  }]);
+  }
+
+})();

@@ -1,25 +1,39 @@
-angular.module('towersApp')
-  .directive('calendar', [function() {
+(function() {
+  'use strict';
+
+  angular
+    .module('towersApp')
+    .directive('calendar', calendar);
+
+  function calendar() {
     return {
       restrict: 'AE',
       templateUrl: 'templates/calendar.html',
-      controller: 'CalendarController',
-      controllerAs: 'Calendar',
+      controller: CalendarController,
+      controllerAs: 'vm',
       bindToController: true
     };
-  }])
-  .controller('CalendarController', ['$scope', 'MeFactory', function($scope, MeFactory) {
+  }
 
-    var Calendar = this;
+  CalendarController.$inject = ['$scope', 'MeFactory'];
+  function CalendarController($scope, MeFactory) {
 
-    this.currDate = moment();
-    this.startDate = null;
-    this.endDate = null;
+    var vm = this;
 
-    this.getDaysInMonth = function(startDate) {
-      Calendar.startDate = new Date(startDate.startOf('month'));
-      Calendar.endDate   = new Date(startDate.endOf('month'));
-      var range = moment.range(Calendar.startDate, Calendar.endDate);
+    vm.currDate = moment();
+    vm.startDate = null;
+    vm.endDate = null;
+
+    vm.prevMonth = prevMonth;
+    vm.nextMonth = nextMonth;
+    vm.range = range;
+
+    initCalendar();
+
+    function getDaysInMonth(startDate) {
+      vm.startDate = new Date(startDate.startOf('month'));
+      vm.endDate   = new Date(startDate.endOf('month'));
+      var range = moment.range(vm.startDate, vm.endDate);
       var days = [];
 
       range.by('days', function(moment) {
@@ -32,35 +46,35 @@ angular.module('towersApp')
       return days;
     }
 
-    $scope.range = function(n) {
+    function range(n) {
       return new Array(n);
     }
 
-    $scope.prevMonth = function() {
-      Calendar.currDate = moment(Calendar.currDate).subtract(1, 'months');
-      Calendar.initCalendar();
-    };
+    function prevMonth() {
+      vm.currDate = moment(vm.currDate).subtract(1, 'months');
+      initCalendar();
+    }
 
-    $scope.nextMonth = function() {
-      Calendar.currDate = moment(Calendar.currDate).add(1, 'months');
-      Calendar.initCalendar();
-    };
+    function nextMonth() {
+      vm.currDate = moment(vm.currDate).add(1, 'months');
+      initCalendar();
+    }
 
-    this.initCalendar = function() {
-      Calendar.days = this.getDaysInMonth(Calendar.currDate);
+    function initCalendar() {
+      vm.days = getDaysInMonth(vm.currDate);
 
-      MeFactory.getClaims(Calendar.startDate, Calendar.endDate)
+      MeFactory.getClaims(vm.startDate, vm.endDate)
         .then(function(response) {
-          Calendar.handleData(response.data);
+          handleData(response.data);
         })
         .catch(function(error) {
           console.log(error);
         });
-    };
+    }
 
     // Handle the claims and attatch it to the calendar day
-    this.handleData = function(data) {
-      Calendar.days.map(function(day) {
+    function handleData(data) {
+      vm.days.map(function(day) {
         var claims = data.filter(function(obj) {
           return moment(obj.claimed_on).format('YYYY-MM-DD') == day.date.format('YYYY-MM-DD');
         });
@@ -69,8 +83,8 @@ angular.module('towersApp')
           day.claims = day.claims.concat(claims);
         }
       });
-    };
+    }
 
-    this.initCalendar();
+  }
 
-  }]);
+})();

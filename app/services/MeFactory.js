@@ -1,24 +1,34 @@
-'use strict';
+(function() {
+  'use strict';
 
-angular.module('towersApp')
-  .factory('MeFactory', ['$http', 'DataCache', function($http, DataCache) {
+  angular
+    .module('towersApp')
+    .factory('MeFactory', MeFactory);
 
-      var urlBase = '/api/me';
+  MeFactory.$inject = ['$http', 'DataCache'];
+  function MeFactory($http, DataCache) {
 
-      var MeFactory = {};
+    var urlBase = '/api/me';
+    var dataCache = DataCache.get();
 
-      var dataCache = DataCache.get();
+    var factory = {
+      getClaims: getClaims,
+      getLatestClaimedTower: getLatestClaimedTower,
+    };
 
-      MeFactory.getClaims = function(startDate, endDate) {
-        if (startDate && endDate) {
-          return $http.get(urlBase + '/' + startDate + '/' + endDate, { cache: dataCache });
-        }
-        return $http.get(urlBase, { cache: dataCache });
-      };
+    return factory;
 
-      MeFactory.getLatestClaimedTower = function() {
-        return $http.get(urlBase + '/latest-claim');
-      };
+    function getClaims(startDate, endDate) {
+      if (startDate && endDate) {
+        return $http.get(urlBase + '/' + startDate + '/' + endDate, { cache: dataCache });
+      }
+      return $http.get(urlBase, { cache: dataCache });
+    }
 
-      return MeFactory;
-  }]);
+    function getLatestClaimedTower() {
+      return $http.get(urlBase + '/latest-claim');
+    }
+
+  }
+
+})();

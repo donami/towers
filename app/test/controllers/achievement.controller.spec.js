@@ -28,15 +28,15 @@ describe('Achievement controller', function() {
 
   it('initializes with a proper scope', function() {
     expect(scope.achievements).toEqual([]);
-  })
+  });
 
   it('has a state', function() {
     expect(scope.state.loading).toBe(false);
-  })
+  });
 
   it('should have a refresh function', function() {
     expect(scope.refresh).toBeDefined();
-  })
+  });
 
   it('loading to be false after refreshing is done', function() {
     scope.refresh();
@@ -45,6 +45,6 @@ describe('Achievement controller', function() {
     httpBackend.flush();
 
     expect(scope.state.loading).toBe(false);
-  })
+  });
 
-})
+});

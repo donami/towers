@@ -1,5 +1,11 @@
-angular.module('towersApp')
-  .directive('medal', [function() {
+(function() {
+  'use strict';
+
+  angular
+    .module('towersApp')
+    .directive('medal', medal);
+
+  function medal() {
     return {
       restrict: 'AE',
       template: '<div class="medal"></div>',
@@ -15,5 +21,7 @@ angular.module('towersApp')
           default:
         }
       }
-    }
-  }]);
+    };
+  }
+
+})();

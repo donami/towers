@@ -1,17 +1,29 @@
-angular.module('towersApp')
-  .factory('AchievementFactory', ['$http', function($http) {
+(function() {
+  'use strict';
 
-    var AchievementFactory = {};
+  angular
+    .module('towersApp')
+    .factory('AchievementFactory', AchievementFactory);
 
-    AchievementFactory.getAchievements = function() {
-      return $http.get('/api/achievement');
+  AchievementFactory.$inject = ['$http'];
+  function AchievementFactory($http) {
+
+    var factory = {
+      getAchievements: getAchievements,
+      refresh: refresh,
     };
 
+    return factory;
+
+    function getAchievements() {
+      return $http.get('/api/achievement');
+    }
+
     // Scan for new achievements
-    AchievementFactory.refresh = function() {
+    function refresh() {
       return $http.get('/api/achievement/refresh');
     }
 
-    return AchievementFactory;
+  }
 
-  }]);
+})();

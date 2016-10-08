@@ -1,5 +1,12 @@
-angular.module('towersApp')
-  .controller('TowerController', ['$scope', 'TowerFactory', 'MeFactory', '$state', '$stateParams', 'MapService', function($scope, TowerFactory, MeFactory, $state, $stateParams, MapService) {
+(function() {
+  'use strict';
+
+  angular
+    .module('towersApp')
+    .controller('TowerController', TowerController);
+
+  TowerController.$inject = ['$scope', 'TowerFactory', 'MeFactory', '$state', '$stateParams', 'MapService', '$exceptionHandler'];
+  function TowerController($scope, TowerFactory, MeFactory, $state, $stateParams, MapService, $exceptionHandler) {
     var vm = this;
 
     vm.state = {
@@ -7,15 +14,20 @@ angular.module('towersApp')
       view: $state.current.name,
     };
 
+    init();
+
     $scope.$watch(function() {
       return $state.current.name;
     }, function(newVal, oldVal) {
       vm.state.view = newVal;
     });
 
-    findTowerById($stateParams.id);
+    function init() {
+      findTower($stateParams.id);
+      getLog($stateParams.id);
+    }
 
-    function findTowerById(id) {
+    function findTower(id) {
       TowerFactory.findById(id)
         .then(function(response) {
           vm.state.loading = false;
@@ -25,23 +37,32 @@ angular.module('towersApp')
         })
         .then(function(response) {
           vm.map = response.map;
-          getLog();
         })
         .catch(function(error) {
           vm.state.loading = false;
-          vm.error = {
-            type: 'Unable to load tower: ' + error.data.message,
-            message: 'This tower is missing data',
-          };
+
+          if (error.status) {
+            if (error.status === 404) {
+              vm.error = {
+                type: 'Unable to load tower: ' + error.data.message,
+                message: 'This tower is missing data',
+              };
+            }
+          }
+          if (error.id) {
+            if (error.id == 'no_map_found') {
+              $exceptionHandler('NoMapFound', {message: 'No map found'});
+            }
+          }
         });
     }
 
-    function getLog() {
-      MeFactory.getClaims()
+    function getLog(id) {
+      return MeFactory.getClaims()
         .then(function(response) {
           // Get claims on this tower
           var data = response.data.filter(function(obj) {
-            return obj.tower_id == $stateParams.id;
+            return obj.tower_id == id;
           });
 
           // Sort the data
@@ -58,5 +79,6 @@ angular.module('towersApp')
           console.log(error);
         });
     }
+  }
 
-  }]);
+})();

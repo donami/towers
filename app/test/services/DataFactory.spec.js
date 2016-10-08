@@ -21,7 +21,7 @@ describe('DataFactory', function() {
         { city: 'New York', },
         { city: 'Madrid', },
       ];
-    })
+    });
 
     it('should have a property named amount', function() {
 
@@ -64,7 +64,7 @@ describe('DataFactory', function() {
       var data = DataFactory.handleCitiesWithMostTowers(input);
 
       expect(data.length).toBe(10);
-    })
+    });
 
   });
 
@@ -79,13 +79,13 @@ describe('DataFactory', function() {
         { geld_bonus: "1.921321" },
         { geld_bonus: "12.1" },
       ];
-    })
+    });
 
     it('should be sorted', function() {
       var data = DataFactory.handleMostGeldBonus(input);
 
       expect(data[0].geld_bonus).not.toBeLessThan(data[1].geld_bonus);
-    })
+    });
 
   });
 
@@ -100,13 +100,13 @@ describe('DataFactory', function() {
         { tower_count: "1" },
         { tower_count: null },
       ];
-    })
+    });
 
     it('should be sorted', function() {
       var data = DataFactory.handleMostTowersBuilt(input);
 
       expect(data[0].tower_count).not.toBeLessThan(data[1].tower_count);
-    })
+    });
 
   });
 
@@ -121,13 +121,13 @@ describe('DataFactory', function() {
         { geld_collected: 5000.9 },
         { geld_collected: null },
       ];
-    })
+    });
 
     it('should be sorted', function() {
       var data = DataFactory.handleMostGeldCollected(input);
 
       expect(data[0].geld_collected).not.toBeLessThan(data[1].geld_collected);
-    })
+    });
 
   });
 
@@ -142,13 +142,13 @@ describe('DataFactory', function() {
         { claim_count: 999 },
         { claim_count: null },
       ];
-    })
+    });
 
     it('should be sorted', function() {
       var data = DataFactory.handleTopClaims(input);
 
       expect(data[0].claim_count).not.toBeLessThan(data[1].claim_count);
-    })
+    });
 
   });
 
