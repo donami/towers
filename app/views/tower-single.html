@@ -17,8 +17,8 @@
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-          <li ng-class="{active: state.view == 'app.towerSingle.main'}"><a ui-sref=".main">Information</a></li>
-          <li ng-class="{active: state.view == 'app.towerSingle.log'}"><a ui-sref=".log">Log</a></li>
+          <li ng-class="{active: vm.state.view == 'app.towerSingle.main'}"><a ui-sref=".main">Information</a></li>
+          <li ng-class="{active: vm.state.view == 'app.towerSingle.log'}"><a ui-sref=".log">Log</a></li>
         </ul>
       </div>
     </div>
@@ -26,10 +26,10 @@
     <h1 class="page-title">{{ '_VIEW_TOWER' | translate }}</h1>
   </div>
 
-  <spinner ng-if="state.loading"></spinner>
+  <spinner ng-if="vm.state.loading"></spinner>
 
-  <div ng-if="!tower && error">
-    <div class="alert alert-warning" ng-bind="error.message"></div>
+  <div ng-if="!vm.tower && vm.error">
+    <div class="alert alert-warning" ng-bind="vm.error.message"></div>
   </div>
 
   <div ui-view></div>

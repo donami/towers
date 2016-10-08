@@ -19,6 +19,7 @@ angular.module('towersApp').config(['$stateProvider', '$urlRouterProvider', '$lo
       url: '/',
       templateUrl: 'views/me.html',
       controller: 'MeController',
+      controllerAs: 'vm',
       redirectTo: 'app.me.main',
     })
     .state('app.me.main', {
@@ -36,22 +37,26 @@ angular.module('towersApp').config(['$stateProvider', '$urlRouterProvider', '$lo
     .state('app.graph', {
       url: '/stats',
       templateUrl: 'views/graph.html',
-      controller: 'GraphController'
+      controller: 'GraphController',
+      controllerAs: 'vm',
     })
     .state('app.achievements', {
       url: '/achievements',
       templateUrl: 'views/achievements.html',
-      controller: 'AchievementController'
+      controller: 'AchievementController',
+      controllerAs: 'vm',
     })
     .state('login', {
       url: '/login',
       templateUrl: 'views/login.html',
-      controller: 'LoginController'
+      controller: 'LoginController',
+      controllerAs: 'vm',
     })
     .state('app.towerSingle', {
       url: '/tower/:id',
       templateUrl: 'views/tower-single.html',
       controller: 'TowerController',
+      controllerAs: 'vm',
       redirectTo: 'app.towerSingle.main',
     })
     .state('app.towerSingle.main', {
@@ -66,6 +71,7 @@ angular.module('towersApp').config(['$stateProvider', '$urlRouterProvider', '$lo
       url: '/leaderboard',
       templateUrl: 'views/leaderboard.html',
       controller: 'LeaderboardController',
+      controllerAs: 'vm',
       redirectTo: 'app.leaderboard.main',
     })
     .state('app.leaderboard.main', {
@@ -80,6 +86,7 @@ angular.module('towersApp').config(['$stateProvider', '$urlRouterProvider', '$lo
       url: '/hall-of-fame',
       templateUrl: 'views/hall-of-fame.html',
       controller: 'HallOfFameController',
+      controllerAs: 'vm',
     });
 
 }]);

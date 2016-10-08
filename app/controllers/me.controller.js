@@ -2,29 +2,27 @@ angular.module('towersApp')
   .controller('MeController', ['$scope', '$state', '$cookies', '$filter', 'MeFactory', 'DateService', 'DataFactory',
   function($scope, $state, $cookies, $filter, MeFactory, DateService, DataFactory) {
 
-    $scope.userApiKey = $cookies.get('userApiKey');
-
-    $scope.state = {
+    var vm = this;
+    vm.userApiKey = $cookies.get('userApiKey');
+    vm.state = {
       view: $state.current.name
     };
-
-    $scope.$watch(function() {
-      return $state.current.name
-    }, function(newVal, oldVal) {
-      $scope.state.view = newVal;
-    });
-
-    $scope.claimedTowers = [];
-
-    $scope.totalItems = 0;
-    $scope.currentPage = 1;
-    $scope.numPerPage = 5;
-
-    $scope.orderBy = 'claimed_on';
-    $scope.reverse = true;
+    vm.claimedTowers = [];
+    vm.totalItems = 0;
+    vm.currentPage = 1;
+    vm.numPerPage = 5;
+    vm.orderBy = 'claimed_on';
+    vm.reverse = true;
+    vm.paginate = paginate;
+    vm.sortBy = sortBy;
+    vm.lastClaimedTower = {
+      tower_id: 0,
+      info: [],
+      stats: []
+    };
 
     // For displaying of graphs
-    $scope.graphData = {
+    vm.graphData = {
       claimDays: {
         title: '_DAYS_WITH_MOST_CLAIMS',
         type: 'bar',
@@ -60,76 +58,88 @@ angular.module('towersApp')
       }
     };
 
-    $scope.lastClaimedTower = {
-      tower_id: 0,
-      info: [],
-      stats: []
-    };
+    init();
 
-    MeFactory.getClaims()
-      .then(function(response) {
-        DataFactory.attatchMetaToClaims(response.data)
-          .then(function(data) {
-            $scope.claimedTowers = $filter('orderBy')(data, $scope.orderBy, $scope.reverse);
-            $scope.totalItems = data.length;
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
+    function init() {
+      getClaims();
+      getLatestClaimedTower();
+    }
 
-        getDaysWithMostClaims(response.data);
-        getClaimsPerDay(response.data);
+    $scope.$watch(function() {
+      return $state.current.name
+    }, function(newVal, oldVal) {
+      vm.state.view = newVal;
+    });
 
-      }, function(error) {
-        console.log(error);
-      });
+    // Get your claims
+    function getClaims() {
+      MeFactory.getClaims()
+        .then(function(response) {
+          DataFactory.attatchMetaToClaims(response.data)
+            .then(function(data) {
+              vm.claimedTowers = $filter('orderBy')(data, vm.orderBy, vm.reverse);
+              vm.totalItems = data.length;
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+
+          getDaysWithMostClaims(response.data);
+          getClaimsPerDay(response.data);
+
+        }, function(error) {
+          console.log(error);
+        });
+    }
 
     // Get the latest claimed tower
-    MeFactory.getLatestClaimedTower()
-      .then(function(response) {
-        var claimedTower = {};
+    function getLatestClaimedTower() {
+      MeFactory.getLatestClaimedTower()
+        .then(function(response) {
+          var claimedTower = {};
 
-        var towerId = response.data[0].lastClaimedTowerId;
+          var towerId = response.data[0].lastClaimedTowerId;
 
-        var info = response.data[1].find(function(obj) {
-          return obj.tower_id == towerId;
+          var info = response.data[1].find(function(obj) {
+            return obj.tower_id == towerId;
+          });
+
+          var stats = response.data[2].find(function(obj) {
+            return obj.tower_id == towerId;
+          });
+
+          claimedTower.tower_id = towerId;
+          claimedTower.info = info;
+          claimedTower.stats = stats;
+
+          vm.lastClaimedTower = claimedTower;
+        }, function(error) {
+          console.log(error);
         });
-
-        var stats = response.data[2].find(function(obj) {
-          return obj.tower_id == towerId;
-        });
-
-        claimedTower.tower_id = towerId;
-        claimedTower.info = info;
-        claimedTower.stats = stats;
-
-        $scope.lastClaimedTower = claimedTower;
-      }, function(error) {
-        console.log(error);
-      });
+    }
 
     // Filter for paginating the results
-    $scope.paginate = function(value) {
+    function paginate(value) {
       var begin, end, index;
-      begin = ($scope.currentPage - 1) * $scope.numPerPage;
-      end = begin + $scope.numPerPage;
-      index = $scope.claimedTowers.indexOf(value);
+      begin = (vm.currentPage - 1) * vm.numPerPage;
+      end = begin + vm.numPerPage;
+      index = vm.claimedTowers.indexOf(value);
       return (begin <= index && index < end);
     };
 
     // Sort the table
-    $scope.sortBy = function(property, parseFloat) {
-      $scope.reverse = !$scope.reverse;
-      $scope.orderBy = property;
+    function sortBy(property, parseFloat) {
+      vm.reverse = !vm.reverse;
+      vm.orderBy = property;
 
       if (parseFloat) {
-        $scope.claimedTowers.forEach(function(obj) {
+        vm.claimedTowers.forEach(function(obj) {
           if (obj[property] !== '')
             obj[property] = parseInt(obj[property]);
         });
       }
 
-      $scope.claimedTowers = $filter('orderBy')($scope.claimedTowers, $scope.orderBy, $scope.reverse);
+      vm.claimedTowers = $filter('orderBy')(vm.claimedTowers, vm.orderBy, vm.reverse);
     };
 
 
@@ -150,8 +160,8 @@ angular.module('towersApp')
       sortable = sortable.slice(0, 10);
 
       sortable.forEach(function(obj) {
-        $scope.graphData.claimDays.labels.push(obj[0]);
-        $scope.graphData.claimDays.data.push(obj[1]);
+        vm.graphData.claimDays.labels.push(obj[0]);
+        vm.graphData.claimDays.data.push(obj[1]);
       });
     }
 
@@ -184,9 +194,8 @@ angular.module('towersApp')
       });
 
       // Set max value based on max value of week
-      $scope.graphData.claimsPerDay.options.scales.yAxes[0].ticks.max = (Math.max.apply(Math, countsByDay) + 1);
-
-      $scope.graphData.claimsPerDay.data = [countsByDay];
+      vm.graphData.claimsPerDay.options.scales.yAxes[0].ticks.max = (Math.max.apply(Math, countsByDay) + 1);
+      vm.graphData.claimsPerDay.data = [countsByDay];
     }
 
   }]);

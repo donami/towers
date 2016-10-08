@@ -10,14 +10,14 @@
 <div class="me-container container">
   <div class="heading">
     <div class="options">
-      <a ui-sref=".main" class="btn btn-default" ng-class="{'btn-info': state.view == 'app.me.main'}">
-        <span ng-if="state.loading" class="glyphicon glyphicon-refresh spinner"></span> Main
+      <a ui-sref=".main" class="btn btn-default" ng-class="{'btn-info': vm.state.view == 'app.me.main'}">
+        <span ng-if="vm.state.loading" class="glyphicon glyphicon-refresh spinner"></span> Main
       </a>
-      <a ui-sref=".calendar" class="btn btn-default" ng-class="{'btn-info': state.view == 'app.me.calendar'}">
-        <span ng-if="state.loading" class="glyphicon glyphicon-refresh spinner"></span> Calendar
+      <a ui-sref=".calendar" class="btn btn-default" ng-class="{'btn-info': vm.state.view == 'app.me.calendar'}">
+        <span ng-if="vm.state.loading" class="glyphicon glyphicon-refresh spinner"></span> Calendar
       </a>
-      <a ui-sref=".graphs" class="btn btn-default" ng-class="{'btn-info': state.view == 'app.me.graphs'}">
-        <span ng-if="state.loading" class="glyphicon glyphicon-refresh spinner"></span> My graphs
+      <a ui-sref=".graphs" class="btn btn-default" ng-class="{'btn-info': vm.state.view == 'app.me.graphs'}">
+        <span ng-if="vm.state.loading" class="glyphicon glyphicon-refresh spinner"></span> My graphs
       </a>
     </div>
     <h1 class="page-title">{{ '_PERSONAL_VIEW' | translate }}</h1>

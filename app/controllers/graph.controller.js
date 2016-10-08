@@ -1,27 +1,21 @@
 angular.module('towersApp')
-  .controller('GraphController', ['$scope', 'TowerFactory', 'DataFactory', 'MoonFactory', '$q', '$filter', 'toastr', '$state', '$location', 'smoothScroll', function ($scope, TowerFactory, DataFactory, MoonFactory, $q, $filter, toastr, $state, $location, smoothScroll) {
+  .controller('GraphController', ['TowerFactory', 'DataFactory', 'MoonFactory', '$q', '$filter', 'toastr', '$state', '$location', 'smoothScroll', function (TowerFactory, DataFactory, MoonFactory, $q, $filter, toastr, $state, $location, smoothScroll) {
+    var vm = this;
 
     init();
     loadData();
 
-    $scope.moons = [];
-    $scope.filter = {};
+    vm.moons = [];
+    vm.filter = {};
 
-    MoonFactory.getNewMoons()
-      .then(function(response) {
-        $scope.moons = response.data;
-      }, function(error) {
-        console.log(error);
-      });
-
-    $scope.yearOptions = [
+    vm.yearOptions = [
       { name: '2016', value: '2016' },
       { name: '2015', value: '2015'},
       { name: '2014', value: '2013'},
       { name: '2013', value: '2014'},
     ];
 
-    $scope.filterOptions = [
+    vm.filterOptions = [
       { name: 'No filter', value: 'no_filter' },
       { name: 'Last week', value: 'last_week' },
       { name: 'Last seven days', value: 'last_seven_days' },
@@ -31,8 +25,10 @@ angular.module('towersApp')
       { name: 'Specific year', value: 'filter_by_year' },
       { name: 'Between new moons', value: 'filter_by_new_moons' }
     ];
-    $scope.filter = $scope.filterOptions[0];
-
+    vm.filter = vm.filterOptions[0];
+    vm.filterData = filterData;
+    vm.clearFilter = clearFilter;
+    vm.gotoAnchor = gotoAnchor;
 
     function init() {
       // Click event for graph
@@ -62,7 +58,19 @@ angular.module('towersApp')
         onClick: graphOnClick
       };
 
-      $scope.graphData = {
+      getNewMoons();
+
+      // Fetch new moons
+      function getNewMoons() {
+        MoonFactory.getNewMoons()
+          .then(function(response) {
+            vm.moons = response.data;
+          }, function(error) {
+            console.log(error);
+          });
+      }
+
+      vm.graphData = {
         towersByCity: {
           title: '_CITIES_WITH_MOST_TOWERS',
           type: 'bar',
@@ -134,20 +142,20 @@ angular.module('towersApp')
         .then(function(response) {
           // Get data for players with most claims
           DataFactory.handleTopClaims(response.data).forEach(function(obj) {
-            $scope.graphData.claimCount.data.push(obj.claim_count);
-            $scope.graphData.claimCount.labels.push(obj.player_alias);
+            vm.graphData.claimCount.data.push(obj.claim_count);
+            vm.graphData.claimCount.labels.push(obj.player_alias);
           });
 
           // Get the data for players collecting most geld
           DataFactory.handleMostGeldCollected(response.data).forEach(function(obj) {
-            $scope.graphData.geldCollected.data.push(obj.geld_collected);
-            $scope.graphData.geldCollected.labels.push(obj.player_alias);
+            vm.graphData.geldCollected.data.push(obj.geld_collected);
+            vm.graphData.geldCollected.labels.push(obj.player_alias);
           });
 
           // Get data for players with most geld bonus
           DataFactory.handleMostGeldBonus(response.data).forEach(function(obj) {
-            $scope.graphData.geldBonus.data.push(obj.geld_bonus);
-            $scope.graphData.geldBonus.labels.push(obj.player_alias);
+            vm.graphData.geldBonus.data.push(obj.geld_bonus);
+            vm.graphData.geldBonus.labels.push(obj.player_alias);
           });
 
         }, function(error) {
@@ -168,8 +176,8 @@ angular.module('towersApp')
         .then(function(response) {
           // Get data for players who built the most towers
           DataFactory.handleMostTowersBuilt(response.data).forEach(function(obj) {
-            $scope.graphData.towersBuilt.data.push(obj.count);
-            $scope.graphData.towersBuilt.labels.push(obj.player_alias);
+            vm.graphData.towersBuilt.data.push(obj.count);
+            vm.graphData.towersBuilt.labels.push(obj.player_alias);
           });
         })
         .catch(function(error) {
@@ -179,10 +187,10 @@ angular.module('towersApp')
       TowerFactory.getStats(startDate, endDate)
         .then(function(response) {
           // Filter data to get towerst with most claims
-          $scope.graphData.towerHighestClaim = Object.assign($scope.graphData.towerHighestClaim, DataFactory.handleTowersTopClaimed(response.data));
+          vm.graphData.towerHighestClaim = Object.assign(vm.graphData.towerHighestClaim, DataFactory.handleTowersTopClaimed(response.data));
 
           // Filter out data to get towers with highest player count
-          $scope.graphData.towerPlayerCount = Object.assign($scope.graphData.towerPlayerCount, DataFactory.handleTowersPlayerCount(response.data));
+          vm.graphData.towerPlayerCount = Object.assign(vm.graphData.towerPlayerCount, DataFactory.handleTowersPlayerCount(response.data));
         })
         .catch(function(error) {
           console.log(error);
@@ -192,8 +200,8 @@ angular.module('towersApp')
         .then(function(response) {
           // Filter data to get cities with most towers built
           DataFactory.handleCitiesWithMostTowers(response.data).forEach(function(obj) {
-            $scope.graphData.towersByCity.data.push(obj.amount);
-            $scope.graphData.towersByCity.labels.push(obj.city);
+            vm.graphData.towersByCity.data.push(obj.amount);
+            vm.graphData.towersByCity.labels.push(obj.city);
           });
         })
         .catch(function(error) {
@@ -201,8 +209,8 @@ angular.module('towersApp')
         });
     }
 
-    $scope.filterData = function() {
-      var value = $scope.filter.value;
+    function filterData() {
+      var value = vm.filter.value;
 
       switch (value) {
         case 'no_filter':
@@ -247,11 +255,11 @@ angular.module('towersApp')
           break;
 
         case 'filter_by_year':
-          if (!$scope.selectedYear) {
+          if (!vm.selectedYear) {
             toastr.error('Please select a year', 'No date');
             return false;
           }
-          var filteredYear = $scope.selectedYear.value;
+          var filteredYear = vm.selectedYear.value;
 
           var startDate = moment(filteredYear + '-01-01').startOf('year').format('YYYY-MM-DD');
           var endDate = moment(filteredYear + '-01-01').endOf('year').format('YYYY-MM-DD');
@@ -260,8 +268,8 @@ angular.module('towersApp')
           break;
 
         case 'filter_by_new_moons':
-          var startDate = moment($scope.filterByMoonStart.iso8601).format('YYYY-MM-DD');
-          var endDate = moment($scope.filterByMoonEnd.iso8601).format('YYYY-MM-DD');
+          var startDate = moment(vm.filterByMoonStart.iso8601).format('YYYY-MM-DD');
+          var endDate = moment(vm.filterByMoonEnd.iso8601).format('YYYY-MM-DD');
 
           if (startDate > endDate) {
             toastr.error('The last new moon could not be before the first', 'Ooops..');
@@ -283,13 +291,13 @@ angular.module('towersApp')
     }
 
     // Reset filter
-    $scope.clearFilter = function() {
+    function clearFilter() {
       init();
       loadData();
     }
 
     // Scroll to anchor
-    $scope.gotoAnchor = function(x) {
+    function gotoAnchor(x) {
       var element = document.getElementById('anchor' + x);
       var options = {
         duration: 700,

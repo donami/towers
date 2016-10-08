@@ -2,12 +2,12 @@
 <div>
 
   <label>Select new moon</label>
-  <select class="form-control" ng-options="o.iso8601 | date for o in newMoons" ng-model="$parent.selectedNewMoon" ng-change="selectNewMoon()"></select>
+  <select class="form-control" ng-options="o.iso8601 | date for o in vm.newMoons" ng-model="$parent.vm.selectedNewMoon" ng-change="vm.selectNewMoon()"></select>
 
   <hr>
 
-  <h3 ng-if="leaderboard.length">Leaderboard for {{ selectedNewMoon.iso8601 | date }}</h3>
-  <table class="table table-striped table-hover" ng-if="leaderboard.length">
+  <h3 ng-if="vm.leaderboard.length">Leaderboard for {{ vm.selectedNewMoon.iso8601 | date }}</h3>
+  <table class="table table-striped table-hover" ng-if="vm.leaderboard.length">
     <thead>
       <tr>
         <th class="col-md-2">Place</th>
@@ -18,7 +18,7 @@
     </thead>
 
     <tbody>
-      <tr data-ng-repeat="row in leaderboard">
+      <tr data-ng-repeat="row in vm.leaderboard">
         <td ng-class="{bold: row.place <= 3}">
           {{ row.place }}
         </td>

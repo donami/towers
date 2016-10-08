@@ -1,32 +1,32 @@
 angular.module('towersApp')
-  .controller('AchievementController', ['$scope', 'AchievementFactory', 'toastr', function($scope, AchievementFactory, toastr) {
-
-    $scope.achievements = [];
-
-    $scope.state = {
+  .controller('AchievementController', ['AchievementFactory', 'toastr', function(AchievementFactory, toastr) {
+    var vm = this;
+    vm.achievements = [];
+    vm.state = {
       loading: false
     };
+    vm.refresh = refresh;
 
     init();
 
     function init() {
       AchievementFactory.getAchievements()
         .then(function(response) {
-          $scope.achievements = response.data;
+          vm.achievements = response.data;
         })
         .catch(function(error) {
           console.log(error);
         });
     }
 
-    $scope.refresh = function() {
-      $scope.state.loading = true;
+    function refresh() {
+      vm.state.loading = true;
 
       AchievementFactory.refresh()
         .then(function(response) {
-          $scope.state.loading = false;
+          vm.state.loading = false;
 
-          if (response.data.length > $scope.achievements.length) {
+          if (response.data.length > vm.achievements.length) {
             toastr.success('You have earned new achievements', 'Congratulations!');
           }
 

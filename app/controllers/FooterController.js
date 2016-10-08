@@ -1,8 +1,10 @@
 angular.module('towersApp')
-  .controller('FooterController', ['$scope', 'LanguageService', function($scope, LanguageService) {
+  .controller('FooterController', ['LanguageService', function(LanguageService) {
+    var vm = this;
+    vm.changeLanguage = changeLanguage;
 
-    $scope.changeLanguage = function(language) {
+    function changeLanguage(language) {
       LanguageService.setLanguage(language);
     };
-    
+
   }]);

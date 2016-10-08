@@ -1,9 +1,9 @@
 <!-- Log view -->
 <div>
 
-  <div ng-if="!log.length" class="alert alert-warning">You have not made any claims on this tower</div>
+  <div ng-if="!vm.log.length" class="alert alert-warning">You have not made any claims on this tower</div>
 
-  <table class="table table-striped" ng-if="log.length">
+  <table class="table table-striped" ng-if="vm.log.length">
     <thead>
       <tr>
         <th>Date claimed</th>
@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="event in log">
+      <tr ng-repeat="event in vm.log">
         <td>{{ event.claimed_on | date:'mediumDate' }}</td>
         <td>{{ event.geld_collected | number:0 }}</td>
         <td>{{ event.geld_bonus | number:0 }}</td>

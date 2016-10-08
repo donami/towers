@@ -1,7 +1,8 @@
 angular.module('towersApp')
   .controller('TowerController', ['$scope', 'TowerFactory', 'MeFactory', '$state', '$stateParams', 'MapService', function($scope, TowerFactory, MeFactory, $state, $stateParams, MapService) {
+    var vm = this;
 
-    $scope.state = {
+    vm.state = {
       loading: true,
       view: $state.current.name,
     };
@@ -9,7 +10,7 @@ angular.module('towersApp')
     $scope.$watch(function() {
       return $state.current.name;
     }, function(newVal, oldVal) {
-      $scope.state.view = newVal;
+      vm.state.view = newVal;
     });
 
     findTowerById($stateParams.id);
@@ -17,18 +18,18 @@ angular.module('towersApp')
     function findTowerById(id) {
       TowerFactory.findById(id)
         .then(function(response) {
-          $scope.state.loading = false;
-          $scope.tower = response.data;
+          vm.state.loading = false;
+          vm.tower = response.data;
 
-          return MapService.getMap($scope.tower.formatted_address);
+          return MapService.getMap(vm.tower.formatted_address);
         })
         .then(function(response) {
-          $scope.map = response.map;
+          vm.map = response.map;
           getLog();
         })
         .catch(function(error) {
-          $scope.state.loading = false;
-          $scope.error = {
+          vm.state.loading = false;
+          vm.error = {
             type: 'Unable to load tower: ' + error.data.message,
             message: 'This tower is missing data',
           };
@@ -51,7 +52,7 @@ angular.module('towersApp')
             return 0;
           });
 
-          $scope.log = data;
+          vm.log = data;
         })
         .catch(function(error) {
           console.log(error);

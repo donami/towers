@@ -1,20 +1,24 @@
 angular.module('towersApp')
   .controller('MenuController', ['$scope', '$cookies', '$state', 'AuthService', 'toastr', function($scope, $cookies, $state, AuthService, toastr) {
+    var vm = this;
 
-    $scope.authed = AuthService.getAuthed();
-
-    if ($cookies.get('userApiKey'))
-      $scope.authed = true;
+    vm.authed = AuthService.getAuthed();
+    vm.logout = logout;
+    
+    // If cookie exists, set user is authed
+    if ($cookies.get('userApiKey')) {
+      vm.authed = true;
+    }
 
     // Watch for changes in auth service to update scope
     $scope.$watch(function() {
       return AuthService.getAuthed();
     }, function() {
-      $scope.authed = AuthService.getAuthed();
+      vm.authed = AuthService.getAuthed();
     });
 
-    $scope.logout = function() {
-      $scope.authed = false;
+    function logout() {
+      vm.authed = false;
 
       AuthService.setAuthed(false);
 

@@ -26,37 +26,37 @@
           <div class="form-group">
 
             <label for="filter">Filter</label>
-            <select class="form-control" ng-options="o.name for o in filterOptions" ng-model="filter"></select>
+            <select class="form-control" ng-options="o.name for o in vm.filterOptions" ng-model="vm.filter"></select>
 
           </div>
 
-          <div class="form-group" ng-if="filter.value == 'filter_by_year'">
+          <div class="form-group" ng-if="vm.filter.value == 'filter_by_year'">
 
             <label for="filter">{{ '_CHOOSE_YEAR' | translate }}</label>
-            <select class="form-control" ng-options="o.name for o in yearOptions" ng-model="$parent.selectedYear"></select>
+            <select class="form-control" ng-options="o.name for o in vm.yearOptions" ng-model="$parent.vm.selectedYear"></select>
 
           </div>
 
-          <div ng-if="filter.value == 'filter_by_new_moons'">
+          <div ng-if="vm.filter.value == 'filter_by_new_moons'">
 
             <h4>{{ '_FILTER_BY_NEW_MOON' | translate }}</h4>
             <div class="form-group">
 
               <label for="filterByMoonStart">{{ '_FROM' | translate }}</label>
-              <select class="form-control" ng-options="(o.iso8601 | date) for o in moons" ng-model="$parent.filterByMoonStart"></select>
+              <select class="form-control" ng-options="(o.iso8601 | date) for o in vm.moons" ng-model="$parent.vm.filterByMoonStart"></select>
 
             </div>
 
             <div class="form-group">
               <label for="filterByMoonEnd">{{ '_TO' | translate }}</label>
-              <select class="form-control" ng-options="(o.iso8601 | date) for o in moons | filterMoons:$parent.filterByMoonStart" ng-model="$parent.filterByMoonEnd"></select>
+              <select class="form-control" ng-options="(o.iso8601 | date) for o in vm.moons | filterMoons:$parent.vm.filterByMoonStart" ng-model="$parent.vm.filterByMoonEnd"></select>
 
             </div>
 
           </div>
 
-          <button class="btn btn-success" ng-click="filterData()">Filter</button>
-          <button class="btn btn-warning" ng-click="clearFilter()">Reset</button>
+          <button class="btn btn-success" ng-click="vm.filterData()">Filter</button>
+          <button class="btn btn-warning" ng-click="vm.clearFilter()">Reset</button>
 
         </div>
       </div>
@@ -66,8 +66,8 @@
         <div class="panel-heading"><span class="glyphicon glyphicon-menu-down pull-right"></span> Go to graph</div>
         <div class="panel-body list-group no-padding">
 
-          <div class="list-group-item" ng-repeat="graph in graphData track by $index">
-            <span ng-click="gotoAnchor($index)" class="pointer">{{ graph.series[0] }}</span>
+          <div class="list-group-item" ng-repeat="graph in vm.graphData track by $index">
+            <span ng-click="vm.gotoAnchor($index)" class="pointer">{{ graph.series[0] }}</span>
           </div>
 
         </div>
@@ -79,7 +79,7 @@
     <!-- Col -->
     <div class="col-md-9 col-md-pull-3">
 
-      <div ng-repeat="graph in graphData track by $index" id="anchor{{$index}}">
+      <div ng-repeat="graph in vm.graphData track by $index" id="anchor{{$index}}">
         <graph graph-title="graph.title"
           type="graph.type"
           data="graph.data"

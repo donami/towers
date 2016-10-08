@@ -1,9 +1,10 @@
 angular.module('towersApp')
   .controller('LoginController', ['$scope', '$cookies', '$state', 'AuthService', 'toastr', function($scope, $cookies, $state, AuthService, toastr) {
+    var vm = this;
+    vm.submitApiKey = submitApiKey;
 
-    $scope.submitApiKey = function() {
+    function submitApiKey() {
       var userApiKey = $scope.userApiKey;
-
 
       AuthService.auth(userApiKey)
         .then(function(response) {

@@ -1,39 +1,39 @@
 <!-- Main view -->
 <div>
 
-  <div><strong>{{ '_YOUR_API_KEY' | translate }}</strong> {{ userApiKey }}</div>
+  <div><strong>{{ '_YOUR_API_KEY' | translate }}</strong> {{ vm.userApiKey }}</div>
 
-  <div ng-if="lastClaimedTower.tower_id > 0">
+  <div ng-if="vm.lastClaimedTower.tower_id > 0">
     <h2>{{ '_LATEST_CLAIMED_TOWER' | translate }}</h2>
 
     <table class="table table-striped table-bordered">
       <tr>
         <th>{{ '_NAME' | translate }}:</th>
-        <td><a ui-sref="app.towerSingle({id: lastClaimedTower.tower_id})">{{ lastClaimedTower.info.tower_name || 'ID: ' + lastClaimedTower.tower_id }}</a></td>
+        <td><a ui-sref="app.towerSingle({id: vm.lastClaimedTower.tower_id})">{{ vm.lastClaimedTower.info.tower_name || 'ID: ' + vm.lastClaimedTower.tower_id }}</a></td>
       </tr>
       <tr>
         <th>{{ '_BUILD_DATE' | translate }}:</th>
-        <td>{{ lastClaimedTower.info.created_on || '-' | date:'mediumDate' }}</td>
+        <td>{{ vm.lastClaimedTower.info.created_on || '-' | date:'mediumDate' }}</td>
       </tr>
       <tr>
         <th>{{ '_ADDRESS' | translate }}:</th>
-        <td>{{ lastClaimedTower.info.formatted_address || '-' }}</td>
+        <td>{{ vm.lastClaimedTower.info.formatted_address || '-' }}</td>
       </tr>
       <tr>
         <th>{{ '_TOWER_FIRST_CLAIMED_ON' | translate }}:</th>
-        <td>{{ lastClaimedTower.stats.first_claimed_on || '-' | date:'mediumDate' }}</td>
+        <td>{{ vm.lastClaimedTower.stats.first_claimed_on || '-' | date:'mediumDate' }}</td>
       </tr>
       <tr>
         <th>{{ '_TOWER_LAST_CLAIMED_ON' | translate }}:</th>
-        <td>{{ lastClaimedTower.stats.last_claimed_on || '-' | date:'mediumDate' }}</td>
+        <td>{{ vm.lastClaimedTower.stats.last_claimed_on || '-' | date:'mediumDate' }}</td>
       </tr>
       <tr>
         <th>{{ '_TOWER_GELD_COLLECTED' | translate }}:</th>
-        <td>{{ lastClaimedTower.stats.total_geld_collected || '-' | number }}</td>
+        <td>{{ vm.lastClaimedTower.stats.total_geld_collected || '-' | number }}</td>
       </tr>
       <tr>
         <th>{{ '_TOWER_GELD_BONUS' | translate }}:</th>
-        <td>{{ lastClaimedTower.stats.total_geld_bonus || '-' | number }}</td>
+        <td>{{ vm.lastClaimedTower.stats.total_geld_bonus || '-' | number }}</td>
       </tr>
     </table>
 
@@ -45,16 +45,16 @@
 
       <thead>
         <tr>
-          <th class="col-md-2 pointer" ng-click="sortBy('meta.tower_name', true)">{{ '_TOWER' | translate }}</th>
-          <th class="col-md-2 pointer" ng-click="sortBy('claimed_on')">{{ '_CLAIMED_ON' | translate}}</th>
-          <th class="col-md-6 pointer" ng-click="sortBy('formatted_address')">{{ '_ADDRESS' | translate }}</th>
-          <th class="col-md-1 pointer" ng-click="sortBy('geld_collected', true)">{{ '_GELD_COLLECTED' | translate }}</th>
-          <th class="col-md-1 pointer" ng-click="sortBy('geld_bonus', true)">{{ '_GELD_BONUS' | translate }}</th>
+          <th class="col-md-2 pointer" ng-click="vm.sortBy('meta.tower_name', true)">{{ '_TOWER' | translate }}</th>
+          <th class="col-md-2 pointer" ng-click="vm.sortBy('claimed_on')">{{ '_CLAIMED_ON' | translate}}</th>
+          <th class="col-md-6 pointer" ng-click="vm.sortBy('formatted_address')">{{ '_ADDRESS' | translate }}</th>
+          <th class="col-md-1 pointer" ng-click="vm.sortBy('geld_collected', true)">{{ '_GELD_COLLECTED' | translate }}</th>
+          <th class="col-md-1 pointer" ng-click="vm.sortBy('geld_bonus', true)">{{ '_GELD_BONUS' | translate }}</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr ng-repeat="tower in claimedTowers | filter: paginate">
+        <tr ng-repeat="tower in vm.claimedTowers | filter: vm.paginate">
           <td ng-if="!tower.meta">
             <a ui-sref="app.towerSingle({id: tower.tower_id})">ID: {{ tower.tower_id }}</a>
           </td>
@@ -70,7 +70,7 @@
 
     </table>
 
-    <pagination total-items="totalItems" ng-model="currentPage" max-size="5" boundary-links="true" items-per-page="numPerPage" class="pagination-sm"></pagination>
+    <pagination total-items="vm.totalItems" ng-model="vm.currentPage" max-size="5" boundary-links="true" items-per-page="vm.numPerPage" class="pagination-sm"></pagination>
   </div>
 
 </div>

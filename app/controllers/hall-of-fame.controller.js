@@ -1,19 +1,18 @@
 angular.module('towersApp')
   .controller('HallOfFameController', ['$scope', 'TowerFactory', function($scope, TowerFactory) {
-
-    $scope.countries = [];
+    var vm = this;
+    vm.countries = [];
 
     getFirstInCountry();
 
     function getFirstInCountry() {
       TowerFactory.getFirstInCountry()
         .then(function(response) {
-          $scope.countries = response.data;
-        }, function(err) {
+          vm.countries = response.data;
+        })
+        .catch(function(err) {
           console.log(err);
         });
     }
-
-
 
   }]);

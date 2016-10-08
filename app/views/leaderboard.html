@@ -10,10 +10,10 @@
 <div class="leaderboard-container container">
   <div class="heading">
     <div class="options">
-      <a ui-sref=".main" class="btn btn-default" ng-class="{'btn-info': state.view == 'app.leaderboard.main'}">
+      <a ui-sref=".main" class="btn btn-default" ng-class="{'btn-info': vm.state.view == 'app.leaderboard.main'}">
         <span ng-if="state.loading" class="glyphicon glyphicon-refresh spinner"></span> Overall
       </a>
-      <a ui-sref=".new-moons" class="btn btn-default" ng-class="{'btn-info': state.view == 'app.leaderboard.new-moons'}">
+      <a ui-sref=".new-moons" class="btn btn-default" ng-class="{'btn-info': vm.state.view == 'app.leaderboard.new-moons'}">
         <span ng-if="state.loading" class="glyphicon glyphicon-refresh spinner"></span> Geld by new moon
       </a>
     </div>

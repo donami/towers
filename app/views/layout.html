@@ -17,14 +17,14 @@
 
         <div class="col-md-10 col-xs-10">
 
-          <ul class="menu pull-right" ng-controller="MenuController">
+          <ul class="menu pull-right" ng-controller="MenuController as vm">
             <li><a ui-sref="app.me">{{ '_MY_STATS' | translate }}</a></li>
             <li><a ui-sref="app.graph">{{ '_STATISTICS' | translate }}</a></li>
             <li><a ui-sref="app.leaderboard">{{ '_LEADERBOARD' | translate }}</a></li>
             <li><a ui-sref="app.hallOfFame">{{ '_HALL_OF_FAME' | translate }}</a></li>
             <li><a ui-sref="app.achievements">{{ '_ACHIEVEMENTS' | translate }}</a></li>
-            <li class="login pointer" ng-if="!authed"><a ui-sref="login">{{ '_LOGIN' | translate }}</a></li>
-            <li class="login pointer" ng-if="authed"><a ng-click="logout()">{{ '_LOGOUT' | translate }}</a></li>
+            <li class="login pointer" ng-if="!vm.authed"><a ui-sref="login">{{ '_LOGIN' | translate }}</a></li>
+            <li class="login pointer" ng-if="vm.authed"><a ng-click="vm.logout()">{{ '_LOGOUT' | translate }}</a></li>
 
             <li class="menu-dropdown dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">☰</a>
@@ -35,8 +35,8 @@
                 <li><a ui-sref="app.hallOfFame">{{ '_HALL_OF_FAME' | translate }}</a></li>
                 <li><a ui-sref="app.achievements">{{ '_ACHIEVEMENTS' | translate }}</a></li>
                 <li role="separator" class="divider"></li>
-                <li class="login pointer" ng-if="!authed"><a ui-sref="login">{{ '_LOGIN' | translate }}</a></li>
-                <li class="login pointer" ng-if="authed"><a ng-click="logout()">{{ '_LOGOUT' | translate }}</a></li>
+                <li class="login pointer" ng-if="!vm.authed"><a ui-sref="login">{{ '_LOGIN' | translate }}</a></li>
+                <li class="login pointer" ng-if="vm.authed"><a ng-click="vm.logout()">{{ '_LOGOUT' | translate }}</a></li>
               </ul>
             </li>
 
@@ -60,10 +60,10 @@
 
   </div>
 
-  <div id="footer" ng-controller="FooterController">
+  <div id="footer" ng-controller="FooterController as vm">
 
     <div class="container content">
-      <span ng-click="changeLanguage('se')">Swedish</span> <span ng-click="changeLanguage('en')">English</span>
+      <span ng-click="vm.changeLanguage('se')">Swedish</span> <span ng-click="vm.changeLanguage('en')">English</span>
       Copyright © Markus Hederström 2016
       <a ui-sref="app.about">{{ '_ABOUT' | translate }}</a>
     </div>
