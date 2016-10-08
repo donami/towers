@@ -1,9 +1,16 @@
 angular.module('towersApp')
-  .controller('TowerController', ['$scope', 'TowerFactory', 'MeFactory', '$stateParams', 'MapService', function($scope, TowerFactory, MeFactory, $stateParams, MapService) {
+  .controller('TowerController', ['$scope', 'TowerFactory', 'MeFactory', '$state', '$stateParams', 'MapService', function($scope, TowerFactory, MeFactory, $state, $stateParams, MapService) {
 
     $scope.state = {
       loading: true,
+      view: $state.current.name,
     };
+
+    $scope.$watch(function() {
+      return $state.current.name;
+    }, function(newVal, oldVal) {
+      $scope.state.view = newVal;
+    });
 
     findTowerById($stateParams.id);
 
