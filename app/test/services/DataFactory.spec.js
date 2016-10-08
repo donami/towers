@@ -95,10 +95,10 @@ describe('DataFactory', function() {
 
     beforeEach(function() {
       input = [
-        { tower_count: "48" },
-        { tower_count: "999" },
-        { tower_count: "1" },
-        { tower_count: null },
+        { count: "48" },
+        { count: "999" },
+        { count: "1" },
+        { count: null },
       ];
     });
 

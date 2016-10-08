@@ -35,8 +35,10 @@ module.exports = function(config) {
       'app/services/AchievementFactory.js',
       'app/services/DataCache.js',
       "app/**/**/*.html",
-      'app/directives/graph.js',
-      'app/filters/filters.js',
+      'app/directives/graph.directive.js',
+      'app/filters/date-to-iso.filter.js',
+      'app/filters/filter-moons.filter.js',
+      'app/filters/valid-date.filter.js',
       'app/controllers/home.controller.js',
       'app/controllers/achievement.controller.js',
 

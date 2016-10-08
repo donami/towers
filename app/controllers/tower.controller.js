@@ -49,11 +49,6 @@
               };
             }
           }
-          if (error.id) {
-            if (error.id == 'no_map_found') {
-              $exceptionHandler('NoMapFound', {message: 'No map found'});
-            }
-          }
         });
     }
 

@@ -1,5 +1,11 @@
-angular.module('towersApp')
-  .service('DateService', [function() {
+(function() {
+  'use strict';
+
+  angular
+    .module('towersApp')
+    .service('DateService', DateService);
+
+  function DateService() {
     this.getDaysInWeek = function() {
       var start = new Date(moment().startOf('isoweek'));
       var end   = new Date(moment().endOf('isoweek'));
@@ -12,4 +18,6 @@ angular.module('towersApp')
 
       return days;
     };
-  }]);
+  }
+
+})();

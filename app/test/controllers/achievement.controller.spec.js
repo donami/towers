@@ -8,9 +8,7 @@ describe('Achievement controller', function() {
     AchievementFactory = _AchievementFactory_;
 
     scope = $rootScope.$new();
-    $controller = $controller('AchievementController', {
-      $scope: scope,
-    });
+    controller = $controller('AchievementController');
 
     localStorage.clear();
 
@@ -27,24 +25,24 @@ describe('Achievement controller', function() {
    });
 
   it('initializes with a proper scope', function() {
-    expect(scope.achievements).toEqual([]);
+    expect(controller.achievements).toEqual([]);
   });
 
   it('has a state', function() {
-    expect(scope.state.loading).toBe(false);
+    expect(controller.state.loading).toBe(false);
   });
 
   it('should have a refresh function', function() {
-    expect(scope.refresh).toBeDefined();
+    expect(controller.refresh).toBeDefined();
   });
 
   it('loading to be false after refreshing is done', function() {
-    scope.refresh();
+    controller.refresh();
     httpBackend.whenGET('/api/achievement/refresh').respond([]);
     httpBackend.expectGET('/api/achievement/refresh');
     httpBackend.flush();
 
-    expect(scope.state.loading).toBe(false);
+    expect(controller.state.loading).toBe(false);
   });
 
 });
