@@ -5,8 +5,8 @@
     .module('towersApp')
     .controller('TowerController', TowerController);
 
-  TowerController.$inject = ['$scope', 'TowerFactory', 'MeFactory', '$state', '$stateParams', 'MapService', '$exceptionHandler'];
-  function TowerController($scope, TowerFactory, MeFactory, $state, $stateParams, MapService, $exceptionHandler) {
+  TowerController.$inject = ['$scope', 'TowerFactory', 'MeFactory', '$state', '$stateParams', 'MapService'];
+  function TowerController($scope, TowerFactory, MeFactory, $state, $stateParams, MapService) {
     var vm = this;
 
     vm.state = {

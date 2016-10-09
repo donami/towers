@@ -42,6 +42,8 @@ gulp.task('views', function() {
     .pipe(gulp.dest('public/views'));
 });
 
+gulp.task('build', ['build-js', 'sass', 'views']);
+
 gulp.task('watch', function() {
   gulp.watch('app/**/*.js', ['jshint', 'build-js']);
   gulp.watch('app/scss/**/*.scss', ['sass']);

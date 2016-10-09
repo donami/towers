@@ -87,6 +87,11 @@ angular.module('towersApp').config(['$stateProvider', '$urlRouterProvider', '$lo
       templateUrl: 'views/hall-of-fame.html',
       controller: 'HallOfFameController',
       controllerAs: 'vm',
+      resolve: {
+        _countries: function(TowerFactory) {
+          return TowerFactory.getFirstInCountry();
+        }
+      }
     });
 
 }]);

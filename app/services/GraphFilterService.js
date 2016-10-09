@@ -98,7 +98,7 @@
         { name: 'Between new moons', value: 'filter_by_new_moons' }
       ];
       return filterOptions;
-    }
+    };
 
     this.getYearOptions = function() {
       var yearOptions = [
@@ -108,7 +108,7 @@
         { name: '2013', value: '2014'},
       ];
       return yearOptions;
-    }
+    };
 
     this.getGraphData = function() {
       // Click event for graph
@@ -197,8 +197,8 @@
           labels: [],
           options: graphDefaultOptions,
         },
-      }
-    }
+      };
+    };
 
   }
 })();

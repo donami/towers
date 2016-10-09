@@ -5,23 +5,11 @@
     .module('towersApp')
     .controller('HallOfFameController', HallOfFameController);
 
-  HallOfFameController.$inject = ['$scope', 'TowerFactory'];
-  function HallOfFameController($scope, TowerFactory) {
+  HallOfFameController.$inject = ['_countries'];
+  function HallOfFameController(_countries) {
     var vm = this;
     vm.countries = [];
-
-    getFirstInCountry();
-
-    function getFirstInCountry() {
-      TowerFactory.getFirstInCountry()
-        .then(function(response) {
-          vm.countries = response.data;
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-    }
-
+    vm.countries = _countries.data;
   }
 
 })();

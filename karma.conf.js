@@ -34,6 +34,7 @@ module.exports = function(config) {
       'app/services/TowerFactory.js',
       'app/services/AchievementFactory.js',
       'app/services/DataCache.js',
+      'app/services/MapService.js',
       "app/**/**/*.html",
       'app/directives/graph.directive.js',
       'app/filters/date-to-iso.filter.js',
@@ -48,6 +49,7 @@ module.exports = function(config) {
       'app/test/controllers/achievement.controller.spec.js',
       'app/test/services/TowerFactory.spec.js',
       'app/test/services/DataFactory.spec.js',
+      'app/test/services/MapService.spec.js',
     ],
 
 
