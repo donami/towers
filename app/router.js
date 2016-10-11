@@ -1,5 +1,6 @@
-angular.module('towersApp').config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
 
+routing.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
+export default function routing($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
 
   $urlRouterProvider.otherwise('/');
@@ -93,5 +94,4 @@ angular.module('towersApp').config(['$stateProvider', '$urlRouterProvider', '$lo
         }
       }
     });
-
-}]);
+}

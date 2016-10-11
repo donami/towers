@@ -1,16 +1,9 @@
-(function() {
-  'use strict';
+export default class hallOfFame {
+  constructor() {
+    'ngInject';
 
-  angular
-    .module('towersApp')
-    .directive('hallOfFame', hallOfFame);
-
-  function hallOfFame() {
-    return {
-      restrict: 'AE',
-      replace: 'true',
-      templateUrl: 'templates/hall-of-fame.html',
-    };
+    this.restrict = 'AE';
+    this.replace = 'true';
+    this.templateUrl = 'templates/hall-of-fame.html';
   }
-  
-})();
+}

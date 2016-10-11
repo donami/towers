@@ -10,45 +10,48 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['browserify', 'jasmine'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'bower_components/angular/angular.min.js',
-      'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-      'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-      'bower_components/angular-cookies/angular-cookies.min.js',
-      'bower_components/angular-translate/angular-translate.min.js',
-      'bower_components/angular-toastr/dist/angular-toastr.min.js',
-      'bower_components/ngSmoothScroll/lib/angular-smooth-scroll.js',
-      'bower_components/chart.js/dist/Chart.bundle.min.js',
-      'bower_components/angular-chart.js/dist/angular-chart.min.js',
+      './node_modules/angular/angular.min.js',
+      // './node_modules/angular-mocks/angular-mocks.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'bower_components/angular-cache/dist/angular-cache.js',
-      'bower_components/underscore/underscore-min.js',
-      'app/languages/en.js',
-      'app/languages/se.js',
-      'app/core.js',
-      'app/services/DataFactory.js',
-      'app/services/TowerFactory.js',
-      'app/services/AchievementFactory.js',
-      'app/services/DataCache.js',
+      './app/app.js',
+      // './app/services/services.module.js',
+      // 'bower_components/angular/angular.min.js',
+      // 'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+      // 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+      // 'bower_components/angular-cookies/angular-cookies.min.js',
+      // 'bower_components/angular-translate/angular-translate.min.js',
+      // 'bower_components/angular-toastr/dist/angular-toastr.min.js',
+      // 'bower_components/ngSmoothScroll/lib/angular-smooth-scroll.js',
+      // 'bower_components/chart.js/dist/Chart.bundle.min.js',
+      // 'bower_components/angular-chart.js/dist/angular-chart.min.js',
+      // 'bower_components/angular-cache/dist/angular-cache.js',
+      // 'bower_components/underscore/underscore-min.js',
+      // 'app/languages/en.js',
+      // 'app/languages/se.js',
+      // 'app/core.js',
+      // 'app/services/DataFactory.js',
+      // 'app/services/TowerFactory.js',
+      // 'app/services/AchievementFactory.js',
+      // 'app/services/DataCache.js',
       'app/services/MapService.js',
-      "app/**/**/*.html",
-      'app/directives/graph.directive.js',
-      'app/filters/date-to-iso.filter.js',
+      // 'app/directives/graph.directive.js',
+      // 'app/filters/date-to-iso.filter.js',
       'app/filters/filter-moons.filter.js',
-      'app/filters/valid-date.filter.js',
-      'app/controllers/home.controller.js',
+      // 'app/filters/valid-date.filter.js',
+      // 'app/controllers/home.controller.js',
       'app/controllers/achievement.controller.js',
-
-      'app/test/directives/graph.spec.js',
+      //
+      // 'app/test/directives/graph.spec.js',
       'app/test/directives/medal.spec.js',
-      'app/test/filters/filters.spec.js',
+      // 'app/test/filters/filters.spec.js',
       'app/test/controllers/achievement.controller.spec.js',
-      'app/test/services/TowerFactory.spec.js',
-      'app/test/services/DataFactory.spec.js',
+      // 'app/test/services/TowerFactory.spec.js',
+      // 'app/test/services/DataFactory.spec.js',
       'app/test/services/MapService.spec.js',
     ],
 
@@ -63,6 +66,7 @@ module.exports = function(config) {
     preprocessors: {
       // "app/views/**/*.html": ["ng-html2js"],
       // "public/partials/**/*.html": ["ng-html2js"],
+      "app/**/**/*.js": ['browserify'],
       "app/directives/templates/**/*.html": ["ng-html2js"]
     },
 
@@ -82,6 +86,10 @@ module.exports = function(config) {
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: ['spec'],
 
+    browserify: {
+      debug: true,
+      transform: ['babelify', 'browserify-ngannotate']
+    },
 
     // web server port
     port: 9876,

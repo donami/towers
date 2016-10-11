@@ -1,23 +1,21 @@
-(function() {
-  'use strict';
+import moment from 'moment';
+import 'moment-range';
 
-  angular
-    .module('towersApp')
-    .service('DateService', DateService);
+export default class DateService {
+  constructor() {
 
-  function DateService() {
-    this.getDaysInWeek = function() {
-      var start = new Date(moment().startOf('isoweek'));
-      var end   = new Date(moment().endOf('isoweek'));
-      var range = moment.range(start, end);
-      var days = [];
-
-      range.by('days', function(moment) {
-        days.push(moment.format('YYYY-MM-DD'));
-      });
-
-      return days;
-    };
   }
 
-})();
+  getDaysInWeek() {
+    let start = new Date(moment().startOf('isoweek'));
+    let end   = new Date(moment().endOf('isoweek'));
+    let range = moment.range(start, end);
+    let days = [];
+
+    range.by('days', function(moment) {
+      days.push(moment.format('YYYY-MM-DD'));
+    });
+
+    return days;
+  }
+}

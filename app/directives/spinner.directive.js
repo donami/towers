@@ -1,16 +1,7 @@
-(function() {
-  'use strict';
-
-  angular
-    .module('towersApp')
-    .directive('spinner', spinner);
-
-  function spinner() {
-    return {
-      restrict: 'AE',
-      replace: 'true',
-      template: '<img src="/assets/loading.png" class="glyphicon spinner" alt="Loading">',
-    };
+export default class spinner {
+  constructor() {
+    this.restrict = 'AE';
+    this.replace = 'true';
+    this.template = '<img src="/assets/loading.png" class="glyphicon spinner" alt="Loading">';
   }
-
-})();
+}

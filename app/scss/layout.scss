@@ -31,6 +31,7 @@ a {
     li.menu-dropdown {
       border-left: #b0b0b0 1px solid;
       font-size: 2em;
+      background: transparent !important;
       display: block !important;
 
       li {
@@ -44,7 +45,7 @@ a {
 }
 
 div#header {
-  background: #e8e5e5;
+  // background: #e8e5e5;
 
   div.logo {
     padding: 20px 0;
@@ -63,14 +64,16 @@ div#header {
         text-transform: uppercase;
         display: block;
         padding: 0 30px;
-        border-right: #b0b0b0 1px solid;
+        // border-right: #b0b0b0 1px solid;
         line-height: 90px;
         text-align: center;
         transition: all 0.5s ease;
+        border-top: transparent 2px solid;
 
         &:hover {
-          background: #dadada;
+          // background: #dadada;
           color: #2196f3;
+          border-top: #2196f3 2px solid;
         }
 
         &:focus {
@@ -82,9 +85,9 @@ div#header {
         display: none;
       }
 
-      &:first-child {
-        border-left: #b0b0b0 1px solid;
-      }
+      // &:first-child {
+      //   border-left: #b0b0b0 1px solid;
+      // }
     }
   }
 }

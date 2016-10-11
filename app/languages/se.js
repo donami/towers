@@ -1,5 +1,4 @@
-/* exported langSwedish */
-var langSwedish = {
+export default {
   '_TOWER_LIST': 'Lista över torn',
   '_WELCOME': 'Välkommen',
   '_TOWER': 'Torn',
@@ -64,5 +63,5 @@ var langSwedish = {
   '_LOGOUT': 'Logga ut',
   '_CITIES_WITH_MOST_TOWERS': 'Städer med flest byggda torn',
   '_ACHIEVEMENTS': 'Achievements',
-  '_ACHIEVEMENTS_SUBTITLE': 'Achievements som du klarat av',  
+  '_ACHIEVEMENTS_SUBTITLE': 'Achievements som du klarat av',
 };

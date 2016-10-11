@@ -1,35 +1,31 @@
-(function() {
-  'use strict';
+const API_PERSONAL = '/api/verify-key/';
 
-  angular
-    .module('towersApp')
-    .service('AuthService', AuthService);
+export default class AuthService {
 
-  AuthService.$inject = ['$cookies', '$http'];
-  function AuthService($cookies, $http) {
+  constructor($cookies, $http) {
+    'ngInject';
 
-    var API_PERSONAL = '/api/verify-key/';
+    this.$cookies = $cookies;
+    this.$http = $http;
+
+    this.authed = false;
 
     if ($cookies.get('userApiKey'))
       this.authed = true;
-    else
-      this.authed = false;
-
-    this.setAuthed = function(authed) {
-      if (authed === false)
-        $cookies.remove('userApiKey');
-
-      this.authed = authed;
-    };
-
-    this.getAuthed = function() {
-      return this.authed;
-    };
-
-    this.auth = function(apiKey) {
-      return $http.get(API_PERSONAL + apiKey);
-    };
-
   }
 
-})();
+  setAuthed(authed) {
+    if (authed === false)
+      this.$cookies.remove('userApiKey');
+
+    this.authed = authed;
+  }
+
+  getAuthed() {
+    return this.authed;
+  }
+
+  auth(apiKey) {
+    return this.$http.get(API_PERSONAL + apiKey);
+  }
+}

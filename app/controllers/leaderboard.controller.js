@@ -1,126 +1,108 @@
-(function() {
-  'use strict';
+// LeaderboardController.$inject = ['$scope', 'TowerFactory', 'MoonFactory', '$state', 'toastr'];
+export default class LeaderboardController {
+  constructor($scope, TowerFactory, MoonFactory, $state, toastr) {
+    'ngInject';
 
-  angular
-    .module('towersApp')
-    .controller('LeaderboardController', LeaderboardController);
+    this.TowerFactory = TowerFactory;
+    this.MoonFactory = MoonFactory;
+    this.toastr = toastr;
 
-  LeaderboardController.$inject = ['$scope', 'TowerFactory', 'MoonFactory', '$state', 'toastr'];
-  function LeaderboardController($scope, TowerFactory, MoonFactory, $state, toastr) {
-    var vm = this;
-
-    vm.state = {
+    this.state = {
       view: $state.current.name,
     };
-    vm.leaderboard = [];
-    vm.selectedNewMoon = {};
-    vm.orderBy = 'claim_count';
-    vm.reverseOrder = false;
-    vm.setSort = setSort;
-    vm.selectNewMoon = selectNewMoon;
+    this.leaderboard = [];
+    this.selectedNewMoon = {};
+    this.orderBy = 'claim_count';
+    this.reverseOrder = false;
 
-    init();
-
-    function init() {
-      switch (vm.state.view) {
-
-        case 'app.leaderboard.new-moons':
-          loadNewMoons();
-          getLeaderboardMoons();
-          break;
-
-        case 'app.leaderboard.main':
-          getLeaderboard();
-          break;
-      }
-    }
-
-    $scope.$watch(function() {
-      return $state.current.name;
-    }, function(newVal, oldVal) {
-      vm.state.view = newVal;
-      init();
+    $scope.$watch(() => $state.current.name, (newValue) => {
+      this.state.view = newValue;
+      this.init();
     });
 
-    function setSort(property, asFloat) {
-      sort(property, asFloat);
-    }
-
-    function sort(property, asFloat) {
-      if (property == vm.orderBy) vm.reverseOrder = !vm.reverseOrder;
-
-      // Parse as float if needed
-      if (asFloat) {
-        vm.leaderboard.map(function(obj) {
-          obj[property] = parseFloat(obj[property]);
-          return obj;
-        });
-      }
-
-      vm.orderBy = property;
-    }
-
-    function getLeaderboard() {
-      TowerFactory.getLeaderboard()
-        .then(function(response) {
-          vm.leaderboard = response.data;
-        })
-        .then(function() {
-          sort(vm.orderBy, true);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    }
-
-    function loadNewMoons() {
-      MoonFactory.getNewMoons()
-        .then(function(response) {
-          var today = new Date();
-          var date;
-          var minimumDate = new Date('2015-08-15');            // Only get new moons after this date
-          var newMoons = response.data.filter(function(obj) {
-            date = new Date(obj.iso8601);
-            return today > date && date > minimumDate;
-          });
-
-          vm.newMoons = newMoons;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    }
-
-    function getLeaderboardMoons(date) {
-      if (!date) {
-        vm.leaderboard = [];
-        return false;
-      }
-
-      TowerFactory.getLeaderboardMoons(date)
-        .then(function(response) {
-          if (response.data.response) {
-            if (response.data.response.statusCode == 404) {
-              vm.state.error = response.data.response.body.error;
-              toastr.error(response.data.response.body.error.message);
-              vm.leaderboard = [];
-            }
-          }
-          else {
-            vm.leaderboard = response.data;
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    }
-
-    function selectNewMoon() {
-      if (vm.selectedNewMoon) {
-        getLeaderboardMoons(vm.selectedNewMoon.iso8601);
-      }
-    }
-
+    this.init();
   }
 
-})();
+  init() {
+    switch (this.state.view) {
+      case 'app.leaderboard.new-moons':
+        this.loadNewMoons();
+        this.getLeaderboardMoons();
+        break;
+
+      case 'app.leaderboard.main':
+        this.getLeaderboard();
+        break;
+    }
+  }
+
+  setSort(property, asFloat) {
+    this.sort(property, asFloat);
+  }
+
+  sort(property, asFloat) {
+    if (property == this.orderBy) this.reverseOrder = !this.reverseOrder;
+
+    // Parse as float if needed
+    if (asFloat) {
+      this.leaderboard.map(function(obj) {
+        obj[property] = parseFloat(obj[property]);
+        return obj;
+      });
+    }
+
+    this.orderBy = property;
+  }
+
+  getLeaderboard() {
+    this.TowerFactory.getLeaderboard()
+      .then((response) => this.leaderboard = response.data)
+      .then(() => this.sort(this.orderBy, true))
+      .catch(error => console.log(error));
+  }
+
+  loadNewMoons() {
+    this.MoonFactory.getNewMoons()
+      .then((response) => {
+        let today = new Date();
+        let date;
+        let minimumDate = new Date('2015-08-15');            // Only get new moons after this date
+        let newMoons = response.data.filter(function(obj) {
+          date = new Date(obj.iso8601);
+          return today > date && date > minimumDate;
+        });
+
+        this.newMoons = newMoons;
+      })
+      .catch(error => console.log(error));
+  }
+
+  getLeaderboardMoons(date) {
+    if (!date) {
+      this.leaderboard = [];
+      return false;
+    }
+
+    this.TowerFactory.getLeaderboardMoons(date)
+      .then((response) => {
+        if (response.data.response) {
+          if (response.data.response.statusCode == 404) {
+            this.state.error = response.data.response.body.error;
+            this.toastr.error(response.data.response.body.error.message);
+            this.leaderboard = [];
+          }
+        }
+        else {
+          this.leaderboard = response.data;
+        }
+      })
+      .catch(error => console.log(error));
+  }
+
+  selectNewMoon() {
+    if (this.selectedNewMoon) {
+      this.getLeaderboardMoons(this.selectedNewMoon.iso8601);
+    }
+  }
+
+}

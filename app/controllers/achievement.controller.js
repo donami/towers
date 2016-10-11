@@ -1,48 +1,37 @@
-(function() {
-  'use strict';
+export default class AchievementController {
+  constructor(AchievementFactory, toastr) {
+    'ngInject';
 
-  angular
-    .module('towersApp')
-    .controller('AchievementController', AchievementController);
+    this.AchievementFactory = AchievementFactory;
+    this.toastr = toastr;
 
-  AchievementController.$inject = ['AchievementFactory', 'toastr'];
-  function AchievementController(AchievementFactory, toastr) {
-    var vm = this;
-    vm.achievements = [];
-    vm.state = {
+    this.achievements = [];
+    this.state = {
       loading: false
     };
-    vm.refresh = refresh;
 
-    init();
-
-    function init() {
-      AchievementFactory.getAchievements()
-        .then(function(response) {
-          vm.achievements = response.data;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    }
-
-    function refresh() {
-      vm.state.loading = true;
-
-      AchievementFactory.refresh()
-        .then(function(response) {
-          vm.state.loading = false;
-
-          if (response.data.length > vm.achievements.length) {
-            toastr.success('You have earned new achievements', 'Congratulations!');
-          }
-
-          init();
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    }
+    this.init();
   }
 
-})();
+  init() {
+    this.AchievementFactory.getAchievements()
+      .then(response => this.achievements = response.data)
+      .catch(error => console.log(error));
+  }
+
+  refresh() {
+    this.state.loading = true;
+
+    this.AchievementFactory.refresh()
+      .then((response) => {
+        this.state.loading = false;
+
+        if (response.data.length > this.achievements.length) {
+          this.toastr.success('You have earned new achievements', 'Congratulations!');
+        }
+
+        this.init();
+      })
+      .catch(error => console.log(error));
+  }
+}

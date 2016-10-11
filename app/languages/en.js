@@ -1,5 +1,4 @@
-/* exported langEnglish */
-var langEnglish = {
+export default {
   '_TOWER_LIST': 'List of towers',
   '_WELCOME': 'Welcome',
   '_TOWER': 'Tower',

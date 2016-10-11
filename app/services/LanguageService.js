@@ -1,16 +1,15 @@
-(function() {
-  'use strict';
+// LanguageService.$inject = ['$cookies', '$translate'];
 
-  angular
-    .module('towersApp')
-    .service('LanguageService', LanguageService);
+export default class LanguageService {
+  constructor($cookies, $translate) {
+    'ngInject';
 
-  LanguageService.$inject = ['$cookies', '$translate'];
-  function LanguageService($cookies, $translate) {
-    this.setLanguage = function(language) {
-      $translate.use(language);
-      $cookies.put('language', language);
-    };
+    this.$cookies = $cookies;
+    this.$translate = $translate;
   }
 
-})();
+  setLanguage(language) {
+    this.$translate.use(language);
+    this.$cookies.put('language', language);
+  }
+}

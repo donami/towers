@@ -1,20 +1,24 @@
-describe('MapService', function() {
+describe('MapService', () => {
 
-  var MapService;
-  var httpBackend;
+  let MapService;
+  let httpBackend;
 
   beforeEach(angular.mock.module('towersApp'));
 
-  beforeEach(inject(function(_MapService_, _$httpBackend_) {
+  beforeEach(inject(function(_MapService_, _$httpBackend_, _$cookies_) {
     MapService = _MapService_;
     httpBackend = _$httpBackend_;
+
+    httpBackend.whenGET('views/login.html').respond([]);
+    httpBackend.expectGET('views/login.html');
+    httpBackend.flush();
   }));
 
-  it('should have a function called getMap', function() {
+  it('should have a function called getMap', () => {
     expect(MapService.getMap).toBeDefined();
   });
 
-  it('should make a get request', function() {
+  it('should make a get request', () => {
     MapService.getMap('Kronobergsgatan 46, 371 41 Karlskrona, Sweden');
     var address = encodeURIComponent('Kronobergsgatan 46, 371 41 Karlskrona, Sweden');
 

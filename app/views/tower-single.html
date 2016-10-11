@@ -11,12 +11,11 @@
   <div class="heading">
 
     <div class="options">
-      <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          View
-          <span class="caret"></span>
+      <div class="btn-group" uib-dropdown is-open="status.isopen">
+        <button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="disabled">
+          View <span class="caret"></span>
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
           <li ng-class="{active: vm.state.view == 'app.towerSingle.main'}"><a ui-sref=".main">Information</a></li>
           <li ng-class="{active: vm.state.view == 'app.towerSingle.log'}"><a ui-sref=".log">Log</a></li>
         </ul>

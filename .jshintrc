@@ -2,5 +2,6 @@
   "globals" : {
     "angular"   : false
   },
-  "devel": true
+  "devel": true,
+  "esversion": 6
 }

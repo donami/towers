@@ -1,13 +1,6 @@
-(function() {
-  'use strict';
-
-  angular
-    .module('towersApp')
-    .controller('AboutController', AboutController);
-
-  AboutController.$inject = ['$scope'];
-  function AboutController($scope) {
+export default class AboutController {
+  constructor($scope) {
+    'ngInject';
 
   }
-
-})();
+}

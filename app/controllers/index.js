@@ -1,0 +1,10 @@
+export { default as AboutController } from './about.controller';
+export { default as FooterController } from './footer.controller';
+export { default as AchievementController } from './achievement.controller';
+export { default as HallOfFameController } from './hall-of-fame.controller';
+export { default as LoginController } from './login.controller';
+export { default as GraphController } from './graph.controller';
+export { default as LeaderboardController } from './leaderboard.controller';
+export { default as TowerController } from './tower.controller';
+export { default as MenuController } from './menu.controller';
+export { default as MeController } from './me.controller';

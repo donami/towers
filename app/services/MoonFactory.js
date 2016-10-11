@@ -1,26 +1,13 @@
-(function() {
-  'use strict';
+export default class MoonFactory {
 
-  angular
-    .module('towersApp')
-    .factory('MoonFactory', MoonFactory);
-
-  MoonFactory.$inject = ['$http', 'DataCache'];
-  function MoonFactory($http, DataCache) {
-
-    var urlBase = '/api/new-moons';
-    var dataCache = DataCache.get();
-
-    var factory = {
-      getNewMoons: getNewMoons,
-    };
-
-    return factory;
-
-    function getNewMoons() {
-      return $http.get(urlBase, { cache: dataCache });
-    }
-
+  constructor($http, DataCache) {
+    this.$http = $http;
+    this.urlBase = '/api/new-moons';
+    this.dataCache = DataCache.get();
   }
 
-})();
+  getNewMoons() {
+    return this.$http.get(this.urlBase, { cache: this.dataCache });
+  }
+
+}
